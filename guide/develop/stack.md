@@ -312,15 +312,9 @@ export default function LoginScreen() {
         <View>
             <Text>{t("login.title")}</Text>
             <Button onPress={handleLogin}>{t("login.button")}</Button>
-            <Button onPress={() => i18n.changeLanguage("en")}>
-                English
-            </Button>
-            <Button onPress={() => i18n.changeLanguage("zh")}>
-                中文
-            </Button>
-            <Button onPress={() => i18n.changeLanguage("ja")}>
-                日本語
-            </Button>
+            <Button onPress={() => i18n.changeLanguage("en")}>English</Button>
+            <Button onPress={() => i18n.changeLanguage("zh")}>中文</Button>
+            <Button onPress={() => i18n.changeLanguage("ja")}>日本語</Button>
         </View>
     );
 }

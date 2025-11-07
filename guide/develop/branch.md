@@ -300,15 +300,15 @@ eas update --branch production --message "프로덕션 배포"
 
 ```json
 {
-  "expo": {
-    "version": "1.0.0",
-    "ios": {
-      "buildNumber": "1"
-    },
-    "android": {
-      "versionCode": 1
+    "expo": {
+        "version": "1.0.0",
+        "ios": {
+            "buildNumber": "1"
+        },
+        "android": {
+            "versionCode": 1
+        }
     }
-  }
 }
 ```
 
@@ -316,7 +316,7 @@ eas update --branch production --message "프로덕션 배포"
 
 ```json
 {
-  "version": "1.0.0"
+    "version": "1.0.0"
 }
 ```
 
@@ -366,7 +366,7 @@ eas update --branch production --message "프로덕션 배포"
 #### 3단계: 프로덕션 환경
 
 -   **브랜치**: `main`
--   **배포 방법**: 
+-   **배포 방법**:
     -   OTA: EAS Update (JS 변경만)
     -   네이티브: EAS Build → App Store / Google Play
 -   **대상**: 모든 사용자
@@ -442,22 +442,26 @@ refactor(매물): PropertyCard 컴포넌트 리팩토링
 
 ```markdown
 ## 변경 사항
-- 변경 내용 설명
+
+-   변경 내용 설명
 
 ## 변경 타입
-- [ ] 기능 추가
-- [ ] 버그 수정
-- [ ] 문서 수정
-- [ ] 리팩토링
-- [ ] 성능 개선
+
+-   [ ] 기능 추가
+-   [ ] 버그 수정
+-   [ ] 문서 수정
+-   [ ] 리팩토링
+-   [ ] 성능 개선
 
 ## 테스트
-- 테스트 방법 설명
+
+-   테스트 방법 설명
 
 ## 체크리스트
-- [ ] 코드 리뷰 완료
-- [ ] 테스트 완료
-- [ ] 문서 업데이트 (필요시)
+
+-   [ ] 코드 리뷰 완료
+-   [ ] 테스트 완료
+-   [ ] 문서 업데이트 (필요시)
 ```
 
 ### 7.2 PR 머지 규칙
@@ -535,20 +539,20 @@ git push origin --tags
 name: CI
 
 on:
-  push:
-    branches: [develop, staging, main]
-  pull_request:
-    branches: [develop, staging, main]
+    push:
+        branches: [develop, staging, main]
+    pull_request:
+        branches: [develop, staging, main]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: yarn install
-      - run: yarn lint
-      - run: yarn test
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+            - run: yarn install
+            - run: yarn lint
+            - run: yarn test
 ```
 
 ## 10. 긴급 상황 대응
@@ -765,4 +769,3 @@ eas update --branch production --message "긴급 수정: 매물 상세 화면 �
 **작성일**: 2024년
 **버전**: 1.0
 **업데이트**: 프로젝트 진행에 따라 지속적으로 업데이트
-
