@@ -1,0 +1,517 @@
+<mxfile host="65bd71144e">
+    <diagram name="House App Wireframes" id="house-wireframes">
+        <mxGraphModel dx="2088" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1400" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="home-phone-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3" parent="1" vertex="1">
+                    <mxGeometry x="50" y="50" width="250" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="home-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="60" y="60" width="230" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="home-title-text" value="House" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="150" y="75" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="home-nav-icons" value="🔔 ❤️ 👤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="210" y="75" width="70" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-category-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2196F3;strokeWidth=2" parent="1" vertex="1">
+                    <mxGeometry x="70" y="130" width="210" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-icon" value="🏠" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontColor=#2196F3" parent="1" vertex="1">
+                    <mxGeometry x="90" y="140" width="40" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-title" value="House" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="140" y="145" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-subtitle" value="Find your perfect home" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="140" y="165" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-category-card" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#FF9800;strokeWidth=2" parent="1" vertex="1">
+                    <mxGeometry x="70" y="230" width="210" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-icon" value="🚗" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontColor=#FF9800" parent="1" vertex="1">
+                    <mxGeometry x="90" y="240" width="40" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-title" value="Car" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="140" y="245" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-subtitle" value="Buy & sell cars" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="140" y="265" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-category-card-home" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#FF9800;strokeWidth=2" parent="1" vertex="1">
+                    <mxGeometry x="70" y="230" width="210" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-icon-home" value="🚗" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=32;fontColor=#FF9800" parent="1" vertex="1">
+                    <mxGeometry x="90" y="240" width="40" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-title-home" value="Car" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="140" y="245" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="car-subtitle-home" value="Buy & sell cars" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="140" y="265" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="home-screen-label" value="HOME SCREEN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="125" y="20" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-phone-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3" parent="1" vertex="1">
+                    <mxGeometry x="350" y="50" width="250" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="360" y="60" width="230" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-back-btn" value="←" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="370" y="75" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-title-text" value="House" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="450" y="75" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-nav-icons" value="🔔 ❤️ 👤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="530" y="75" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="search-bar" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="370" y="120" width="210" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="search-icon" value="🔍" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="380" y="130" width="20" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="search-placeholder" value="Search location or station..." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="410" y="130" width="140" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="mic-icon" value="🎤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="550" y="130" width="20" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="view-toggle-container" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="370" y="170" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="map-toggle-btn" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2" parent="1" vertex="1">
+                    <mxGeometry x="375" y="175" width="55" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="map-toggle-text" value="🗺️ Map" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="375" y="175" width="55" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="list-toggle-text" value="📋 List" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="435" y="175" width="50" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter-container" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=none" parent="1" vertex="1">
+                    <mxGeometry x="370" y="210" width="210" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter1" value="🚇 Near Station" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="370" y="210" width="65" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter2" value="💰 Under 500k" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="445" y="210" width="60" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter3" value="🏠 Studio" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="515" y="210" width="45" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="map-area" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f4f8;strokeColor=#b3d9ff" parent="1" vertex="1">
+                    <mxGeometry x="370" y="250" width="210" height="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="map-label" value="Seoul Map" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#cccccc;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="430" y="310" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pin1" value="₩800k" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2;fontSize=8;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="400" y="270" width="35" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="pin2" value="₩1.2M" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2;fontSize=8;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="520" y="290" width="35" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="pin3" value="₩650k" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2;fontSize=8;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="450" y="360" width="35" height="18" as="geometry"/>
+                </mxCell>
+                <mxCell id="bottom-sheet" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="370" y="420" width="210" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="sheet-handle" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#cccccc;strokeColor=none" parent="1" vertex="1">
+                    <mxGeometry x="460" y="425" width="30" height="3" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-card1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#dddddd" parent="1" vertex="1">
+                    <mxGeometry x="380" y="440" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="card1-image" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="385" y="445" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="card1-price" value="₩800k" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#2196F3;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="405" y="445" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="card1-title" value="Hongdae Studio" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="405" y="455" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="card1-location" value="Mapo-gu" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=7;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="405" y="465" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-card2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#dddddd" parent="1" vertex="1">
+                    <mxGeometry x="470" y="440" width="80" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="card2-image" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="475" y="445" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="card2-price" value="₩1.2M" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#2196F3;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="495" y="445" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="card2-title" value="Gangnam 1Room" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="495" y="455" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="card2-location" value="Gangnam-gu" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=7;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="495" y="465" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="house-main-label" value="HOUSE MAIN SCREEN (MAP VIEW)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="400" y="20" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="detail-phone-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3" parent="1" vertex="1">
+                    <mxGeometry x="650" y="50" width="250" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="detail-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=rgba(255,255,255,0.9);strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="660" y="60" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="detail-back" value="←" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="670" y="70" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="detail-actions" value="📤 🤍" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="850" y="70" width="30" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="image-gallery-area" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="660" y="100" width="230" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="main-image" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=48;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="750" y="130" width="50" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="indicator1" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="750" y="200" width="8" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="indicator2" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#cccccc;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="765" y="200" width="8" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="indicator3" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#cccccc;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="780" y="200" width="8" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="image-counter" value="1 / 3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=rgba(0,0,0,0.6);strokeColor=none;fontSize=10;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="820" y="110" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-info-section" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="660" y="230" width="230" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-price" value="₩800k/month" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#2196F3" parent="1" vertex="1">
+                    <mxGeometry x="670" y="240" width="120" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-deposit" value="Deposit: ₩5M" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="670" y="260" width="100" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-title" value="Modern Studio in Hongdae" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="670" y="280" width="200" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="property-details" value="Studio • 20m² • 3rd floor" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="670" y="295" width="200" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="description-area" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="660" y="320" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="description-title" value="Description" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="670" y="325" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="description-text" value="A modern studio apartment in the heart of&#10;Hongdae. Perfect for students..." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="670" y="340" width="210" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="amenities-area" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="660" y="370" width="230" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="amenities-title" value="Amenities" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="670" y="375" width="80" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="amenity1" value="✓ WiFi" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="670" y="390" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="amenity2" value="✓ A/C" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="720" y="390" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="amenity3" value="✓ Fridge" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="770" y="390" width="50" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="contact-area" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="660" y="420" width="230" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="call-button" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#388E3C" parent="1" vertex="1">
+                    <mxGeometry x="670" y="450" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="call-text" value="📞 Call" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="670" y="450" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="contact-button" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2" parent="1" vertex="1">
+                    <mxGeometry x="780" y="450" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="contact-text" value="💬 Contact" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="780" y="450" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="detail-screen-label" value="PROPERTY DETAIL SCREEN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="700" y="20" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-phone-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3" parent="1" vertex="1">
+                    <mxGeometry x="950" y="50" width="250" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="960" y="60" width="230" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-back" value="←" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="970" y="75" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-title-text" value="My Favorites" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1025" y="75" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-nav-icons" value="🔔 👤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1150" y="75" width="30" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-filters" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=none" parent="1" vertex="1">
+                    <mxGeometry x="960" y="120" width="230" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter-all" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2" parent="1" vertex="1">
+                    <mxGeometry x="970" y="125" width="40" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter-all-text" value="All (12)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="970" y="125" width="40" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter-available" value="Available (8)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1020" y="125" width="55" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="filter-price" value="Price ↓ (2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc;fontSize=8;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1085" y="125" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-card1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#dddddd" parent="1" vertex="1">
+                    <mxGeometry x="970" y="160" width="210" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-img1" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="980" y="170" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-img1-icon" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="995" y="185" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-price1" value="₩800k/month" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#2196F3" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="170" width="100" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-title1" value="Modern Studio in Hongdae" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="185" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-location1" value="Mapo-gu • 2min to Hongik Univ." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="200" width="120" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-details1" value="Studio • 20m² • Available" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="212" width="120" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-heart1" value="❤️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#F44336" parent="1" vertex="1">
+                    <mxGeometry x="1155" y="175" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-card2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#dddddd" parent="1" vertex="1">
+                    <mxGeometry x="970" y="250" width="210" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-img2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="980" y="260" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-img2-icon" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="995" y="275" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="price-drop-badge" value="↓" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#388E3C;fontSize=10;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="1015" y="265" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-price2" value="₩550k/month" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="260" width="100" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="original-price2" value="₩600k" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#999999;fontStyle=1;decoration=line-through" parent="1" vertex="1">
+                    <mxGeometry x="1120" y="260" width="30" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-title2" value="Cozy 1Room Near Gangnam" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="275" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-location2" value="Gangnam-gu • 5min to Gangnam Stn" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="290" width="120" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="price-change-text" value="Price dropped from ₩600k" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=8;fontColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="1050" y="305" width="120" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-heart2" value="❤️" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#F44336" parent="1" vertex="1">
+                    <mxGeometry x="1155" y="265" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="saved-screen-label" value="SAVED PROPERTIES SCREEN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1000" y="20" width="150" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-phone-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3" parent="1" vertex="1">
+                    <mxGeometry x="1250" y="50" width="250" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="60" width="230" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-title-text" value="Messages" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1340" y="75" width="70" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-search-icon" value="🔍" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1450" y="75" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="active-section" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#dddddd" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="120" width="230" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="active-title" value="Active Conversations" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1270" y="125" width="150" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-item1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="155" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-avatar1" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="165" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-avatar1-icon" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1285" y="175" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="online-indicator" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4CAF50;strokeColor=#ffffff;strokeWidth=2" parent="1" vertex="1">
+                    <mxGeometry x="1305" y="195" width="10" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-property1" value="Hongdae Studio Apartment" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="165" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-time1" value="2 hours ago" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="165" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-owner1" value="John Kim" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="180" width="60" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-message1" value="Is it still available?" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#888888" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="195" width="100" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="unread-badge" value="2" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#1976D2;fontSize=10;fontColor=#ffffff" parent="1" vertex="1">
+                    <mxGeometry x="1455" y="185" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chevron1" value="›" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1470" y="180" width="10" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="recent-section" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#dddddd" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="225" width="230" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="recent-title" value="Recent" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1270" y="230" width="150" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-item2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="260" width="230" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-avatar2" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1275" y="270" width="40" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-avatar2-icon" value="📷" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1285" y="280" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-property2" value="Gangnam 1Room" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="270" width="100" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-time2" value="Yesterday" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="1430" y="270" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-owner2" value="Sarah Lee" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="285" width="60" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-message2" value="Thank you for the info" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#888888" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="300" width="120" height="12" as="geometry"/>
+                </mxCell>
+                <mxCell id="chevron2" value="›" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1470" y="285" width="10" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat-list-label" value="CHAT LIST SCREEN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1325" y="20" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-phone-frame" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3" parent="1" vertex="1">
+                    <mxGeometry x="1550" y="50" width="250" height="450" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-header" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#cccccc" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="60" width="230" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-back" value="←" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1570" y="75" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-title-text" value="Notifications" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1625" y="75" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-nav-icons" value="❤️ 👤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1750" y="75" width="30" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-item1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8f9fa;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="120" width="230" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-icon1" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#4CAF5020;strokeColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="1575" y="135" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-icon1-symbol" value="↓" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#4CAF50" parent="1" vertex="1">
+                    <mxGeometry x="1585" y="145" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-title1" value="Price Drop Alert" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1620" y="130" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-time1" value="2 hours ago" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="1730" y="130" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-message1" value="Gangnam Studio price dropped&#10;from ₩600k to ₩550k" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1620" y="150" width="150" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="unread-dot1" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2196F3;strokeColor=#2196F3" parent="1" vertex="1">
+                    <mxGeometry x="1775" y="150" width="6" height="6" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-item2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="200" width="230" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-icon2" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#2196F320;strokeColor=#2196F3" parent="1" vertex="1">
+                    <mxGeometry x="1575" y="215" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-icon2-symbol" value="🏠" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#2196F3" parent="1" vertex="1">
+                    <mxGeometry x="1585" y="225" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-title2" value="New Property Match" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1620" y="210" width="120" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-time2" value="1 day ago" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="1730" y="210" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-message2" value="New studio in Hongdae matches&#10;your search criteria" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1620" y="230" width="150" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-item3" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#eeeeee" parent="1" vertex="1">
+                    <mxGeometry x="1560" y="280" width="230" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-icon3" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FF980020;strokeColor=#FF9800" parent="1" vertex="1">
+                    <mxGeometry x="1575" y="295" width="35" height="35" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-icon3-symbol" value="💬" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontColor=#FF9800" parent="1" vertex="1">
+                    <mxGeometry x="1585" y="305" width="15" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-title3" value="New Message" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1620" y="290" width="100" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-time3" value="2 days ago" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontColor=#999999" parent="1" vertex="1">
+                    <mxGeometry x="1730" y="290" width="50" height="15" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-message3" value="John Kim replied to your inquiry&#10;about Itaewon Studio" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" parent="1" vertex="1">
+                    <mxGeometry x="1620" y="310" width="150" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="notif-screen-label" value="NOTIFICATIONS SCREEN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;fontColor=#000000" parent="1" vertex="1">
+                    <mxGeometry x="1625" y="20" width="100" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#2196F3;strokeWidth=3;endArrow=block;endFill=1" parent="1" source="house-category-card" target="house-phone-frame" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF5722;strokeWidth=3;endArrow=block;endFill=1" parent="1" source="property-card1" target="detail-phone-frame" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="420" y="520"/>
+                            <mxPoint x="600" y="520"/>
+                            <mxPoint x="600" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="arrow4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4CAF50;strokeWidth=3;endArrow=block;endFill=1" parent="1" source="contact-button" target="chat-phone-frame" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="825" y="540"/>
+                            <mxPoint x="1200" y="540"/>
+                            <mxPoint x="1200" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
