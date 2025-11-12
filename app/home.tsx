@@ -1,20 +1,10 @@
 import { useAuthGuard } from "@/hooks/use-auth-guard";
 import { getAuthService } from "@/service/auth/authService";
-import { useEffect } from "react";
 import { Alert, Button, Text, View } from "react-native";
 
 export default function HomeScreen() {
     const { user } = useAuthGuard();
     const authService = getAuthService();
-    useEffect(() => {
-        getKeyHashAndroid
-            .then((keyHash) => {
-                console.log("keyHash", keyHash);
-            })
-            .catch((error) => {
-                console.error("keyHash 가져오기 실패:", error);
-            });
-    }, []);
 
     const handleSignOut = async () => {
         try {

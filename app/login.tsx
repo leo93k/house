@@ -3,13 +3,19 @@ import { useAuthGuard } from "@/hooks/use-auth-guard";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { getAuthService } from "@/service/auth/authService";
 import { AuthProviderType } from "@/service/auth/types";
-import * as AppleAuthentication from "expo-apple-authentication";
+import { initializeKakaoSDK } from "@react-native-kakao/core";
+import { login, logout, unlink } from "@react-native-kakao/user";
+import { useEffect } from "react";
 import { Alert, Button, StyleSheet } from "react-native";
 
 export default function LoginScreen() {
     const authService = getAuthService();
     const { user } = useAuthGuard();
     const colorScheme = useColorScheme();
+
+    useEffect(() => {
+        initializeKakaoSDK("f60b1eed6748e01393de688da890b026");
+    }, []);
 
     const handleGoogleSignIn = async () => {
         try {
@@ -42,34 +48,24 @@ export default function LoginScreen() {
                 <Button title="Google 로그인" onPress={handleGoogleSignIn} />
             )}
 
-            <AppleAuthentication.AppleAuthenticationButton
-                buttonType={
-                    AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-                }
-                buttonStyle={
-                    AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-                }
-                cornerRadius={5}
-                style={styles.button}
-                onPress={async () => {
-                    try {
-                        const credential =
-                            await AppleAuthentication.signInAsync({
-                                requestedScopes: [
-                                    AppleAuthentication.AppleAuthenticationScope
-                                        .FULL_NAME,
-                                    AppleAuthentication.AppleAuthenticationScope
-                                        .EMAIL,
-                                ],
-                            });
-                        // signed in
-                    } catch (e) {
-                        if (e.code === "ERR_REQUEST_CANCELED") {
-                            // handle that the user canceled the sign-in flow
-                        } else {
-                            // handle other errors
-                        }
-                    }
+            <Button
+                title="Kakao 로그인"
+                onPress={() => {
+                    login().then(console.log);
+                }}
+            />
+
+            <Button
+                title="Kakao 로그아웃"
+                onPress={() => {
+                    logout().then(console.log);
+                }}
+            />
+
+            <Button
+                title="Kakao 연동해제"
+                onPress={() => {
+                    unlink().then(console.log);
                 }}
             />
         </ScreenView>
