@@ -11,7 +11,8 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "com.sdadaniel.sharea",
-            "googleServicesFile": "./config/GoogleService-Info.plist"
+            "googleServicesFile": "./config/GoogleService-Info.plist",
+            "usesAppleSignIn": true
         },
         "android": {
             "adaptiveIcon": {
@@ -36,10 +37,30 @@
                 "expo-build-properties",
                 {
                     "ios": {
-                        "useFrameworks": "static"
+                        "useFrameworks": "static",
+                        "newArchEnabled": true
+                    },
+                    "android": {
+                        "extraMavenRepos": [
+                            "https://devrepo.kakao.com/nexus/content/groups/public/"
+                        ],
+                        "newArchEnabled": true
                     }
                 }
             ],
+            [
+                "@react-native-kakao/core",
+                {
+                    "nativeAppKey": "f60b1eed6748e01393de688da890b026",
+                    "android": {
+                        "authCodeHandlerActivity": true
+                    },
+                    "ios": {
+                        "handleKakaoOpenUrl": true
+                    }
+                }
+            ],
+
             "./plugins/with-firebase-static-frameworks",
             [
                 "expo-splash-screen",
@@ -58,7 +79,8 @@
                 {
                     "launchMode": "most-recent"
                 }
-            ]
+            ],
+            "expo-apple-authentication"
         ],
         "experiments": {
             "typedRoutes": true,
