@@ -59,8 +59,10 @@ export class GoogleAuthService implements IAuthProvider {
                 googleCredential
             );
 
+            const user = this.mapFirebaseUserToUser(userCredential.user);
+            user.provider = this.providerType;
             return {
-                user: this.mapFirebaseUserToUser(userCredential.user),
+                user,
                 credential: googleCredential,
             };
         } catch (error: any) {
