@@ -1,27 +1,33 @@
 import { getAuthService } from "@/service/auth/authService";
-import { AuthProviderType, type User } from "@/service/auth/types";
-import { useEffect, useState } from "react";
+import { AuthProviderType } from "@/service/auth/types";
+import { useUserStore } from "@/store/userStore";
+import { useEffect } from "react";
 import { Alert, Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState<User | null>(null);
+    const { user, isInitializing, setUser, setInitializing } = useUserStore();
+    console.log({ user, isInitializing });
     const authService = getAuthService();
 
+    // 초기화 확인
     useEffect(() => {
-        // 인증 상태 변경 리스너 등록
-        const unsubscribe = authService.onAuthStateChanged((user) => {
-            console.log({ user });
-            setUser(user);
-            if (initializing) setInitializing(false);
-        });
-
-        // 컴포넌트 언마운트 시 리스너 해제
-        return () => {
-            unsubscribe();
-        };
-    }, [authService, initializing]);
+        if (isInitializing) {
+            // 현재 사용자 상태 확인
+            authService
+                .getCurrentUser()
+                .then((currentUser) => {
+                    if (currentUser) {
+                        setUser(currentUser);
+                    }
+                    setInitializing(false);
+                })
+                .catch((error) => {
+                    console.error("초기 사용자 확인 실패:", error);
+                    setInitializing(false);
+                });
+        }
+    }, [isInitializing, authService, setUser, setInitializing]);
 
     const handleSignIn = async () => {
         try {
@@ -38,6 +44,8 @@ export default function HomeScreen() {
     const handleSignOut = async () => {
         try {
             await authService.signOut();
+            // authService의 onAuthStateChanged가 자동으로 store를 업데이트하므로
+            // clearUser()는 필요 없음 (하지만 명시적으로 호출해도 무방)
         } catch (error: any) {
             console.error("로그아웃 실패:", error);
             Alert.alert(
@@ -47,11 +55,17 @@ export default function HomeScreen() {
         }
     };
 
-    if (initializing) return null;
+    if (isInitializing)
+        return (
+            <SafeAreaView>
+                <Text>isInitializing</Text>
+            </SafeAreaView>
+        );
 
     if (user) {
         return (
             <SafeAreaView>
+                <Text>123</Text>
                 <Text>{user.email}</Text>
                 <Button title="Sign Out" onPress={handleSignOut} />
             </SafeAreaView>
