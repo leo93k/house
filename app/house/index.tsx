@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ChevronLeft, MessageCircle, Search, X, Crosshair } from 'lucide-react-native';
+import { ChevronLeft, MessageCircle, Search, X, Crosshair, Check } from 'lucide-react-native';
 import Slider from '@react-native-community/slider';
 
 // Mock property data with coordinates
@@ -68,7 +68,6 @@ const mockProperties = [
   },
 ];
 
-const quickFilters = ['All Pyeongchang', 'Transaction Type • Price', 'Structure/Area'];
 const currentRegion = 'Pyeongchang';
 
 const filterOptions = {
@@ -81,18 +80,42 @@ export default function HouseScreen() {
   const router = useRouter();
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const [selectedFilterType, setSelectedFilterType] = useState('');
+
+  // Temporary selection states (during modal editing)
   const [selectedTransactionType, setSelectedTransactionType] = useState('All');
+  const [selectedRegion, setSelectedRegion] = useState('All Pyeongchang');
+  const [selectedStructure, setSelectedStructure] = useState('Structure/Area');
+
+  // Actual structure type (separate from display label)
+  const [actualStructureType, setActualStructureType] = useState('Structure/Area');
+
+  // Applied filter values (shown in chips)
+  const [appliedRegion, setAppliedRegion] = useState('All Pyeongchang');
+  const [appliedTransactionType, setAppliedTransactionType] = useState('Transaction Type • Price');
+  const [appliedStructure, setAppliedStructure] = useState('Structure/Area');
 
   // Price range states
   const [depositRange, setDepositRange] = useState<[number, number]>([0, 500]); // in millions
   const [monthlyRentRange, setMonthlyRentRange] = useState<[number, number]>([0, 3]); // in millions
   const [salePriceRange, setSalePriceRange] = useState<[number, number]>([0, 1000]); // in millions
 
+  // Area range state (in square meters)
+  const [areaRange, setAreaRange] = useState<[number, number]>([0, 150]);
+
   const formatPrice = (value: number, maxValue: number, unit: string = 'M') => {
     if (value === 0) return 'Min';
     if (value >= maxValue) return 'Max';
     return `₩${value}${unit}`;
   };
+
+  const formatArea = (value: number, maxValue: number) => {
+    if (value === 0) return 'Min';
+    if (value >= maxValue) return 'Max';
+    return `${value}㎡`;
+  };
+
+  // Dynamic quick filters based on applied values
+  const currentQuickFilters = [appliedRegion, appliedTransactionType, appliedStructure];
 
   const handleBackPress = () => {
     router.back();
@@ -106,13 +129,21 @@ export default function HouseScreen() {
     router.push('/house/search');
   };
 
-  const handleFilterPress = (filterType: string) => {
-    if (filterType.includes('Pyeongchang')) {
-      setSelectedFilterType('region');
-    } else if (filterType.includes('Transaction Type')) {
-      setSelectedFilterType('transactionType');
-    } else if (filterType === 'Structure/Area') {
-      setSelectedFilterType('structure');
+  const handleFilterPress = (filterIndex: number) => {
+    // Map filter index to filter type and set current selected value
+    switch (filterIndex) {
+      case 0:
+        setSelectedFilterType('region');
+        setSelectedRegion(appliedRegion);
+        break;
+      case 1:
+        setSelectedFilterType('transactionType');
+        setSelectedTransactionType(appliedTransactionType);
+        break;
+      case 2:
+        setSelectedFilterType('structure');
+        setSelectedStructure(actualStructureType);
+        break;
     }
     setIsFilterModalVisible(true);
   };
@@ -120,6 +151,28 @@ export default function HouseScreen() {
   const closeModal = () => {
     setIsFilterModalVisible(false);
     setSelectedFilterType('');
+  };
+
+  const handleApplyFilter = () => {
+    // Apply the selected filters
+    if (selectedFilterType === 'transactionType') {
+      setAppliedTransactionType(selectedTransactionType);
+    } else if (selectedFilterType === 'region') {
+      setAppliedRegion(selectedRegion);
+    } else if (selectedFilterType === 'structure') {
+      // Save the actual structure type
+      setActualStructureType(selectedStructure);
+
+      // Create label with structure and area
+      let label = selectedStructure;
+      if (selectedStructure !== 'Structure/Area' && areaRange[1] < 150) {
+        label = `${selectedStructure} • ${formatArea(areaRange[0], 150)}-${formatArea(areaRange[1], 150)}`;
+      } else if (selectedStructure === 'Structure/Area' && areaRange[1] < 150) {
+        label = `${formatArea(areaRange[0], 150)}-${formatArea(areaRange[1], 150)}`;
+      }
+      setAppliedStructure(label);
+    }
+    closeModal();
   };
 
   const getFilterOptions = () => {
@@ -163,17 +216,17 @@ export default function HouseScreen() {
       {/* Quick Filters */}
       <View style={styles.controlsContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filtersScroll}>
-          {quickFilters.map((filter, index) => (
-            <TouchableOpacity 
-              key={index} 
+          {currentQuickFilters.map((filter, index) => (
+            <TouchableOpacity
+              key={index}
               style={styles.filterChip}
-              onPress={() => handleFilterPress(filter)}
+              onPress={() => handleFilterPress(index)}
             >
               <Text style={styles.filterText}>{filter}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
-        
+
       </View>
 
       {/* Content - Always Map View */}
@@ -345,20 +398,91 @@ export default function HouseScreen() {
                   </View>
                 )}
               </ScrollView>
+            ) : selectedFilterType === 'structure' ? (
+              <ScrollView style={styles.filterContent}>
+                {/* Structure Type Buttons */}
+                <View style={styles.transactionTypeSection}>
+                  <Text style={styles.sectionLabel}>Structure Type</Text>
+                  <View style={styles.structureTypeButtons}>
+                    {['Studio', '1Room', '2Room', '3Room+', 'Officetel'].map((type) => (
+                      <TouchableOpacity
+                        key={type}
+                        style={[
+                          styles.structureTypeButton,
+                          selectedStructure === type && styles.structureTypeButtonActive
+                        ]}
+                        onPress={() => setSelectedStructure(type)}
+                      >
+                        <Text style={[
+                          styles.structureTypeButtonText,
+                          selectedStructure === type && styles.structureTypeButtonTextActive
+                        ]}>
+                          {type}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                </View>
+
+                {/* Area Section */}
+                <View style={styles.priceSection}>
+                  <Text style={styles.sectionLabel}>Area</Text>
+                  <View style={styles.priceRangeDisplay}>
+                    <Text style={styles.priceRangeText}>
+                      {formatArea(areaRange[0], 150)} - {formatArea(areaRange[1], 150)}
+                    </Text>
+                  </View>
+                  <View style={styles.sliderContainer}>
+                    <Slider
+                      style={styles.slider}
+                      minimumValue={0}
+                      maximumValue={150}
+                      step={5}
+                      value={areaRange[1]}
+                      onValueChange={(value) => setAreaRange([areaRange[0], value])}
+                      minimumTrackTintColor="#2196F3"
+                      maximumTrackTintColor="#ddd"
+                      thumbTintColor="#2196F3"
+                    />
+                  </View>
+                  <View style={styles.priceLabels}>
+                    <Text style={styles.priceLabelText}>Min</Text>
+                    <Text style={styles.priceLabelText}>75㎡</Text>
+                    <Text style={styles.priceLabelText}>Max</Text>
+                  </View>
+                </View>
+              </ScrollView>
             ) : (
               <ScrollView style={styles.filterOptionsList}>
-                {getFilterOptions().map((option, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.filterOptionItem}
-                    onPress={() => {
-                      // Handle option selection here
-                      closeModal();
-                    }}
-                  >
-                    <Text style={styles.filterOptionText}>{option}</Text>
-                  </TouchableOpacity>
-                ))}
+                {getFilterOptions().map((option, index) => {
+                  const isSelected = selectedFilterType === 'region' && option === selectedRegion;
+
+                  return (
+                    <TouchableOpacity
+                      key={index}
+                      style={[
+                        styles.filterOptionItem,
+                        isSelected && styles.filterOptionItemSelected
+                      ]}
+                      onPress={() => {
+                        // Update selected filter based on type
+                        if (selectedFilterType === 'region') {
+                          setSelectedRegion(option);
+                        }
+                      }}
+                    >
+                      <Text style={[
+                        styles.filterOptionText,
+                        isSelected && styles.filterOptionTextSelected
+                      ]}>
+                        {option}
+                      </Text>
+                      {isSelected && (
+                        <Check size={20} color="#2196F3" />
+                      )}
+                    </TouchableOpacity>
+                  );
+                })}
               </ScrollView>
             )}
 
@@ -367,7 +491,7 @@ export default function HouseScreen() {
               <TouchableOpacity style={styles.resetButton}>
                 <Text style={styles.resetButtonText}>Reset</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.applyButton} onPress={closeModal}>
+              <TouchableOpacity style={styles.applyButton} onPress={handleApplyFilter}>
                 <Text style={styles.applyButtonText}>Apply</Text>
               </TouchableOpacity>
             </View>
@@ -752,16 +876,27 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   filterOptionsList: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
   },
   filterOptionItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingVertical: 16,
+    paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5',
+  },
+  filterOptionItemSelected: {
+    backgroundColor: '#f0f8ff',
   },
   filterOptionText: {
     fontSize: 16,
     color: '#333',
+  },
+  filterOptionTextSelected: {
+    color: '#2196F3',
+    fontWeight: '600',
   },
   filterActions: {
     flexDirection: 'row',
@@ -875,5 +1010,33 @@ const styles = StyleSheet.create({
   priceLabelText: {
     fontSize: 12,
     color: '#999',
+  },
+  // Structure Type Filter Styles
+  structureTypeButtons: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  structureTypeButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  structureTypeButtonActive: {
+    borderColor: '#2196F3',
+    backgroundColor: '#f0f8ff',
+  },
+  structureTypeButtonText: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: '500',
+  },
+  structureTypeButtonTextActive: {
+    color: '#2196F3',
+    fontWeight: '600',
   },
 });
