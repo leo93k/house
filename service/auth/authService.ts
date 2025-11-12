@@ -6,6 +6,7 @@
 import { useUserStore } from "@/store/userStore";
 import { AuthServiceManager } from "./AuthServiceManager";
 import { GoogleAuthService } from "./GoogleAuthService";
+import { KakaoAuthService } from "./KakaoAuthService";
 import { AUTH_CONFIG } from "./config";
 import { AuthProviderType } from "./types";
 
@@ -30,6 +31,15 @@ export function getAuthService(): AuthServiceManager {
             googleAuthService
         );
 
+        // 카카오 인증 제공자 등록
+        const kakaoAuthService = new KakaoAuthService(
+            AUTH_CONFIG.kakao.nativeAppKey
+        );
+        authServiceInstance.registerProvider(
+            AuthProviderType.KAKAO,
+            kakaoAuthService
+        );
+
         // 향후 다른 인증 제공자 추가 가능
         // const appleAuthService = new AppleAuthService(...);
         // authServiceInstance.registerProvider('apple', appleAuthService);
@@ -44,6 +54,65 @@ export function getAuthService(): AuthServiceManager {
                 setInitializing(false);
             }
         });
+
+        // signIn 메서드를 래핑하여 카카오 같은 비-Firebase 제공자도 처리
+        const originalSignIn =
+            authServiceInstance.signIn.bind(authServiceInstance);
+        authServiceInstance.signIn = async (providerType: AuthProviderType) => {
+            console.log("signIn 호출:", providerType);
+            const result = await originalSignIn(providerType);
+            console.log("signIn 결과:", JSON.stringify(result, null, 2));
+
+            // Firebase Auth와 직접 통합되지 않는 제공자(카카오 등)의 경우
+            // 로그인 성공 시 수동으로 store 업데이트
+            if (result.user) {
+                console.log("로그인 성공, providerType:", providerType);
+                console.log("result.user:", result.user);
+
+                if (providerType === AuthProviderType.KAKAO) {
+                    console.log("카카오 로그인 성공, store 업데이트 시작");
+                    const storeState = useUserStore.getState();
+                    console.log("업데이트 전 store 상태:", {
+                        isInitializing: storeState.isInitializing,
+                        user: storeState.user,
+                    });
+
+                    storeState.setUser(result.user);
+
+                    // 업데이트 확인
+                    const updatedState = useUserStore.getState();
+                    console.log("업데이트 후 store 상태:", {
+                        isInitializing: updatedState.isInitializing,
+                        user: updatedState.user,
+                    });
+
+                    if (updatedState.isInitializing) {
+                        updatedState.setInitializing(false);
+                    }
+                }
+            } else {
+                console.log("result.user가 없습니다:", result);
+            }
+
+            return result;
+        };
+
+        // signOut 메서드를 래핑하여 로그아웃 후 Zustand store 업데이트
+        const originalSignOut =
+            authServiceInstance.signOut.bind(authServiceInstance);
+        authServiceInstance.signOut = async () => {
+            console.log("signOut 호출");
+            await originalSignOut();
+
+            // 로그아웃 후 Zustand store 업데이트
+            const { setUser, setInitializing, isInitializing } =
+                useUserStore.getState();
+            setUser(null);
+            if (isInitializing) {
+                setInitializing(false);
+            }
+            console.log("로그아웃 완료, store 업데이트됨");
+        };
 
         // 초기 사용자 상태 확인
         authServiceInstance
