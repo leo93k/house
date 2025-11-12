@@ -40,28 +40,83 @@ export class AuthServiceManager {
      * 로그아웃
      */
     async signOut() {
-        // 모든 제공자에 대해 로그아웃 시도
-        const logoutPromises = Array.from(this.providers.values()).map(
-            (provider) => provider.signOut().catch((err) => console.error(err))
-        );
-        await Promise.all(logoutPromises);
+        // 현재 로그인된 사용자의 provider 확인
+        const currentUser = await this.getCurrentUser();
+
+        if (currentUser && currentUser.provider) {
+            // 현재 로그인된 provider만 로그아웃
+            const provider = this.getProvider(currentUser.provider);
+            if (provider) {
+                try {
+                    await provider.signOut();
+                } catch (err) {
+                    // 로그아웃 실패는 무시 (이미 로그아웃된 상태일 수 있음)
+                    console.log(
+                        `로그아웃 실패 (${currentUser.provider}):`,
+                        err
+                    );
+                }
+            }
+        } else {
+            // provider 정보가 없으면 모든 제공자에 대해 로그아웃 시도 (fallback)
+            const logoutPromises = Array.from(this.providers.values()).map(
+                async (provider) => {
+                    try {
+                        await provider.signOut();
+                    } catch (err) {
+                        // 로그아웃 실패는 무시 (이미 로그아웃된 상태일 수 있음)
+                        console.log(
+                            `로그아웃 실패 (${provider.providerType}):`,
+                            err
+                        );
+                    }
+                }
+            );
+            await Promise.all(logoutPromises);
+        }
     }
 
     /**
      * 현재 사용자 정보 가져오기
      */
     async getCurrentUser(): Promise<User | null> {
+        // Firebase Auth에서 먼저 확인
         const currentUser = getAuth().currentUser;
-        if (!currentUser) {
-            return null;
+        if (currentUser) {
+            // Firebase Auth의 provider 정보 확인
+            const providerId =
+                currentUser.providerData?.[0]?.providerId || "google";
+            const providerType =
+                providerId === "google.com"
+                    ? AuthProviderType.GOOGLE
+                    : providerId === "apple.com"
+                    ? AuthProviderType.APPLE
+                    : AuthProviderType.GOOGLE; // 기본값
+
+            return {
+                uid: currentUser.uid,
+                email: currentUser.email,
+                displayName: currentUser.displayName,
+                photoURL: currentUser.photoURL,
+                provider: providerType,
+            };
         }
 
-        return {
-            uid: currentUser.uid,
-            email: currentUser.email,
-            displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL,
-        };
+        // Firebase Auth에 사용자가 없으면 카카오 등 다른 제공자 확인
+        // 카카오 제공자가 있으면 getCurrentUser 호출
+        const kakaoProvider = this.getProvider(AuthProviderType.KAKAO);
+        if (kakaoProvider) {
+            try {
+                const kakaoUser = await kakaoProvider.getCurrentUser();
+                if (kakaoUser) {
+                    return kakaoUser;
+                }
+            } catch {
+                // 카카오 사용자 확인 실패는 무시 (로그인 안된 상태)
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -74,11 +129,22 @@ export class AuthServiceManager {
             getAuth(),
             (firebaseUser: any) => {
                 if (firebaseUser) {
+                    // Firebase Auth의 provider 정보 확인
+                    const providerId =
+                        firebaseUser.providerData?.[0]?.providerId || "google";
+                    const providerType =
+                        providerId === "google.com"
+                            ? AuthProviderType.GOOGLE
+                            : providerId === "apple.com"
+                            ? AuthProviderType.APPLE
+                            : AuthProviderType.GOOGLE; // 기본값
+
                     callback({
                         uid: firebaseUser.uid,
                         email: firebaseUser.email,
                         displayName: firebaseUser.displayName,
                         photoURL: firebaseUser.photoURL,
+                        provider: providerType,
                     });
                 } else {
                     callback(null);
