@@ -4,6 +4,7 @@
 
 export enum AuthProviderType {
     GOOGLE = "google",
+    KAKAO = "kakao",
     APPLE = "apple",
     EMAIL = "email",
     PHONE = "phone",
@@ -14,6 +15,7 @@ export interface User {
     email: string | null;
     displayName: string | null;
     photoURL: string | null;
+    provider: AuthProviderType;
     [key: string]: any;
 }
 
