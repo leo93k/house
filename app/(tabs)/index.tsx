@@ -1,84 +1,50 @@
-import auth, {
-    getAuth,
-    onAuthStateChanged,
-    signOut,
-} from "@react-native-firebase/auth";
-
-import {
-    GoogleSignin,
-    GoogleSigninButton,
-    isErrorWithCode,
-    statusCodes,
-} from "@react-native-google-signin/google-signin";
+import { getAuthService } from "@/service/auth/authService";
+import { AuthProviderType, type User } from "@/service/auth/types";
 import { useEffect, useState } from "react";
-import { Button, Text } from "react-native";
+import { Alert, Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-GoogleSignin.configure({
-    webClientId:
-        "945586864109-qlfnrp1i4upjt06o620t7pqm52909681.apps.googleusercontent.com",
-});
 
 export default function HomeScreen() {
     const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState<any>();
-
-    function handleAuthStateChanged(user: any) {
-        setUser(user);
-        if (initializing) setInitializing(false);
-    }
+    const [user, setUser] = useState<User | null>(null);
+    const authService = getAuthService();
 
     useEffect(() => {
-        const subscriber = onAuthStateChanged(
-            getAuth(),
-            handleAuthStateChanged
-        );
-        return subscriber; // unsubscribe on unmount
-    }, []);
+        // 인증 상태 변경 리스너 등록
+        const unsubscribe = authService.onAuthStateChanged((user) => {
+            console.log({ user });
+            setUser(user);
+            if (initializing) setInitializing(false);
+        });
 
-    const signIn = async () => {
+        // 컴포넌트 언마운트 시 리스너 해제
+        return () => {
+            unsubscribe();
+        };
+    }, [authService, initializing]);
+
+    const handleSignIn = async () => {
         try {
-            console.log("signIn");
-            await GoogleSignin.hasPlayServices({
-                showPlayServicesUpdateDialog: true,
-            });
-            const response = await GoogleSignin.signIn();
-            console.log("response", response);
-
-            // Create a Google credential with the token
-            const googleCredential = auth.GoogleAuthProvider.credential(
-                response.data?.idToken
+            await authService.signIn(AuthProviderType.GOOGLE);
+        } catch (error: any) {
+            console.error("로그인 실패:", error);
+            Alert.alert(
+                "로그인 실패",
+                error.message || "로그인 중 오류가 발생했습니다."
             );
-
-            // Sign-in the user with the credential
-            return auth().signInWithCredential(googleCredential);
-        } catch (error) {
-            console.error(error);
-            if (isErrorWithCode(error)) {
-                switch (error.code) {
-                    case statusCodes.IN_PROGRESS:
-                        // operation (eg. sign in) already in progress
-                        console.log(
-                            "operation (eg. sign in) already in progress"
-                        );
-                        break;
-                    case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-                        // Android only, play services not available or outdated
-                        console.log(
-                            "Android only, play services not available or outdated"
-                        );
-                        break;
-                    default:
-                    // some other error happened
-                }
-            } else {
-                // an error that's not related to google sign in occurred
-            }
         }
     };
 
-    const logout = async () => {
-        await signOut(getAuth());
+    const handleSignOut = async () => {
+        try {
+            await authService.signOut();
+        } catch (error: any) {
+            console.error("로그아웃 실패:", error);
+            Alert.alert(
+                "로그아웃 실패",
+                error.message || "로그아웃 중 오류가 발생했습니다."
+            );
+        }
     };
 
     if (initializing) return null;
@@ -87,10 +53,14 @@ export default function HomeScreen() {
         return (
             <SafeAreaView>
                 <Text>{user.email}</Text>
-                <Button title="Sign Out" onPress={logout} />
+                <Button title="Sign Out" onPress={handleSignOut} />
             </SafeAreaView>
         );
     } else {
+        const googleProvider = authService.getProvider(AuthProviderType.GOOGLE);
+        const SignInButtonComponent =
+            googleProvider?.getSignInButton?.(handleSignIn);
+
         return (
             <SafeAreaView
                 style={{
@@ -99,10 +69,11 @@ export default function HomeScreen() {
                     alignItems: "center",
                 }}
             >
-                <GoogleSigninButton
-                    onPress={signIn}
-                    color={GoogleSigninButton.Color.Dark}
-                />
+                {SignInButtonComponent ? (
+                    <SignInButtonComponent onPress={handleSignIn} />
+                ) : (
+                    <Button title="Google 로그인" onPress={handleSignIn} />
+                )}
             </SafeAreaView>
         );
     }
