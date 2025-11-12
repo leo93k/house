@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { ChevronLeft, Bell, Heart, User, Search, Mic, Map, MapPin, X } from 'lucide-react-native';
+import { ChevronLeft, MessageCircle, Search, X, Crosshair } from 'lucide-react-native';
 
 // Mock property data with coordinates
 const mockProperties = [
@@ -67,13 +67,12 @@ const mockProperties = [
   },
 ];
 
-const quickFilters = ['지역 • Seoul', 'Transaction Type', 'Price', 'Structure/Area'];
-const currentRegion = 'Seoul';
+const quickFilters = ['All Pyeongchang', 'Transaction Type • Price', 'Structure/Area'];
+const currentRegion = 'Pyeongchang';
 
 const filterOptions = {
-  region: ['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon', 'Gwangju', 'Ulsan'],
+  region: ['All Pyeongchang', '평창읍', '미탄면', '방림면', '대화면', '봉평면', '용평면', '진부면', '대관령면'],
   transactionType: ['Rent', 'Sale', 'Monthly Rent'],
-  price: ['Under 500k', '500k-1M', '1M-2M', '2M-5M', 'Over 5M'],
   structure: ['Studio', '1Room', '2Room', '3Room+', 'Officetel']
 };
 
@@ -81,21 +80,10 @@ export default function HouseScreen() {
   const router = useRouter();
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const [selectedFilterType, setSelectedFilterType] = useState('');
+  const [selectedTransactionType, setSelectedTransactionType] = useState('All');
 
   const handleBackPress = () => {
     router.back();
-  };
-
-  const handleNotificationsPress = () => {
-    router.push('/notifications');
-  };
-
-  const handleSavedPress = () => {
-    router.push('/saved');
-  };
-
-  const handleProfilePress = () => {
-    router.push('/profile');
   };
 
   const handlePropertyPress = (propertyId: string) => {
@@ -107,12 +95,10 @@ export default function HouseScreen() {
   };
 
   const handleFilterPress = (filterType: string) => {
-    if (filterType.includes('지역')) {
+    if (filterType.includes('Pyeongchang')) {
       setSelectedFilterType('region');
-    } else if (filterType === 'Transaction Type') {
+    } else if (filterType.includes('Transaction Type')) {
       setSelectedFilterType('transactionType');
-    } else if (filterType === 'Price') {
-      setSelectedFilterType('price');
     } else if (filterType === 'Structure/Area') {
       setSelectedFilterType('structure');
     }
@@ -130,8 +116,6 @@ export default function HouseScreen() {
         return filterOptions.region;
       case 'transactionType':
         return filterOptions.transactionType;
-      case 'price':
-        return filterOptions.price;
       case 'structure':
         return filterOptions.structure;
       default:
@@ -150,14 +134,8 @@ export default function HouseScreen() {
           <Text style={styles.headerTitle}>House</Text>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity style={styles.iconButton} onPress={handleNotificationsPress}>
-            <Bell size={24} color="#333" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={handleSavedPress}>
-            <Heart size={24} color="#333" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={handleProfilePress}>
-            <User size={24} color="#333" />
+          <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/chat')}>
+            <MessageCircle size={24} color="#333" />
           </TouchableOpacity>
         </View>
       </View>
@@ -167,7 +145,6 @@ export default function HouseScreen() {
         <TouchableOpacity style={styles.searchBar} onPress={handleSearchPress}>
           <Search size={20} color="#999" />
           <Text style={styles.searchPlaceholder}>Search location or station...</Text>
-          <Mic size={20} color="#999" />
         </TouchableOpacity>
       </View>
 
@@ -191,7 +168,7 @@ export default function HouseScreen() {
       <View style={styles.mapContainer}>
           {/* Mock Map View */}
           <View style={styles.mockMap}>
-            <Text style={styles.mapLabel}>Seoul Map</Text>
+            <Text style={styles.mapLabel}>평창 Map</Text>
             {mockProperties.map((property) => (
               <TouchableOpacity
                 key={property.id}
@@ -210,36 +187,18 @@ export default function HouseScreen() {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
 
-      {/* Content - Always Map View */}
-      <View style={styles.mapContainer}>
-          {/* Mock Map View */}
-          <View style={styles.mockMap}>
-            <Text style={styles.mapLabel}>Seoul Map</Text>
-            {mockProperties.map((property) => (
-              <TouchableOpacity
-                key={property.id}
-                style={[
-                  styles.mapPin,
-                  {
-                    left: `${((property.lng - 126.8) / 0.4) * 100}%`,
-                    top: `${((37.6 - property.lat) / 0.15) * 100}%`,
-                  }
-                ]}
-                onPress={() => handlePropertyPress(property.id)}
-              >
-                <View style={styles.pinIcon}>
-                  <Text style={styles.pinPrice}>₩{property.price}</Text>
-                </View>
-              </TouchableOpacity>
-            ))}
+          {/* Map Center Lock Button */}
+          <View style={styles.mapLockContainer}>
+            <TouchableOpacity style={styles.mapLockButton}>
+              <Crosshair size={24} color="#2196F3" />
+            </TouchableOpacity>
           </View>
-          
+
           {/* View All Properties Button */}
           <View style={styles.viewAllContainer}>
             <TouchableOpacity style={styles.viewAllButton} onPress={() => router.push('/house/list')}>
-              <Text style={styles.viewAllText}>{currentRegion} 매물 전체보기({mockProperties.length}개)</Text>
+              <Text style={styles.viewAllText}>View All {currentRegion} Properties ({mockProperties.length})</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -250,37 +209,90 @@ export default function HouseScreen() {
           <View style={styles.filterSheet}>
             <View style={styles.filterHeader}>
               <Text style={styles.filterTitle}>
-                {selectedFilterType === 'region' && '지역 선택'}
-                {selectedFilterType === 'transactionType' && 'Transaction Type'}
-                {selectedFilterType === 'price' && 'Price Range'}
+                {selectedFilterType === 'region' && 'Select Region'}
+                {selectedFilterType === 'transactionType' && 'Transaction Type • Price'}
                 {selectedFilterType === 'structure' && 'Structure/Area'}
               </Text>
               <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
                 <X size={24} color="#333" />
               </TouchableOpacity>
             </View>
-            <ScrollView style={styles.filterOptionsList}>
-              {getFilterOptions().map((option, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={styles.filterOptionItem}
-                  onPress={() => {
-                    // Handle option selection here
-                    closeModal();
-                  }}
-                >
-                  <Text style={styles.filterOptionText}>{option}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-            
+            {selectedFilterType === 'transactionType' ? (
+              <ScrollView style={styles.filterContent}>
+                {/* Transaction Type Buttons */}
+                <View style={styles.transactionTypeSection}>
+                  <Text style={styles.sectionLabel}>Transaction Type</Text>
+                  <View style={styles.transactionTypeButtons}>
+                    {['All', 'Jeonse', 'Monthly Rent', 'Sale'].map((type) => (
+                      <TouchableOpacity
+                        key={type}
+                        style={[
+                          styles.transactionTypeButton,
+                          selectedTransactionType === type && styles.transactionTypeButtonActive
+                        ]}
+                        onPress={() => setSelectedTransactionType(type)}
+                      >
+                        <Text style={[
+                          styles.transactionTypeButtonText,
+                          selectedTransactionType === type && styles.transactionTypeButtonTextActive
+                        ]}>
+                          {type}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                </View>
+
+                {/* Deposit Section - Show for Jeonse and Monthly Rent */}
+                {(selectedTransactionType === 'All' || selectedTransactionType === 'Jeonse' || selectedTransactionType === 'Monthly Rent') && (
+                  <View style={styles.priceSection}>
+                    <Text style={styles.sectionLabel}>Deposit</Text>
+                    <Text style={styles.priceRangeText}>All</Text>
+                    <Text style={styles.priceHintText}>Min ~ 50M ~ 250M ~ Max</Text>
+                  </View>
+                )}
+
+                {/* Monthly Rent Section - Show for Monthly Rent */}
+                {(selectedTransactionType === 'All' || selectedTransactionType === 'Monthly Rent') && (
+                  <View style={styles.priceSection}>
+                    <Text style={styles.sectionLabel}>Monthly Rent</Text>
+                    <Text style={styles.priceRangeText}>All</Text>
+                    <Text style={styles.priceHintText}>Min ~ 350K ~ 1.5M ~ Max</Text>
+                  </View>
+                )}
+
+                {/* Sale Price Section - Show for Sale */}
+                {(selectedTransactionType === 'All' || selectedTransactionType === 'Sale') && (
+                  <View style={styles.priceSection}>
+                    <Text style={styles.sectionLabel}>Sale Price</Text>
+                    <Text style={styles.priceRangeText}>All</Text>
+                  </View>
+                )}
+              </ScrollView>
+            ) : (
+              <ScrollView style={styles.filterOptionsList}>
+                {getFilterOptions().map((option, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={styles.filterOptionItem}
+                    onPress={() => {
+                      // Handle option selection here
+                      closeModal();
+                    }}
+                  >
+                    <Text style={styles.filterOptionText}>{option}</Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+
             {/* Bottom Action Buttons */}
             <View style={styles.filterActions}>
               <TouchableOpacity style={styles.resetButton}>
-                <Text style={styles.resetButtonText}>초기화</Text>
+                <Text style={styles.resetButtonText}>Reset</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.applyButton} onPress={closeModal}>
-                <Text style={styles.applyButtonText}>적용하기</Text>
+                <Text style={styles.applyButtonText}>Apply</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -329,7 +341,8 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingTop: 12,
+    paddingBottom: 8,
     backgroundColor: '#fff',
   },
   searchBar: {
@@ -584,6 +597,24 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
+  mapLockContainer: {
+    position: 'absolute',
+    bottom: 90,
+    right: 16,
+  },
+  mapLockButton: {
+    backgroundColor: '#fff',
+    borderRadius: 28,
+    width: 56,
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 5,
+  },
   viewAllContainer: {
     position: 'absolute',
     bottom: 20,
@@ -617,7 +648,7 @@ const styles = StyleSheet.create({
   },
   filterSheet: {
     backgroundColor: '#fff',
-    height: 450, // Increased height for the sheet
+    height: '80%',
     paddingTop: 20,
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
@@ -690,5 +721,62 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
     fontWeight: '600',
+  },
+  // Transaction Type Filter Styles
+  filterContent: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  transactionTypeSection: {
+    marginBottom: 24,
+  },
+  sectionLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 12,
+  },
+  transactionTypeButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  transactionTypeButton: {
+    flex: 1,
+    paddingVertical: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  transactionTypeButtonActive: {
+    borderColor: '#2196F3',
+    backgroundColor: '#f0f8ff',
+  },
+  transactionTypeButtonText: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: '500',
+  },
+  transactionTypeButtonTextActive: {
+    color: '#2196F3',
+    fontWeight: '600',
+  },
+  priceSection: {
+    marginBottom: 24,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+  },
+  priceRangeText: {
+    fontSize: 14,
+    color: '#666',
+    marginVertical: 12,
+    textAlign: 'center',
+  },
+  priceHintText: {
+    fontSize: 12,
+    color: '#999',
+    textAlign: 'center',
   },
 });

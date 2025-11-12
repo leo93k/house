@@ -327,9 +327,9 @@ const styles = StyleSheet.create({
   },
   popularSection: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 16,
+    paddingHorizontal: 24,
+    paddingTop: 20,
+    paddingBottom: 24,
   },
   popularTitle: {
     fontSize: 16,
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 12,
+    padding: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
