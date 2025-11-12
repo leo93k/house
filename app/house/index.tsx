@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChevronLeft, MessageCircle, Search, X, Crosshair } from 'lucide-react-native';
+import Slider from '@react-native-community/slider';
 
 // Mock property data with coordinates
 const mockProperties = [
@@ -72,7 +73,7 @@ const currentRegion = 'Pyeongchang';
 
 const filterOptions = {
   region: ['All Pyeongchang', '평창읍', '미탄면', '방림면', '대화면', '봉평면', '용평면', '진부면', '대관령면'],
-  transactionType: ['Rent', 'Sale', 'Monthly Rent'],
+  transactionType: ['All', 'Full Deposit', 'Monthly Rent', 'Sale'],
   structure: ['Studio', '1Room', '2Room', '3Room+', 'Officetel']
 };
 
@@ -81,6 +82,17 @@ export default function HouseScreen() {
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const [selectedFilterType, setSelectedFilterType] = useState('');
   const [selectedTransactionType, setSelectedTransactionType] = useState('All');
+
+  // Price range states
+  const [depositRange, setDepositRange] = useState<[number, number]>([0, 500]); // in millions
+  const [monthlyRentRange, setMonthlyRentRange] = useState<[number, number]>([0, 3]); // in millions
+  const [salePriceRange, setSalePriceRange] = useState<[number, number]>([0, 1000]); // in millions
+
+  const formatPrice = (value: number, maxValue: number, unit: string = 'M') => {
+    if (value === 0) return 'Min';
+    if (value >= maxValue) return 'Max';
+    return `₩${value}${unit}`;
+  };
 
   const handleBackPress = () => {
     router.back();
@@ -223,7 +235,7 @@ export default function HouseScreen() {
                 <View style={styles.transactionTypeSection}>
                   <Text style={styles.sectionLabel}>Transaction Type</Text>
                   <View style={styles.transactionTypeButtons}>
-                    {['All', 'Jeonse', 'Monthly Rent', 'Sale'].map((type) => (
+                    {['All', 'Full Deposit', 'Monthly Rent', 'Sale'].map((type) => (
                       <TouchableOpacity
                         key={type}
                         style={[
@@ -243,12 +255,33 @@ export default function HouseScreen() {
                   </View>
                 </View>
 
-                {/* Deposit Section - Show for Jeonse and Monthly Rent */}
-                {(selectedTransactionType === 'All' || selectedTransactionType === 'Jeonse' || selectedTransactionType === 'Monthly Rent') && (
+                {/* Deposit Section - Show for Full Deposit and Monthly Rent */}
+                {(selectedTransactionType === 'All' || selectedTransactionType === 'Full Deposit' || selectedTransactionType === 'Monthly Rent') && (
                   <View style={styles.priceSection}>
                     <Text style={styles.sectionLabel}>Deposit</Text>
-                    <Text style={styles.priceRangeText}>All</Text>
-                    <Text style={styles.priceHintText}>Min ~ 50M ~ 250M ~ Max</Text>
+                    <View style={styles.priceRangeDisplay}>
+                      <Text style={styles.priceRangeText}>
+                        {formatPrice(depositRange[0], 500)} - {formatPrice(depositRange[1], 500)}
+                      </Text>
+                    </View>
+                    <View style={styles.sliderContainer}>
+                      <Slider
+                        style={styles.slider}
+                        minimumValue={0}
+                        maximumValue={500}
+                        step={10}
+                        value={depositRange[1]}
+                        onValueChange={(value) => setDepositRange([depositRange[0], value])}
+                        minimumTrackTintColor="#2196F3"
+                        maximumTrackTintColor="#ddd"
+                        thumbTintColor="#2196F3"
+                      />
+                    </View>
+                    <View style={styles.priceLabels}>
+                      <Text style={styles.priceLabelText}>Min</Text>
+                      <Text style={styles.priceLabelText}>₩250M</Text>
+                      <Text style={styles.priceLabelText}>Max</Text>
+                    </View>
                   </View>
                 )}
 
@@ -256,8 +289,29 @@ export default function HouseScreen() {
                 {(selectedTransactionType === 'All' || selectedTransactionType === 'Monthly Rent') && (
                   <View style={styles.priceSection}>
                     <Text style={styles.sectionLabel}>Monthly Rent</Text>
-                    <Text style={styles.priceRangeText}>All</Text>
-                    <Text style={styles.priceHintText}>Min ~ 350K ~ 1.5M ~ Max</Text>
+                    <View style={styles.priceRangeDisplay}>
+                      <Text style={styles.priceRangeText}>
+                        {formatPrice(monthlyRentRange[0], 3)} - {formatPrice(monthlyRentRange[1], 3)}
+                      </Text>
+                    </View>
+                    <View style={styles.sliderContainer}>
+                      <Slider
+                        style={styles.slider}
+                        minimumValue={0}
+                        maximumValue={3}
+                        step={0.1}
+                        value={monthlyRentRange[1]}
+                        onValueChange={(value) => setMonthlyRentRange([monthlyRentRange[0], value])}
+                        minimumTrackTintColor="#2196F3"
+                        maximumTrackTintColor="#ddd"
+                        thumbTintColor="#2196F3"
+                      />
+                    </View>
+                    <View style={styles.priceLabels}>
+                      <Text style={styles.priceLabelText}>Min</Text>
+                      <Text style={styles.priceLabelText}>₩1.5M</Text>
+                      <Text style={styles.priceLabelText}>Max</Text>
+                    </View>
                   </View>
                 )}
 
@@ -265,7 +319,29 @@ export default function HouseScreen() {
                 {(selectedTransactionType === 'All' || selectedTransactionType === 'Sale') && (
                   <View style={styles.priceSection}>
                     <Text style={styles.sectionLabel}>Sale Price</Text>
-                    <Text style={styles.priceRangeText}>All</Text>
+                    <View style={styles.priceRangeDisplay}>
+                      <Text style={styles.priceRangeText}>
+                        {formatPrice(salePriceRange[0], 1000)} - {formatPrice(salePriceRange[1], 1000)}
+                      </Text>
+                    </View>
+                    <View style={styles.sliderContainer}>
+                      <Slider
+                        style={styles.slider}
+                        minimumValue={0}
+                        maximumValue={1000}
+                        step={50}
+                        value={salePriceRange[1]}
+                        onValueChange={(value) => setSalePriceRange([salePriceRange[0], value])}
+                        minimumTrackTintColor="#2196F3"
+                        maximumTrackTintColor="#ddd"
+                        thumbTintColor="#2196F3"
+                      />
+                    </View>
+                    <View style={styles.priceLabels}>
+                      <Text style={styles.priceLabelText}>Min</Text>
+                      <Text style={styles.priceLabelText}>₩500M</Text>
+                      <Text style={styles.priceLabelText}>Max</Text>
+                    </View>
                   </View>
                 )}
               </ScrollView>
@@ -778,5 +854,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#999',
     textAlign: 'center',
+  },
+  priceRangeDisplay: {
+    alignItems: 'center',
+    marginVertical: 16,
+  },
+  sliderContainer: {
+    marginVertical: 8,
+  },
+  slider: {
+    width: '100%',
+    height: 40,
+  },
+  priceLabels: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 4,
+    marginTop: 8,
+  },
+  priceLabelText: {
+    fontSize: 12,
+    color: '#999',
   },
 });
