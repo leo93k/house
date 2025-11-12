@@ -27,6 +27,7 @@ export default function HomeScreen() {
     return (
         <View style={{ flex: 1 }}>
             <Text>HomeScreen</Text>
+            <Text>{JSON.stringify(user)}</Text>
             <Text>{user.email}</Text>
             <Button title="Sign Out" onPress={handleSignOut} />
         </View>
