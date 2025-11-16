@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { ChevronLeft, Share, Heart, Car as CarIcon, Phone, MessageSquare } from 'lucide-react-native';
+import { ChevronLeft, Car as CarIcon, Phone, MessageSquare } from 'lucide-react-native';
 
 export default function CarDetailScreen() {
   const router = useRouter();
@@ -27,10 +27,7 @@ export default function CarDetailScreen() {
         </TouchableOpacity>
         <View style={styles.headerActions}>
           <TouchableOpacity style={styles.iconButton}>
-            <Share size={20} color="#333" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
-            <Heart size={20} color="#333" />
+            <MessageSquare size={20} color="#333" />
           </TouchableOpacity>
         </View>
       </View>

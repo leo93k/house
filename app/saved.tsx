@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { ArrowDown, Bell, Camera, Check, ChevronLeft, Heart, X, Eye } from 'lucide-react-native';
+import { ArrowDown, Bell, Camera, Check, ChevronLeft, Heart, X, Eye, ChevronDown } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   SafeAreaView,
@@ -57,6 +57,10 @@ const savedProperties = [
 export default function SavedScreen() {
   const router = useRouter();
   const [showAvailableOnly, setShowAvailableOnly] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState('All');
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const filterOptions = ['All', 'House', 'Car'];
 
   const filteredProperties = showAvailableOnly
     ? savedProperties.filter(p => p.status === 'available')
@@ -92,7 +96,38 @@ export default function SavedScreen() {
           </View>
           <Text style={styles.filterToggleLabel}>Show Available Only</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.filterDropdown}
+          onPress={() => setIsDropdownVisible(!isDropdownVisible)}
+        >
+          <Text style={styles.filterText}>{selectedFilter}</Text>
+          <ChevronDown size={16} color="#666" />
+        </TouchableOpacity>
       </View>
+      {isDropdownVisible && (
+        <View style={styles.dropdownMenu}>
+          {filterOptions.map((option) => (
+            <TouchableOpacity
+              key={option}
+              style={[
+                styles.dropdownItem,
+                selectedFilter === option && styles.dropdownItemSelected
+              ]}
+              onPress={() => {
+                setSelectedFilter(option);
+                setIsDropdownVisible(false);
+              }}
+            >
+              <Text style={[
+                styles.dropdownItemText,
+                selectedFilter === option && styles.dropdownItemTextSelected
+              ]}>
+                {option}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
 
       {/* Saved Properties List */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -192,6 +227,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f8f8',
   },
   filterToggleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: '#f8f8f8',
@@ -202,6 +240,49 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
+  },
+  filterDropdown: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#fff',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+  },
+  filterText: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: '500',
+  },
+  dropdownMenu: {
+    position: 'absolute',
+    top: 130,
+    right: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 5,
+    zIndex: 1000,
+    minWidth: 100,
+  },
+  dropdownItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  dropdownItemSelected: {
+    backgroundColor: '#e3f2fd',
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: '#333',
+  },
+  dropdownItemTextSelected: {
+    color: '#2196F3',
+    fontWeight: '600',
   },
   checkbox: {
     width: 22,
