@@ -106,7 +106,11 @@ export default function HouseScreen() {
   const currentQuickFilters = [appliedRegion, appliedTransactionType, appliedArea];
 
   const handleBackPress = () => {
-    router.back();
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/');
+    }
   };
 
   const handlePropertyPress = (propertyId: string) => {

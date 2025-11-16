@@ -53,7 +53,7 @@ export default function ProfileScreen() {
   };
 
   const handleEditProfile = () => {
-    console.log('Edit profile pressed');
+    router.push('/myprofile');
   };
 
   const handleSignOut = () => {
@@ -93,7 +93,7 @@ export default function ProfileScreen() {
           </View>
           <View style={styles.menuRight}>
             {item.showBadge && <View style={styles.badge} />}
-            <ChevronRight size={16} color="#ccc" />
+            <ChevronRight size={20} color="#999" />
           </View>
         </TouchableOpacity>
       ))}
@@ -108,137 +108,98 @@ export default function ProfileScreen() {
           <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
             <ChevronLeft size={24} color="#333" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Profile</Text>
+          <Text style={styles.headerTitle}>Setting</Text>
         </View>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* User Profile Section */}
         <View style={styles.profileSection}>
-          <View style={styles.profileInfo}>
-            <View style={styles.avatarContainer}>
-              <View style={styles.avatar}>
-                <User size={40} color="#666" fill="#666" />
-              </View>
-              {userData.isVerified && (
-                <View style={styles.verifiedBadge}>
-                  <CheckCircle size={12} color="#fff" />
+          <View style={styles.profileRow}>
+            <View style={styles.profileInfo}>
+              <View style={styles.avatarContainer}>
+                <View style={styles.avatar}>
+                  <User size={40} color="#666" fill="#666" />
                 </View>
-              )}
+                {userData.isVerified && (
+                  <View style={styles.verifiedBadge}>
+                    <CheckCircle size={12} color="#fff" />
+                  </View>
+                )}
+              </View>
+
+              <View style={styles.userInfo}>
+                <Text style={styles.userName}>{userData.name}</Text>
+                <Text style={styles.userEmail}>{userData.email}</Text>
+              </View>
             </View>
-            
-            <View style={styles.userInfo}>
-              <Text style={styles.userName}>{userData.name}</Text>
-              <Text style={styles.userEmail}>{userData.email}</Text>
-              <Text style={styles.memberSince}>
-                Member since {userData.memberSince}
-              </Text>
-            </View>
+
+            <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
+              <Text style={styles.editButtonText}>Edit Profile</Text>
+            </TouchableOpacity>
           </View>
-          
-          <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-            <Text style={styles.editButtonText}>Edit Profile</Text>
+        </View>
+
+        {/* My Favorites Menu */}
+        <View style={[styles.menuSection, { borderBottomWidth: 0, paddingVertical: 0 }]}>
+          <TouchableOpacity style={[styles.menuItem, { borderBottomWidth: 1, borderBottomColor: '#f0f0f0' }]} onPress={() => router.push('/saved')}>
+            <View style={styles.menuLeft}>
+              <View style={styles.menuIconContainer}>
+                <Heart size={20} color="#666" />
+              </View>
+              <Text style={styles.menuLabel}>My Favorites</Text>
+            </View>
+            <View style={styles.menuRight}>
+              <Text style={styles.menuCount}>{activityData.favorites}</Text>
+              <ChevronRight size={20} color="#999" />
+            </View>
           </TouchableOpacity>
         </View>
 
-        {/* Activity Grid */}
-        <View style={styles.activitySection}>
-          <Text style={styles.sectionTitle}>My Activity</Text>
-          <View style={styles.activityGrid}>
-            {renderActivityCard(
-              Heart, 
-              'My Favorites', 
-              activityData.favorites,
-              () => console.log('Navigate to favorites')
-            )}
-            {renderActivityCard(
-              Search, 
-              'Searches', 
-              activityData.savedSearches,
-              () => console.log('Navigate to searches')
-            )}
-            {renderActivityCard(
-              Eye, 
-              'Recently Viewed', 
-              activityData.recentViews,
-              () => console.log('Navigate to recent views')
-            )}
-            {renderActivityCard(
-              Home, 
-              'My Posts', 
-              activityData.myPosts,
-              () => console.log('Navigate to my posts')
-            )}
-          </View>
+        {/* Settings Menu */}
+        <View style={[styles.menuSection, { borderBottomWidth: 0, paddingVertical: 0 }]}>
+          <TouchableOpacity style={[styles.menuItem, { borderBottomWidth: 1, borderBottomColor: '#f0f0f0' }]} onPress={() => console.log('Language')}>
+            <View style={styles.menuLeft}>
+              <View style={styles.menuIconContainer}>
+                <Globe size={20} color="#666" />
+              </View>
+              <Text style={styles.menuLabel}>Language</Text>
+            </View>
+            <View style={styles.menuRight}>
+              <ChevronRight size={20} color="#999" />
+            </View>
+          </TouchableOpacity>
         </View>
 
-        {/* Settings Menu */}
-        {renderMenuSection('Settings', [
-          {
-            IconComponent: Bell,
-            label: 'Notifications',
-            onPress: () => console.log('Notifications'),
-            showBadge: true,
-          },
-          {
-            IconComponent: Globe,
-            label: 'Language & Region',
-            onPress: () => console.log('Language'),
-          },
-          {
-            IconComponent: Lock,
-            label: 'Privacy & Security',
-            onPress: () => console.log('Privacy'),
-          },
-          {
-            IconComponent: Smartphone,
-            label: 'App Preferences',
-            onPress: () => console.log('App preferences'),
-          },
-        ])}
-
         {/* Help & Support Menu */}
-        {renderMenuSection('Help & Support', [
-          {
-            IconComponent: HelpCircle,
-            label: 'FAQ & Help',
-            onPress: () => console.log('FAQ'),
-          },
-          {
-            IconComponent: Phone,
-            label: 'Contact Support',
-            onPress: () => console.log('Contact support'),
-          },
-          {
-            IconComponent: Star,
-            label: 'Rate App',
-            onPress: () => console.log('Rate app'),
-          },
-        ])}
+        <View style={[styles.menuSection, { borderBottomWidth: 0, paddingVertical: 0 }]}>
+          <TouchableOpacity style={[styles.menuItem, { borderBottomWidth: 1, borderBottomColor: '#f0f0f0' }]} onPress={() => console.log('Contact support')}>
+            <View style={styles.menuLeft}>
+              <View style={styles.menuIconContainer}>
+                <Phone size={20} color="#666" />
+              </View>
+              <Text style={styles.menuLabel}>Contact Support</Text>
+            </View>
+            <View style={styles.menuRight}>
+              <ChevronRight size={20} color="#999" />
+            </View>
+          </TouchableOpacity>
+        </View>
 
         {/* Legal Menu */}
-        {renderMenuSection('Legal', [
-          {
-            IconComponent: FileText,
-            label: 'Terms of Service',
-            onPress: () => console.log('Terms'),
-          },
-          {
-            IconComponent: Hand,
-            label: 'Privacy Policy',
-            onPress: () => console.log('Privacy policy'),
-          },
-          {
-            IconComponent: Info,
-            label: 'About',
-            onPress: () => console.log('About'),
-          },
-        ])}
-
-        {/* Sign Out Button */}
-        <TouchableOpacity style={styles.signOutButton} onPress={handleSignOut}>
-          <Text style={styles.signOutText}>Sign Out</Text>
-        </TouchableOpacity>
+        <View style={[styles.menuSection, { borderBottomWidth: 0, paddingVertical: 0 }]}>
+          <TouchableOpacity style={[styles.menuItem, { borderBottomWidth: 1, borderBottomColor: '#f0f0f0' }]} onPress={() => console.log('Terms')}>
+            <View style={styles.menuLeft}>
+              <View style={styles.menuIconContainer}>
+                <FileText size={20} color="#666" />
+              </View>
+              <Text style={styles.menuLabel}>Terms of Service</Text>
+            </View>
+            <View style={styles.menuRight}>
+              <ChevronRight size={20} color="#999" />
+            </View>
+          </TouchableOpacity>
+        </View>
 
         {/* Version Info */}
         <View style={styles.versionInfo}>
@@ -294,10 +255,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 8,
     borderBottomColor: '#f5f5f5',
   },
+  profileRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   profileInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
+    flex: 1,
   },
   avatarContainer: {
     position: 'relative',
@@ -347,7 +313,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
-    alignSelf: 'flex-start',
   },
   editButtonText: {
     fontSize: 14,
@@ -433,6 +398,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  menuCount: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#2196F3',
   },
   badge: {
     width: 8,

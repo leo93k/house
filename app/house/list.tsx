@@ -1,6 +1,6 @@
 import Slider from '@react-native-community/slider';
 import { useRouter } from 'expo-router';
-import { Camera, Check, ChevronLeft, Heart, MessageCircle, RefreshCw, X } from 'lucide-react-native';
+import { Camera, Check, ChevronLeft, Heart, MessageCircle, RefreshCw, X, Eye } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   FlatList,
@@ -22,6 +22,8 @@ const mockProperties = [
     location: 'Mapo-gu • 2min to Hongik Univ.',
     details: 'Studio • 20m² • 3rd floor',
     isLiked: false,
+    viewCount: 1250,
+    likeCount: 89,
   },
   {
     id: '2',
@@ -31,6 +33,8 @@ const mockProperties = [
     location: 'Gangnam-gu • 5min to Gangnam Stn',
     details: '1Room • 25m² • 2nd floor',
     isLiked: true,
+    viewCount: 980,
+    likeCount: 124,
   },
   {
     id: '3',
@@ -40,6 +44,8 @@ const mockProperties = [
     location: 'Yongsan-gu • 3min to Itaewon Stn',
     details: 'Studio • 22m² • 4th floor',
     isLiked: false,
+    viewCount: 1120,
+    likeCount: 95,
   },
   {
     id: '4',
@@ -49,6 +55,8 @@ const mockProperties = [
     location: 'Jung-gu • 1min to Myeongdong Stn',
     details: '1Room • 28m² • 5th floor',
     isLiked: false,
+    viewCount: 2100,
+    likeCount: 156,
   },
   {
     id: '5',
@@ -58,6 +66,8 @@ const mockProperties = [
     location: 'Seodaemun-gu • 3min to Sinchon Stn',
     details: 'Studio • 18m² • 2nd floor',
     isLiked: true,
+    viewCount: 890,
+    likeCount: 67,
   },
 ];
 
@@ -102,7 +112,11 @@ export default function HouseListScreen() {
   const currentQuickFilters = [appliedRegion, appliedTransactionType, appliedArea];
 
   const handleBackPress = () => {
-    router.back();
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/house');
+    }
   };
 
   const handlePropertyPress = (propertyId: string) => {
@@ -194,6 +208,16 @@ export default function HouseListScreen() {
         <Text style={styles.maintenanceFee}>₩{item.maintenanceFee}</Text>
         <Text style={styles.propertyLocation}>{item.location}</Text>
         <Text style={styles.propertyDetails}>{item.details}</Text>
+        <View style={styles.statsRow}>
+          <View style={styles.statItem}>
+            <Eye size={12} color="#999" />
+            <Text style={styles.statText}>{item.viewCount}</Text>
+          </View>
+          <View style={styles.statItem}>
+            <Heart size={12} color="#999" />
+            <Text style={styles.statText}>{item.likeCount}</Text>
+          </View>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -579,7 +603,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: 'relative',
     width: 120,
-    height: 120,
     borderTopLeftRadius: 12,
     borderBottomLeftRadius: 12,
     overflow: 'hidden',
@@ -637,6 +660,21 @@ const styles = StyleSheet.create({
   propertyDetails: {
     fontSize: 13,
     color: '#666',
+  },
+  statsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 8,
+  },
+  statItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  statText: {
+    fontSize: 12,
+    color: '#999',
   },
   filterOverlay: {
     position: 'absolute',

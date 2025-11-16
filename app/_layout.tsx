@@ -20,6 +20,7 @@ export default function RootLayout() {
         <Stack.Screen name="car/[id]" options={{ headerShown: false }} />
         <Stack.Screen name="saved" options={{ headerShown: false }} />
         <Stack.Screen name="profile" options={{ headerShown: false }} />
+        <Stack.Screen name="myprofile" options={{ headerShown: false }} />
         <Stack.Screen name="notifications" options={{ headerShown: false }} />
         <Stack.Screen name="chat/index" options={{ headerShown: false }} />
         <Stack.Screen name="chat/[id]" options={{ headerShown: false }} />

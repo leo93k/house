@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { ArrowDown, Bell, Camera, Check, ChevronLeft, Heart, X } from 'lucide-react-native';
+import { ArrowDown, Bell, Camera, Check, ChevronLeft, Heart, X, Eye } from 'lucide-react-native';
 import { useState } from 'react';
 import {
   SafeAreaView,
@@ -16,32 +16,41 @@ const savedProperties = [
     id: '1',
     title: 'Modern Studio in Hongdae',
     price: '800k',
+    maintenanceFee: '50k',
     location: 'Mapo-gu • 2min to Hongik Univ.',
-    details: 'Studio • 20m² • Available',
+    details: 'Studio • 20m² • 3rd floor',
     savedDate: '2 days ago',
     status: 'available',
     priceChanged: false,
+    viewCount: 1250,
+    likeCount: 89,
   },
   {
     id: '2',
     title: 'Cozy 1Room Near Gangnam',
     price: '550k',
+    maintenanceFee: '60k',
     originalPrice: '600k',
     location: 'Gangnam-gu • 5min to Gangnam Stn',
-    details: '1Room • 25m² • Available',
+    details: '1Room • 25m² • 2nd floor',
     savedDate: '1 week ago',
     status: 'available',
     priceChanged: true,
+    viewCount: 980,
+    likeCount: 124,
   },
   {
     id: '3',
     title: 'Bright Studio in Itaewon',
     price: '650k',
+    maintenanceFee: '45k',
     location: 'Yongsan-gu • 3min to Itaewon Stn',
-    details: 'Studio • 22m² • Rented',
+    details: 'Studio • 22m² • 4th floor',
     savedDate: '1 week ago',
     status: 'rented',
     priceChanged: false,
+    viewCount: 1120,
+    likeCount: 95,
   },
 ];
 
@@ -87,72 +96,46 @@ export default function SavedScreen() {
 
       {/* Saved Properties List */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {filteredProperties.map((property) => (
-          <TouchableOpacity key={property.id} style={styles.propertyCard}>
-            <View style={styles.imageContainer}>
-              <View style={styles.placeholderImage}>
-                <Camera size={60} color="#ccc" />
+        <View style={styles.listContainer}>
+          {filteredProperties.map((property) => (
+            <TouchableOpacity key={property.id} style={styles.propertyCard}>
+              <View style={styles.imageContainer}>
+                <View style={styles.placeholderImage}>
+                  <Camera size={30} color="#ccc" />
+                </View>
+
+                {/* Heart Button */}
+                <TouchableOpacity style={styles.heartButton}>
+                  <Heart size={16} color="#F44336" fill="#F44336" />
+                </TouchableOpacity>
               </View>
-              
-              {/* Price Badge */}
-              <View style={styles.priceBadge}>
-                <Text style={styles.priceText}>
-                  ₩{property.price}/month
+
+              <View style={styles.cardContent}>
+                <Text style={styles.propertyPrice}>Monthly Rent ₩{property.price}</Text>
+                <Text style={styles.maintenanceFee}>₩{property.maintenanceFee}</Text>
+                <Text style={styles.propertyLocation} numberOfLines={1}>
+                  {property.location}
                 </Text>
+                <Text style={[
+                  styles.propertyDetails,
+                  property.status === 'rented' && styles.rentedText
+                ]} numberOfLines={1}>
+                  {property.details}
+                </Text>
+                <View style={styles.statsRow}>
+                  <View style={styles.statItem}>
+                    <Eye size={12} color="#999" />
+                    <Text style={styles.statText}>{property.viewCount}</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Heart size={12} color="#999" />
+                    <Text style={styles.statText}>{property.likeCount}</Text>
+                  </View>
+                </View>
               </View>
-              
-              {/* Status Indicators */}
-              {property.priceChanged && (
-                <View style={styles.priceDropBadge}>
-                  <ArrowDown size={12} color="#fff" />
-                </View>
-              )}
-              
-              {property.status === 'rented' && (
-                <View style={styles.statusBadge}>
-                  <X size={12} color="#fff" />
-                </View>
-              )}
-              
-              {property.status === 'available' && (
-                <View style={styles.notificationBadge}>
-                  <Bell size={12} color="#fff" fill="#fff" />
-                </View>
-              )}
-              
-              {/* Heart Button */}
-              <TouchableOpacity style={styles.heartButton}>
-                <Heart size={20} color="#F44336" fill="#F44336" />
-              </TouchableOpacity>
-            </View>
-            
-            <View style={styles.cardContent}>
-              <Text style={styles.propertyTitle} numberOfLines={1}>
-                {property.title}
-              </Text>
-              <Text style={styles.propertyLocation} numberOfLines={1}>
-                {property.location}
-              </Text>
-              <Text style={[
-                styles.propertyDetails, 
-                property.status === 'rented' && styles.rentedText
-              ]} numberOfLines={1}>
-                {property.details}
-              </Text>
-              
-              {/* Price Change Info */}
-              {property.priceChanged && (
-                <Text style={styles.priceChangeText}>
-                  Price dropped from ₩{property.originalPrice}
-                </Text>
-              )}
-              
-              <Text style={styles.savedTime}>
-                Saved {property.savedDate}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
+            </TouchableOpacity>
+          ))}
+        </View>
       </ScrollView>
 
       {/* Empty State (when no saved items) */}
@@ -242,10 +225,12 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
+  listContainer: {
+    padding: 16,
+    gap: 16,
+  },
   propertyCard: {
     flexDirection: 'row',
-    marginHorizontal: 16,
-    marginBottom: 16,
     backgroundColor: '#fff',
     borderRadius: 12,
     shadowColor: '#000',
@@ -260,8 +245,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     position: 'relative',
     width: 120,
-    height: 120,
-    borderRadius: 12,
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
     overflow: 'hidden',
   },
   placeholderImage: {
@@ -269,44 +254,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  priceBadge: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 6,
-  },
-  priceText: {
-    color: '#fff',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  priceDropBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 32,
-    backgroundColor: '#4CAF50',
-    padding: 4,
-    borderRadius: 12,
-  },
-  statusBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 32,
-    backgroundColor: '#F44336',
-    padding: 4,
-    borderRadius: 12,
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 32,
-    backgroundColor: '#FF9800',
-    padding: 4,
-    borderRadius: 12,
   },
   heartButton: {
     position: 'absolute',
@@ -319,35 +266,45 @@ const styles = StyleSheet.create({
   cardContent: {
     flex: 1,
     padding: 12,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
-  propertyTitle: {
+  propertyPrice: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
     marginBottom: 4,
   },
-  propertyLocation: {
+  maintenanceFee: {
     fontSize: 14,
+    fontWeight: '500',
+    color: '#666',
+    marginBottom: 8,
+  },
+  propertyLocation: {
+    fontSize: 13,
     color: '#666',
     marginBottom: 2,
   },
   propertyDetails: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#666',
-    marginBottom: 4,
   },
   rentedText: {
     color: '#999',
     textDecorationLine: 'line-through',
   },
-  priceChangeText: {
-    fontSize: 12,
-    color: '#4CAF50',
-    fontWeight: '500',
-    marginBottom: 4,
+  statsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 8,
   },
-  savedTime: {
+  statItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  statText: {
     fontSize: 12,
     color: '#999',
   },
