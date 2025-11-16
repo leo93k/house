@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  SafeAreaView,
-  Modal,
-  Dimensions,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import { ChevronLeft, MessageCircle, Search, X, Crosshair, Check } from 'lucide-react-native';
+
 import Slider from '@react-native-community/slider';
+import { useRouter } from 'expo-router';
+import { Check, ChevronLeft, Crosshair, MessageCircle, Search, X } from 'lucide-react-native';
+import { useState } from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
 
 // Mock property data with coordinates
 const mockProperties = [
@@ -73,7 +72,7 @@ const currentRegion = 'Pyeongchang';
 const filterOptions = {
   region: ['All Pyeongchang', '평창읍', '미탄면', '방림면', '대화면', '봉평면', '용평면', '진부면', '대관령면'],
   transactionType: ['All', 'Full Deposit', 'Monthly Rent', 'Sale'],
-  structure: ['Studio', '1Room', '2Room', '3Room+', 'Officetel']
+  area: ['All', 'Under 33㎡', '33-62㎡', '66-95㎡', '99-128㎡', '132-161㎡', 'Over 132㎡']
 };
 
 export default function HouseScreen() {
@@ -84,23 +83,19 @@ export default function HouseScreen() {
   // Temporary selection states (during modal editing)
   const [selectedTransactionType, setSelectedTransactionType] = useState('All');
   const [selectedRegion, setSelectedRegion] = useState('All Pyeongchang');
-  const [selectedStructure, setSelectedStructure] = useState('Structure/Area');
-
-  // Actual structure type (separate from display label)
-  const [actualStructureType, setActualStructureType] = useState('Structure/Area');
+  const [selectedArea, setSelectedArea] = useState('All');
+  const [selectedParkingOnly, setSelectedParkingOnly] = useState(false);
 
   // Applied filter values (shown in chips)
   const [appliedRegion, setAppliedRegion] = useState('All Pyeongchang');
   const [appliedTransactionType, setAppliedTransactionType] = useState('Transaction Type • Price');
-  const [appliedStructure, setAppliedStructure] = useState('Structure/Area');
+  const [appliedArea, setAppliedArea] = useState('Area');
+  const [appliedParkingOnly, setAppliedParkingOnly] = useState(false);
 
   // Price range states
   const [depositRange, setDepositRange] = useState<[number, number]>([0, 500]); // in millions
   const [monthlyRentRange, setMonthlyRentRange] = useState<[number, number]>([0, 3]); // in millions
   const [salePriceRange, setSalePriceRange] = useState<[number, number]>([0, 1000]); // in millions
-
-  // Area range state (in square meters)
-  const [areaRange, setAreaRange] = useState<[number, number]>([0, 150]);
 
   const formatPrice = (value: number, maxValue: number, unit: string = 'M') => {
     if (value === 0) return 'Min';
@@ -108,14 +103,8 @@ export default function HouseScreen() {
     return `₩${value}${unit}`;
   };
 
-  const formatArea = (value: number, maxValue: number) => {
-    if (value === 0) return 'Min';
-    if (value >= maxValue) return 'Max';
-    return `${value}㎡`;
-  };
-
   // Dynamic quick filters based on applied values
-  const currentQuickFilters = [appliedRegion, appliedTransactionType, appliedStructure];
+  const currentQuickFilters = [appliedRegion, appliedTransactionType, appliedArea];
 
   const handleBackPress = () => {
     router.back();
@@ -141,8 +130,9 @@ export default function HouseScreen() {
         setSelectedTransactionType(appliedTransactionType);
         break;
       case 2:
-        setSelectedFilterType('structure');
-        setSelectedStructure(actualStructureType);
+        setSelectedFilterType('area');
+        setSelectedArea(appliedArea === 'Area' ? 'All' : appliedArea);
+        setSelectedParkingOnly(appliedParkingOnly);
         break;
     }
     setIsFilterModalVisible(true);
@@ -159,18 +149,10 @@ export default function HouseScreen() {
       setAppliedTransactionType(selectedTransactionType);
     } else if (selectedFilterType === 'region') {
       setAppliedRegion(selectedRegion);
-    } else if (selectedFilterType === 'structure') {
-      // Save the actual structure type
-      setActualStructureType(selectedStructure);
-
-      // Create label with structure and area
-      let label = selectedStructure;
-      if (selectedStructure !== 'Structure/Area' && areaRange[1] < 150) {
-        label = `${selectedStructure} • ${formatArea(areaRange[0], 150)}-${formatArea(areaRange[1], 150)}`;
-      } else if (selectedStructure === 'Structure/Area' && areaRange[1] < 150) {
-        label = `${formatArea(areaRange[0], 150)}-${formatArea(areaRange[1], 150)}`;
-      }
-      setAppliedStructure(label);
+    } else if (selectedFilterType === 'area') {
+      const areaLabel = selectedArea === 'All' ? 'Area' : selectedArea;
+      setAppliedArea(selectedParkingOnly ? `${areaLabel} • Parking` : areaLabel);
+      setAppliedParkingOnly(selectedParkingOnly);
     }
     closeModal();
   };
@@ -181,8 +163,8 @@ export default function HouseScreen() {
         return filterOptions.region;
       case 'transactionType':
         return filterOptions.transactionType;
-      case 'structure':
-        return filterOptions.structure;
+      case 'area':
+        return filterOptions.area;
       default:
         return [];
     }
@@ -276,7 +258,7 @@ export default function HouseScreen() {
               <Text style={styles.filterTitle}>
                 {selectedFilterType === 'region' && 'Select Region'}
                 {selectedFilterType === 'transactionType' && 'Transaction Type • Price'}
-                {selectedFilterType === 'structure' && 'Structure/Area'}
+                {selectedFilterType === 'area' && 'Area'}
               </Text>
               <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
                 <X size={24} color="#333" />
@@ -398,57 +380,45 @@ export default function HouseScreen() {
                   </View>
                 )}
               </ScrollView>
-            ) : selectedFilterType === 'structure' ? (
+            ) : selectedFilterType === 'area' ? (
               <ScrollView style={styles.filterContent}>
-                {/* Structure Type Buttons */}
-                <View style={styles.transactionTypeSection}>
-                  <Text style={styles.sectionLabel}>Structure Type</Text>
-                  <View style={styles.structureTypeButtons}>
-                    {['Studio', '1Room', '2Room', '3Room+', 'Officetel'].map((type) => (
-                      <TouchableOpacity
-                        key={type}
-                        style={[
-                          styles.structureTypeButton,
-                          selectedStructure === type && styles.structureTypeButtonActive
-                        ]}
-                        onPress={() => setSelectedStructure(type)}
-                      >
-                        <Text style={[
-                          styles.structureTypeButtonText,
-                          selectedStructure === type && styles.structureTypeButtonTextActive
-                        ]}>
-                          {type}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
+                {/* Area Size Section */}
+                <View style={styles.areaSizeSection}>
+                  <Text style={styles.sectionLabel}>Exclusive Area</Text>
+                  <View style={styles.areaOptionsContainer}>
+                    {filterOptions.area.map((option, index) => {
+                      const isSelected = option === selectedArea;
+                      return (
+                        <TouchableOpacity
+                          key={index}
+                          style={[
+                            styles.areaOptionButton,
+                            isSelected && styles.areaOptionButtonActive
+                          ]}
+                          onPress={() => setSelectedArea(option)}
+                        >
+                          <Text style={[
+                            styles.areaOptionButtonText,
+                            isSelected && styles.areaOptionButtonTextActive
+                          ]}>
+                            {option}
+                          </Text>
+                        </TouchableOpacity>
+                      );
+                    })}
                   </View>
                 </View>
 
-                {/* Area Section */}
-                <View style={styles.priceSection}>
-                  <Text style={styles.sectionLabel}>Area</Text>
-                  <View style={styles.priceRangeDisplay}>
-                    <Text style={styles.priceRangeText}>
-                      {formatArea(areaRange[0], 150)} - {formatArea(areaRange[1], 150)}
-                    </Text>
-                  </View>
-                  <View style={styles.sliderContainer}>
-                    <Slider
-                      style={styles.slider}
-                      minimumValue={0}
-                      maximumValue={150}
-                      step={5}
-                      value={areaRange[1]}
-                      onValueChange={(value) => setAreaRange([areaRange[0], value])}
-                      minimumTrackTintColor="#2196F3"
-                      maximumTrackTintColor="#ddd"
-                      thumbTintColor="#2196F3"
+                {/* Parking Toggle Section */}
+                <View style={styles.parkingSection}>
+                  <View style={styles.parkingToggleRow}>
+                    <Text style={styles.sectionLabel}>Parking Available Only</Text>
+                    <Switch
+                      value={selectedParkingOnly}
+                      onValueChange={setSelectedParkingOnly}
+                      trackColor={{ false: '#ddd', true: '#2196F3' }}
+                      thumbColor={selectedParkingOnly ? '#fff' : '#fff'}
                     />
-                  </View>
-                  <View style={styles.priceLabels}>
-                    <Text style={styles.priceLabelText}>Min</Text>
-                    <Text style={styles.priceLabelText}>75㎡</Text>
-                    <Text style={styles.priceLabelText}>Max</Text>
                   </View>
                 </View>
               </ScrollView>
@@ -994,6 +964,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 16,
   },
+  // Area Filter Styles
+  areaSizeSection: {
+    marginBottom: 24,
+  },
+  areaOptionsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  areaOptionButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+  },
+  areaOptionButtonActive: {
+    borderColor: '#2196F3',
+    backgroundColor: '#f0f8ff',
+  },
+  areaOptionButtonText: {
+    fontSize: 14,
+    color: '#666',
+    fontWeight: '500',
+  },
+  areaOptionButtonTextActive: {
+    color: '#2196F3',
+    fontWeight: '600',
+  },
+  parkingSection: {
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+  },
+  parkingToggleRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   sliderContainer: {
     marginVertical: 8,
   },
@@ -1010,33 +1020,5 @@ const styles = StyleSheet.create({
   priceLabelText: {
     fontSize: 12,
     color: '#999',
-  },
-  // Structure Type Filter Styles
-  structureTypeButtons: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  structureTypeButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-  },
-  structureTypeButtonActive: {
-    borderColor: '#2196F3',
-    backgroundColor: '#f0f8ff',
-  },
-  structureTypeButtonText: {
-    fontSize: 14,
-    color: '#666',
-    fontWeight: '500',
-  },
-  structureTypeButtonTextActive: {
-    color: '#2196F3',
-    fontWeight: '600',
   },
 });
