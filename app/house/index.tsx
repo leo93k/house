@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Switch,
   Text,
   TouchableOpacity,
   View
@@ -411,15 +410,18 @@ export default function HouseScreen() {
 
                 {/* Parking Toggle Section */}
                 <View style={styles.parkingSection}>
-                  <View style={styles.parkingToggleRow}>
-                    <Text style={styles.sectionLabel}>Parking Available Only</Text>
-                    <Switch
-                      value={selectedParkingOnly}
-                      onValueChange={setSelectedParkingOnly}
-                      trackColor={{ false: '#ddd', true: '#2196F3' }}
-                      thumbColor={selectedParkingOnly ? '#fff' : '#fff'}
-                    />
-                  </View>
+                  <TouchableOpacity
+                    style={styles.parkingToggleRow}
+                    onPress={() => setSelectedParkingOnly(!selectedParkingOnly)}
+                  >
+                    <View style={[
+                      styles.checkbox,
+                      selectedParkingOnly && styles.checkboxChecked
+                    ]}>
+                      {selectedParkingOnly && <Check size={14} color="#fff" />}
+                    </View>
+                    <Text style={styles.checkboxLabel}>Parking Available Only</Text>
+                  </TouchableOpacity>
                 </View>
               </ScrollView>
             ) : (
@@ -809,7 +811,7 @@ const styles = StyleSheet.create({
   },
   filterOverlay: {
     position: 'absolute',
-    top: 175, // Start from below the filter controls
+    top: 178, // Start from below the filter controls
     left: 0,
     right: 0,
     bottom: 0, // Extend to bottom for full dimmed coverage
@@ -1001,8 +1003,27 @@ const styles = StyleSheet.create({
   },
   parkingToggleRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    gap: 12,
+  },
+  checkbox: {
+    width: 22,
+    height: 22,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkboxChecked: {
+    backgroundColor: '#2196F3',
+    borderColor: '#2196F3',
+  },
+  checkboxLabel: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#333',
   },
   sliderContainer: {
     marginVertical: 8,

@@ -13,6 +13,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="house/index" options={{ headerShown: false }} />
+        <Stack.Screen name="house/list" options={{ headerShown: false }} />
         <Stack.Screen name="house/search" options={{ headerShown: false }} />
         <Stack.Screen name="house/[id]" options={{ headerShown: false }} />
         <Stack.Screen name="car/index" options={{ headerShown: false }} />

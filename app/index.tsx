@@ -7,7 +7,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MessageCircle, Bell, Heart, User, Home, Car, ChevronRight } from 'lucide-react-native';
+import { MessageCircle, Heart, User, Home, Car, Camera } from 'lucide-react-native';
 
 const categories = [
   {
@@ -30,6 +30,33 @@ const categories = [
   },
 ];
 
+const popularProperties = [
+  {
+    id: '1',
+    price: '800k',
+    maintenanceFee: '50k',
+    location: 'Mapo-gu • 2min to Hongik Univ.',
+    details: 'Studio • 20m² • 3rd floor',
+    isLiked: false,
+  },
+  {
+    id: '2',
+    price: '1.2M',
+    maintenanceFee: '80k',
+    location: 'Gangnam-gu • 5min to Gangnam Stn',
+    details: '1Room • 25m² • 2nd floor',
+    isLiked: true,
+  },
+  {
+    id: '3',
+    price: '650k',
+    maintenanceFee: '45k',
+    location: 'Yongsan-gu • 3min to Itaewon Stn',
+    details: 'Studio • 22m² • 4th floor',
+    isLiked: false,
+  },
+];
+
 export default function HomeScreen() {
   const router = useRouter();
 
@@ -39,10 +66,6 @@ export default function HomeScreen() {
 
   const handleProfilePress = () => {
     router.push('/profile');
-  };
-
-  const handleNotificationsPress = () => {
-    router.push('/notifications');
   };
 
   const handleSavedPress = () => {
@@ -67,9 +90,6 @@ export default function HomeScreen() {
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.iconButton} onPress={handleChatPress}>
             <MessageCircle size={24} color="#333" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton} onPress={handleNotificationsPress}>
-            <Bell size={24} color="#333" />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton} onPress={handleSavedPress}>
             <Heart size={24} color="#333" />
@@ -121,56 +141,32 @@ export default function HomeScreen() {
       <View style={styles.popularSection}>
         <Text style={styles.popularTitle}>Popular Properties</Text>
         <View style={styles.popularList}>
-          <TouchableOpacity 
-            style={styles.popularItem}
-            onPress={() => handlePropertyPress('1')}
-          >
-            <View style={styles.popularImage}>
-              <Home size={20} color="#2196F3" />
-            </View>
-            <View style={styles.popularInfo}>
-              <Text style={styles.popularPropertyTitle}>Modern Studio in Hongdae</Text>
-              <Text style={styles.popularPropertyPrice}>₩800k/month</Text>
-              <Text style={styles.popularPropertyLocation}>Mapo-gu • 2min to Hongik Univ.</Text>
-            </View>
-            <View style={styles.popularArrow}>
-              <ChevronRight size={16} color="#999" />
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.popularItem}
-            onPress={() => handlePropertyPress('2')}
-          >
-            <View style={styles.popularImage}>
-              <Home size={20} color="#2196F3" />
-            </View>
-            <View style={styles.popularInfo}>
-              <Text style={styles.popularPropertyTitle}>Cozy 1Room Near Gangnam</Text>
-              <Text style={styles.popularPropertyPrice}>₩1.2M/month</Text>
-              <Text style={styles.popularPropertyLocation}>Gangnam-gu • 5min to Gangnam Stn</Text>
-            </View>
-            <View style={styles.popularArrow}>
-              <ChevronRight size={16} color="#999" />
-            </View>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={styles.popularItem}
-            onPress={() => handlePropertyPress('3')}
-          >
-            <View style={styles.popularImage}>
-              <Home size={20} color="#2196F3" />
-            </View>
-            <View style={styles.popularInfo}>
-              <Text style={styles.popularPropertyTitle}>Bright Studio in Itaewon</Text>
-              <Text style={styles.popularPropertyPrice}>₩650k/month</Text>
-              <Text style={styles.popularPropertyLocation}>Yongsan-gu • 3min to Itaewon Stn</Text>
-            </View>
-            <View style={styles.popularArrow}>
-              <ChevronRight size={16} color="#999" />
-            </View>
-          </TouchableOpacity>
+          {popularProperties.map((property) => (
+            <TouchableOpacity
+              key={property.id}
+              style={styles.propertyCard}
+              onPress={() => handlePropertyPress(property.id)}
+            >
+              <View style={styles.imageContainer}>
+                <View style={styles.placeholderImage}>
+                  <Camera size={30} color="#ccc" />
+                </View>
+                <TouchableOpacity style={styles.heartButton}>
+                  <Heart
+                    size={16}
+                    color={property.isLiked ? "#F44336" : "#666"}
+                    fill={property.isLiked ? "#F44336" : "none"}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.cardContent}>
+                <Text style={styles.propertyPrice}>Monthly Rent ₩{property.price}</Text>
+                <Text style={styles.maintenanceFee}>₩{property.maintenanceFee}</Text>
+                <Text style={styles.propertyLocation}>{property.location}</Text>
+                <Text style={styles.propertyDetails}>{property.details}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
 
@@ -327,7 +323,7 @@ const styles = StyleSheet.create({
   },
   popularSection: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingTop: 20,
     paddingBottom: 24,
   },
@@ -338,54 +334,67 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   popularList: {
-    gap: 12,
+    gap: 16,
   },
-  popularItem: {
+  propertyCard: {
     flexDirection: 'row',
     backgroundColor: '#fff',
     borderRadius: 12,
-    padding: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
     shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  popularImage: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#E3F2FD',
-    borderRadius: 8,
+  imageContainer: {
+    position: 'relative',
+    width: 120,
+    height: 120,
+    borderTopLeftRadius: 12,
+    borderBottomLeftRadius: 12,
+    overflow: 'hidden',
+  },
+  placeholderImage: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
   },
-  popularInfo: {
+  heartButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    padding: 6,
+    borderRadius: 16,
+  },
+  cardContent: {
     flex: 1,
+    padding: 12,
     justifyContent: 'center',
   },
-  popularPropertyTitle: {
-    fontSize: 14,
+  propertyPrice: {
+    fontSize: 16,
     fontWeight: '600',
     color: '#333',
     marginBottom: 4,
   },
-  popularPropertyPrice: {
+  maintenanceFee: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#2196F3',
-    marginBottom: 4,
-  },
-  popularPropertyLocation: {
-    fontSize: 12,
     color: '#666',
+    marginBottom: 8,
   },
-  popularArrow: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingLeft: 8,
+  propertyLocation: {
+    fontSize: 13,
+    color: '#666',
+    marginBottom: 2,
+  },
+  propertyDetails: {
+    fontSize: 13,
+    color: '#666',
   },
 });

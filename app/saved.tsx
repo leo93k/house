@@ -1,14 +1,14 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
 import { useRouter } from 'expo-router';
-import { ChevronLeft, User, Camera, Heart, Bell, ArrowDown, X } from 'lucide-react-native';
+import { ArrowDown, Bell, Camera, Check, ChevronLeft, Heart, X } from 'lucide-react-native';
+import { useState } from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 // Mock saved properties data
 const savedProperties = [
@@ -45,21 +45,16 @@ const savedProperties = [
   },
 ];
 
-const filterChips = ['All (12)', 'Available (8)', 'Price ↓ (2)', 'New (3)'];
-
 export default function SavedScreen() {
   const router = useRouter();
+  const [showAvailableOnly, setShowAvailableOnly] = useState(true);
+
+  const filteredProperties = showAvailableOnly
+    ? savedProperties.filter(p => p.status === 'available')
+    : savedProperties;
 
   const handleBackPress = () => {
     router.back();
-  };
-
-  const handleNotificationsPress = () => {
-    router.push('/notifications');
-  };
-
-  const handleProfilePress = () => {
-    router.push('/profile');
   };
 
   return (
@@ -74,31 +69,25 @@ export default function SavedScreen() {
         </View>
       </View>
 
-      {/* Filter Chips */}
-      <View style={styles.filtersContainer}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {filterChips.map((filter, index) => (
-            <TouchableOpacity 
-              key={index} 
-              style={[
-                styles.filterChip, 
-                index === 0 && styles.activeFilterChip
-              ]}
-            >
-              <Text style={[
-                styles.filterText, 
-                index === 0 && styles.activeFilterText
-              ]}>
-                {filter}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      {/* Filter Toggle */}
+      <View style={styles.filterToggleContainer}>
+        <TouchableOpacity
+          style={styles.checkboxRow}
+          onPress={() => setShowAvailableOnly(!showAvailableOnly)}
+        >
+          <View style={[
+            styles.checkbox,
+            showAvailableOnly && styles.checkboxChecked
+          ]}>
+            {showAvailableOnly && <Check size={14} color="#fff" />}
+          </View>
+          <Text style={styles.filterToggleLabel}>Show Available Only</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Saved Properties List */}
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        {savedProperties.map((property) => (
+        {filteredProperties.map((property) => (
           <TouchableOpacity key={property.id} style={styles.propertyCard}>
             <View style={styles.imageContainer}>
               <View style={styles.placeholderImage}>
@@ -164,15 +153,10 @@ export default function SavedScreen() {
             </View>
           </TouchableOpacity>
         ))}
-        
-        {/* End Message */}
-        <View style={styles.endMessage}>
-          <Text style={styles.endText}>No more saved properties</Text>
-        </View>
       </ScrollView>
-      
+
       {/* Empty State (when no saved items) */}
-      {savedProperties.length === 0 && (
+      {filteredProperties.length === 0 && (
         <View style={styles.emptyState}>
           <Heart size={80} color="#ddd" />
           <Text style={styles.emptyTitle}>No saved properties yet</Text>
@@ -224,26 +208,36 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#f8f8f8',
   },
-  filtersContainer: {
-    paddingVertical: 12,
-    paddingLeft: 16,
-  },
-  filterChip: {
-    backgroundColor: '#f0f0f0',
-    borderRadius: 20,
+  filterToggleContainer: {
     paddingHorizontal: 16,
-    paddingVertical: 8,
-    marginRight: 8,
+    paddingVertical: 12,
+    backgroundColor: '#f8f8f8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#f0f0f0',
   },
-  activeFilterChip: {
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  checkbox: {
+    width: 22,
+    height: 22,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkboxChecked: {
     backgroundColor: '#2196F3',
+    borderColor: '#2196F3',
   },
-  filterText: {
-    fontSize: 14,
+  filterToggleLabel: {
+    fontSize: 16,
+    fontWeight: '500',
     color: '#333',
-  },
-  activeFilterText: {
-    color: '#fff',
   },
   content: {
     flex: 1,
@@ -355,14 +349,6 @@ const styles = StyleSheet.create({
   },
   savedTime: {
     fontSize: 12,
-    color: '#999',
-  },
-  endMessage: {
-    alignItems: 'center',
-    paddingVertical: 20,
-  },
-  endText: {
-    fontSize: 14,
     color: '#999',
   },
   emptyState: {

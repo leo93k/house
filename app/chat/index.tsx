@@ -60,8 +60,7 @@ export default function ChatScreen() {
   };
 
   const handleChatPress = (chatId: string) => {
-    // Navigate to chat room
-    console.log(`Navigate to chat room: ${chatId}`);
+    router.push(`/chat/${chatId}`);
   };
 
   const renderChatItem = (chat: typeof chatRooms[0]) => (

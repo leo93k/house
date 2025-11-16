@@ -9,7 +9,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { ChevronLeft, Share, Heart } from 'lucide-react-native';
+import { ChevronLeft, Share, Heart, Wifi, Wind, Refrigerator, WashingMachine, Microwave, Tv, Sofa, Bed, ShoppingBag, Hospital, School, Coffee, Train, Bus, MapPin, MessageCircle } from 'lucide-react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -20,12 +20,17 @@ const getPropertyDetails = (id: string) => {
       id: '1',
       title: 'Modern Studio in Hongdae',
       price: '800k',
+      maintenanceFee: '50k',
+      maintenanceFeeDetails: ['Water', 'Internet', 'TV', 'Cleaning'],
       deposit: '5M',
       location: 'Mapo-gu • 2min to Hongik Univ.',
       address: '123-45 Hongdae-ro, Mapo-gu, Seoul',
       details: 'Studio • 20m² • 3rd floor',
       description: 'A modern studio apartment in the heart of Hongdae. Perfect for students and young professionals. Walking distance to Hongik University and numerous cafes, restaurants, and nightlife.',
-      amenities: ['WiFi', 'Air Conditioning', 'Refrigerator', 'Washing Machine', 'Microwave'],
+      options: ['WiFi', 'Air Conditioning', 'Refrigerator', 'Washing Machine', 'Microwave', 'TV', 'Bed'],
+      nearbyFacilities: ['Convenience Store 50m', 'Pharmacy 100m', 'Cafe 30m', 'Restaurant 20m'],
+      nearbyStations: ['Hongik Univ. Station (Line 2) - 2min walk', 'Sangsu Station (Line 6) - 8min walk'],
+      transportation: ['Bus 7011, 7013A at Hongik Univ. Station', 'Airport Bus 6002'],
       images: ['placeholder1', 'placeholder2', 'placeholder3'],
       ownerName: 'John Kim',
       ownerRating: 4.8,
@@ -37,12 +42,17 @@ const getPropertyDetails = (id: string) => {
       id: '2',
       title: 'Cozy 1Room Near Gangnam',
       price: '1.2M',
+      maintenanceFee: '80k',
+      maintenanceFeeDetails: ['Water', 'Internet', 'Gas', 'Security'],
       deposit: '10M',
       location: 'Gangnam-gu • 5min to Gangnam Stn',
       address: '567-89 Gangnam-daero, Gangnam-gu, Seoul',
       details: '1Room • 25m² • 2nd floor',
       description: 'Spacious 1-room apartment near Gangnam Station. Great for professionals working in the Gangnam area. Close to shopping and dining.',
-      amenities: ['WiFi', 'Air Conditioning', 'Refrigerator', 'Washing Machine', 'Balcony'],
+      options: ['WiFi', 'Air Conditioning', 'Refrigerator', 'Washing Machine', 'TV', 'Sofa', 'Bed'],
+      nearbyFacilities: ['Shopping Mall 200m', 'Hospital 500m', 'Gym 100m', 'Bank 150m'],
+      nearbyStations: ['Gangnam Station (Line 2) - 5min walk', 'Sinnonhyeon Station (Line 9) - 10min walk'],
+      transportation: ['Bus 140, 144, 145 at Gangnam Station', 'Express Bus Terminal nearby'],
       images: ['placeholder1', 'placeholder2', 'placeholder3'],
       ownerName: 'Sarah Lee',
       ownerRating: 4.9,
@@ -54,12 +64,17 @@ const getPropertyDetails = (id: string) => {
       id: '3',
       title: 'Bright Studio in Itaewon',
       price: '650k',
+      maintenanceFee: '45k',
+      maintenanceFeeDetails: ['Water', 'Internet', 'Elevator'],
       deposit: '3M',
       location: 'Yongsan-gu • 3min to Itaewon Stn',
       address: '321-67 Itaewon-ro, Yongsan-gu, Seoul',
       details: 'Studio • 22m² • 4th floor',
       description: 'Bright and airy studio in international Itaewon district. Perfect for foreigners with easy access to international restaurants and shops.',
-      amenities: ['WiFi', 'Air Conditioning', 'Refrigerator', 'Washing Machine'],
+      options: ['WiFi', 'Air Conditioning', 'Refrigerator', 'Washing Machine', 'Microwave'],
+      nearbyFacilities: ['International Grocery 100m', 'Clinic 200m', 'Park 300m', 'Library 400m'],
+      nearbyStations: ['Itaewon Station (Line 6) - 3min walk', 'Noksapyeong Station (Line 6) - 7min walk'],
+      transportation: ['Bus 400, 405 at Itaewon Station', 'Direct to Seoul Station'],
       images: ['placeholder1', 'placeholder2', 'placeholder3'],
       ownerName: 'Mike Johnson',
       ownerRating: 4.7,
@@ -68,7 +83,7 @@ const getPropertyDetails = (id: string) => {
       contractType: 'Monthly',
     },
   };
-  
+
   return properties[id as keyof typeof properties] || properties['1'];
 };
 
@@ -92,11 +107,25 @@ export default function PropertyDetailScreen() {
   };
 
   const handleContactPress = () => {
-    router.push('/chat/1'); // Navigate to chat with owner
+    router.push('/chat'); // Navigate to chat
   };
 
   const handleCallPress = () => {
     console.log('Call owner');
+  };
+
+  const getOptionIcon = (option: string) => {
+    switch (option) {
+      case 'WiFi': return <Wifi size={24} color="#666" />;
+      case 'Air Conditioning': return <Wind size={24} color="#666" />;
+      case 'Refrigerator': return <Refrigerator size={24} color="#666" />;
+      case 'Washing Machine': return <WashingMachine size={24} color="#666" />;
+      case 'Microwave': return <Microwave size={24} color="#666" />;
+      case 'TV': return <Tv size={24} color="#666" />;
+      case 'Sofa': return <Sofa size={24} color="#666" />;
+      case 'Bed': return <Bed size={24} color="#666" />;
+      default: return <Wifi size={24} color="#666" />;
+    }
   };
 
   const renderImageGallery = () => (
@@ -152,7 +181,6 @@ export default function PropertyDetailScreen() {
           <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
             <ChevronLeft size={24} color="#333" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Property Details</Text>
         </View>
         <View style={styles.headerRight}>
           <TouchableOpacity style={styles.iconButton} onPress={handleSharePress}>
@@ -175,35 +203,98 @@ export default function PropertyDetailScreen() {
         {/* Property Info */}
         <View style={styles.propertyInfo}>
           <View style={styles.priceSection}>
-            <Text style={styles.price}>₩{property.price}/month</Text>
-            <Text style={styles.deposit}>Deposit: ₩{property.deposit}</Text>
+            <Text style={styles.price}>Monthly Rent ₩{property.price}</Text>
+            <Text style={styles.maintenanceFee}>₩{property.maintenanceFee}</Text>
           </View>
-          
-          <Text style={styles.title}>{property.title}</Text>
-          <Text style={styles.details}>{property.details}</Text>
+
           <Text style={styles.location}>{property.location}</Text>
+          <Text style={styles.details}>{property.details}</Text>
           <Text style={styles.address}>{property.address}</Text>
+          <Text style={styles.deposit}>Deposit: ₩{property.deposit}</Text>
+        </View>
+
+        {/* Management Fee Details */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Management Fee</Text>
+          <View style={styles.managementFeeContainer}>
+            <Text style={styles.managementFeeAmount}>₩{property.maintenanceFee}/month</Text>
+            <View style={styles.managementFeeDetails}>
+              <Text style={styles.managementFeeLabel}>Includes:</Text>
+              <Text style={styles.managementFeeItems}>
+                {property.maintenanceFeeDetails.join(' • ')}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Options with Icons */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Options</Text>
+          <View style={styles.optionsGrid}>
+            {property.options.map((option, index) => (
+              <View key={index} style={styles.optionItem}>
+                {getOptionIcon(option)}
+                <Text style={styles.optionText}>{option}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Nearby Facilities */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Nearby Facilities</Text>
+          <View style={styles.facilitiesList}>
+            {property.nearbyFacilities.map((facility, index) => (
+              <View key={index} style={styles.facilityItem}>
+                <ShoppingBag size={16} color="#666" />
+                <Text style={styles.facilityText}>{facility}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Nearby Stations */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Nearby Stations</Text>
+          <View style={styles.stationsList}>
+            {property.nearbyStations.map((station, index) => (
+              <View key={index} style={styles.stationItem}>
+                <Train size={16} color="#2196F3" />
+                <Text style={styles.stationText}>{station}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Transportation */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Transportation</Text>
+          <View style={styles.transportList}>
+            {property.transportation.map((transport, index) => (
+              <View key={index} style={styles.transportItem}>
+                <Bus size={16} color="#4CAF50" />
+                <Text style={styles.transportText}>{transport}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Location Map */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Location</Text>
+          <View style={styles.mapContainer}>
+            <View style={styles.mapPlaceholder}>
+              <MapPin size={32} color="#2196F3" />
+              <Text style={styles.mapText}>Map View</Text>
+              <Text style={styles.mapAddress}>{property.address}</Text>
+            </View>
+          </View>
         </View>
 
         {/* Description */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Description</Text>
           <Text style={styles.description}>{property.description}</Text>
-        </View>
-
-        {/* Amenities */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Amenities</Text>
-          <View style={styles.amenitiesGrid}>
-            {property.amenities.map((amenity, index) => (
-              <View key={index} style={styles.amenityItem}>
-                <View style={styles.checkmark}>
-                  <Text style={styles.checkmarkText}>✓</Text>
-                </View>
-                <Text style={styles.amenityText}>{amenity}</Text>
-              </View>
-            ))}
-          </View>
         </View>
 
         {/* Owner Info */}
@@ -248,7 +339,8 @@ export default function PropertyDetailScreen() {
           <Text style={styles.callButtonText}>Call</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.contactButton} onPress={handleContactPress}>
-          <Text style={styles.contactButtonText}>Contact Owner</Text>
+          <MessageCircle size={20} color="#fff" />
+          <Text style={styles.contactButtonText}>Chat Inquiry</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -359,34 +451,36 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   price: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#2196F3',
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#333',
     marginBottom: 4,
   },
-  deposit: {
-    fontSize: 16,
+  maintenanceFee: {
+    fontSize: 14,
+    fontWeight: '500',
     color: '#666',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#333',
     marginBottom: 8,
   },
-  details: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 4,
-  },
   location: {
-    fontSize: 16,
+    fontSize: 13,
+    color: '#666',
+    marginBottom: 2,
+  },
+  details: {
+    fontSize: 13,
     color: '#666',
     marginBottom: 4,
   },
   address: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#999',
+    marginBottom: 4,
+  },
+  deposit: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#666',
   },
   section: {
     padding: 20,
@@ -404,34 +498,104 @@ const styles = StyleSheet.create({
     color: '#666',
     lineHeight: 24,
   },
-  amenitiesGrid: {
+  managementFeeContainer: {
+    backgroundColor: '#f8f8f8',
+    borderRadius: 12,
+    padding: 16,
+  },
+  managementFeeAmount: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 8,
+  },
+  managementFeeDetails: {
+    gap: 4,
+  },
+  managementFeeLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#666',
+  },
+  managementFeeItems: {
+    fontSize: 14,
+    color: '#999',
+  },
+  optionsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 16,
   },
-  amenityItem: {
-    flexDirection: 'row',
+  optionItem: {
     alignItems: 'center',
-    width: '48%',
-    marginBottom: 8,
+    width: '22%',
     gap: 8,
   },
-  checkmark: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    backgroundColor: '#4CAF50',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkmarkText: {
-    color: '#fff',
+  optionText: {
     fontSize: 12,
-    fontWeight: 'bold',
+    color: '#666',
+    textAlign: 'center',
   },
-  amenityText: {
+  facilitiesList: {
+    gap: 12,
+  },
+  facilityItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  facilityText: {
     fontSize: 14,
     color: '#333',
+  },
+  stationsList: {
+    gap: 12,
+  },
+  stationItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  stationText: {
+    fontSize: 14,
+    color: '#333',
+    flex: 1,
+  },
+  transportList: {
+    gap: 12,
+  },
+  transportItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  transportText: {
+    fontSize: 14,
+    color: '#333',
+    flex: 1,
+  },
+  mapContainer: {
+    height: 200,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  mapPlaceholder: {
+    flex: 1,
+    backgroundColor: '#e8f4f8',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+  },
+  mapText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2196F3',
+  },
+  mapAddress: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
+    paddingHorizontal: 20,
   },
   ownerInfo: {
     flexDirection: 'row',
@@ -511,22 +675,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#fff',
     paddingVertical: 16,
     borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#2196F3',
   },
   callButtonText: {
-    color: '#fff',
+    color: '#2196F3',
     fontSize: 16,
     fontWeight: '600',
   },
   contactButton: {
     flex: 2,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#2196F3',
     paddingVertical: 16,
     borderRadius: 12,
+    gap: 8,
   },
   contactButtonText: {
     color: '#fff',
