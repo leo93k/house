@@ -1,9 +1,9 @@
 # Product Requirements Document (PRD)
-# 외국인 전용 부동산 매물 플랫폼
+# 외국인 전용 부동산/중고차 매물 플랫폼
 
 > **작성일**: 2024년  
-> **버전**: 1.0  
-> **프로젝트명**: House (가칭)  
+> **버전**: 2.0 (현재 구현 기반 업데이트)  
+> **프로젝트명**: House & Car Platform  
 
 ---
 
@@ -11,12 +11,13 @@
 
 ### 1.1 비전 및 미션
 
-**비전**: 한국에 거주하는 외국인들이 가장 쉽고 신뢰할 수 있는 매물 찾기 플랫폼
+**비전**: 한국에 거주하는 외국인들이 가장 쉽고 신뢰할 수 있는 부동산 및 중고차 매물 찾기 플랫폼
 
 **미션**: 
-- 복잡한 한국 부동산 시장을 외국인도 쉽게 이해하고 이용할 수 있도록 단순화
+- 복잡한 한국 부동산 및 중고차 시장을 외국인도 쉽게 이해하고 이용할 수 있도록 단순화
 - 페이스북 그룹의 산발적인 매물 정보를 체계적이고 검증된 플랫폼으로 대체
 - 언어와 문화의 장벽 없이 안전한 매물 거래 환경 제공
+- 부동산과 중고차를 하나의 플랫폼에서 통합 제공하여 사용자 편의성 극대화
 
 ### 1.2 핵심 가치 제안
 
@@ -34,8 +35,9 @@
   - 간단하고 직관적인 서비스 선호
 
 **Secondary Users (2차 사용자)**  
-- **개인 임대인**: 외국인 대상 매물 보유자
+- **개인 임대인/판매자**: 외국인 대상 부동산/중고차 보유자
 - **부동산 중개업소**: 외국인 고객 확보 희망
+- **중고차 딜러**: 외국인 고객 확보 희망
 
 ---
 
@@ -51,11 +53,12 @@
    - 중복 게시물과 만료된 정보 혼재
    - 사기 매물에 대한 검증 시스템 부재
 
-2. **기존 부동산 앱(직방 등)의 진입 장벽**
-   - 복잡한 한국어 전문 용어 (전세, 월세, 관리비 등)
+2. **기존 부동산/중고차 앱의 진입 장벽**
+   - 복잡한 한국어 전문 용어 (전세, 월세, 관리비, 연식, 주행거리 등)
    - 과도한 기능으로 인한 복잡성
    - 외국인 특화 기능 부재
    - 복잡한 회원가입 및 인증 과정
+   - 부동산과 중고차를 별도 플랫폼에서 찾아야 하는 불편함
 
 3. **정보 신뢰성 문제**
    - 부정확한 매물 정보
@@ -64,15 +67,17 @@
 
 ### 2.2 제안하는 솔루션
 
-1. **초간단 매물 검색 플랫폼**
+1. **초간단 통합 매물 검색 플랫폼**
+   - 부동산과 중고차를 하나의 플랫폼에서 제공
    - 5초 내 원하는 매물 검색 가능
    - 3단계 이내 매물 상세정보 확인
    - 원클릭 문의하기 기능
 
 2. **외국인 맞춤 UX/UI**
    - 영어 우선 인터페이스
-   - 한국 부동산 용어 간소화
+   - 한국 부동산/중고차 용어 간소화
    - 직관적 아이콘과 이미지 중심 설계
+   - Stack Navigation 기반의 직관적인 화면 전환
 
 3. **신뢰성 검증 시스템**
    - 매물 등록 시 필수 정보 검증
@@ -88,8 +93,9 @@
 
 **비즈니스 측면:**
 - 월간 활성 사용자(MAU) 10만명 달성 (1년 내)
-- 매물 등록 수 월 1,000건 달성
-- 향후 중고거래 플랫폼으로 확장 기반 마련
+- 부동산 매물 등록 수 월 1,000건 달성
+- 중고차 매물 등록 수 월 500건 달성
+- 통합 플랫폼으로 사용자 편의성 및 리텐션 향상
 
 ---
 
@@ -102,37 +108,49 @@
 **1. 사용자 인증 시스템**
 - Google OAuth 소셜 로그인
 - 기본 프로필 관리
+- 비로그인 사용자도 검색/조회 가능
 
-**2. 매물 검색 기능**
+**2. 부동산(House) 검색 기능**
 - 키워드 검색 (지역명, 역명)
-- 기본 필터 (가격, 매물 유형, 지역)
-- 지도 기반 검색
+- 지도 기반 검색 (/house)
+- 리스트 뷰 (/house/list)
+- 기본 필터 (가격, 거래 유형, 면적)
+- 매물 상세 정보 (/house/[id])
 
-**3. 매물 상세 정보**
-- 기본 정보 (가격, 면적, 위치)
-- 이미지 갤러리
-- 연락처 정보
+**3. 중고차(Car) 검색 기능**
+- 키워드 검색 (모델명, 브랜드, 연식)
+- 리스트 뷰 (/car)
+- 고급 필터 (브랜드, 가격, 연식, 주행거리, 연료, 변속기)
+- 차량 상세 정보 (/car/[id])
 
-**4. 기본 문의 기능**
-- 매물 문의하기
-- 간단한 메시지 전송
+**4. 찜하기 기능**
+- 부동산/중고차 통합 찜 목록 (/saved)
+- 카테고리 필터 (All/House/Car)
+- 사용 가능 매물만 보기 옵션
+
+**5. 기본 문의 기능**
+- 매물/차량 문의하기
+- 실시간 채팅 시스템 (/chat, /chat/[id])
+- 채팅 목록 및 메시지 전송
 
 #### P1 (Should Have) - 1차 확장 기능
 
 **1. 고급 검색 필터**
-- 상세 옵션 필터 (주차, 엘리베이터 등)
+- 부동산: 상세 옵션 필터 (주차, 엘리베이터, 반려동물 등)
+- 중고차: 안전 정보, 옵션 필터
 - 저장된 검색 조건
 - 검색 알림 기능
 
 **2. 사용자 기능 확장**
-- 찜하기 기능
-- 최근 본 매물
+- 최근 본 매물/차량
 - 사용자 리뷰 시스템
+- 프로필 관리 (/profile, /myprofile)
+- 알림 시스템 (/notifications)
 
-**3. 실시간 채팅**
-- 매물 문의 채팅
+**3. 실시간 채팅 고도화**
 - 이미지 전송
 - 푸시 알림
+- 읽음 확인 기능
 
 #### P2 (Could Have) - 향후 확장 기능
 
@@ -143,6 +161,11 @@
 **2. 중고거래 기능 (장기 목표)**
 - 가구/생활용품 거래
 - 동네 기반 거래
+
+**3. 매물 등록 기능**
+- 사용자 직접 매물 등록
+- 이미지 업로드
+- 매물 관리 대시보드
 
 ### 3.2 상세 기능 명세
 
@@ -160,23 +183,39 @@
 - 토큰 만료: Access Token 1시간, Refresh Token 30일
 - 자동 로그인 유지
 
-#### 3.2.2 매물 검색 기능
+#### 3.2.2 부동산 검색 기능
 
 **요구사항:**
 - REQ-SEARCH-001: 키워드 검색 응답 시간은 2초 이내여야 한다
 - REQ-SEARCH-002: 검색 결과는 10개씩 페이지네이션되어야 한다
 - REQ-SEARCH-003: 지도 검색 시 현재 화면 영역의 매물만 표시해야 한다
 - REQ-SEARCH-004: 필터 조합 시 실시간으로 결과 수가 업데이트되어야 한다
+- REQ-SEARCH-005: 지도 뷰와 리스트 뷰 간 전환이 원활해야 한다
 
 **기술 명세:**
 - Elasticsearch 또는 Algolia를 활용한 검색 엔진
-- 카카오맵 API 연동
+- 카카오맵 API 연동 (향후 구현)
 - 무한 스크롤 또는 페이지네이션 구현
 - 검색 쿼리 캐싱 (Redis)
+- 최근 검색어 저장 (로컬 스토리지)
 
-#### 3.2.3 매물 데이터 모델
+#### 3.2.3 중고차 검색 기능
 
-**Property (매물) 테이블:**
+**요구사항:**
+- REQ-CAR-SEARCH-001: 키워드 검색 응답 시간은 2초 이내여야 한다
+- REQ-CAR-SEARCH-002: 브랜드, 가격, 연식, 주행거리, 연료, 변속기 필터 조합 지원
+- REQ-CAR-SEARCH-003: 필터 조합 시 실시간으로 결과 수가 업데이트되어야 한다
+- REQ-CAR-SEARCH-004: 검색 결과는 10개씩 페이지네이션되어야 한다
+
+**기술 명세:**
+- Elasticsearch를 활용한 검색 엔진
+- 복합 필터링 지원
+- 검색 쿼리 캐싱 (Redis)
+- 최근 검색어 저장 (로컬 스토리지)
+
+#### 3.2.4 데이터 모델
+
+**Property (부동산 매물) 테이블:**
 ```sql
 CREATE TABLE properties (
   id VARCHAR(36) PRIMARY KEY,
@@ -199,6 +238,48 @@ CREATE TABLE properties (
   owner_id VARCHAR(36) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+**Car (중고차) 테이블:**
+```sql
+CREATE TABLE cars (
+  id VARCHAR(36) PRIMARY KEY,
+  brand VARCHAR(50) NOT NULL,
+  model VARCHAR(100) NOT NULL,
+  year INT NOT NULL,
+  price INT NOT NULL,
+  mileage INT NOT NULL,
+  fuel_type ENUM('gasoline', 'diesel', 'hybrid', 'electric') NOT NULL,
+  transmission ENUM('automatic', 'manual') NOT NULL,
+  engine_size VARCHAR(20),
+  color VARCHAR(50),
+  description TEXT,
+  address VARCHAR(500),
+  latitude DECIMAL(10, 8),
+  longitude DECIMAL(11, 8),
+  accident_history BOOLEAN DEFAULT FALSE,
+  insurance_history TEXT,
+  features JSON, -- Navigation, Sunroof, Leather, etc.
+  seller_type ENUM('dealer', 'individual') DEFAULT 'individual',
+  seller_id VARCHAR(36) NOT NULL,
+  status ENUM('available', 'reserved', 'sold') DEFAULT 'available',
+  view_count INT DEFAULT 0,
+  like_count INT DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+```
+
+**Favorites (찜하기) 테이블:**
+```sql
+CREATE TABLE favorites (
+  id VARCHAR(36) PRIMARY KEY,
+  user_id VARCHAR(36) NOT NULL,
+  item_type ENUM('property', 'car') NOT NULL,
+  item_id VARCHAR(36) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_favorite (user_id, item_type, item_id)
 );
 ```
 
@@ -234,6 +315,32 @@ Acceptance Criteria:
 - 저장된 검색 조건으로 알림 설정 가능
 ```
 
+**User Story 3**: 중고차 검색 및 필터링
+```
+As a: 한국에서 차를 구매하려는 외국인
+I want to: 예산과 조건에 맞는 중고차를 검색하고 싶다
+So that: 신뢰할 수 있는 차량을 효율적으로 찾을 수 있다
+
+Acceptance Criteria:
+- 브랜드, 가격, 연식, 주행거리로 필터링 가능
+- 안전 정보(사고 이력, 보험 이력) 확인 가능
+- 차량 옵션 및 특징 확인 가능
+- 판매자 정보 및 평점 확인 가능
+```
+
+**User Story 4**: 통합 찜 목록 관리
+```
+As a: 부동산과 중고차를 모두 관심 있는 외국인
+I want to: 관심 있는 부동산과 중고차를 하나의 목록에서 관리하고 싶다
+So that: 쉽게 비교하고 선택할 수 있다
+
+Acceptance Criteria:
+- 부동산과 중고차를 통합 찜 목록에서 확인 가능
+- 카테고리별 필터링 (All/House/Car) 가능
+- 사용 가능 매물만 보기 옵션
+- 찜한 항목에서 바로 상세 페이지 이동 가능
+```
+
 ---
 
 ## 4. 비기능 요구사항
@@ -252,9 +359,10 @@ Acceptance Criteria:
 - 초당 매물 조회: 500 QPS
 
 **용량:**
-- 매물 데이터: 10만 건 (1년 내 목표)
-- 이미지 저장: 1TB (CDN 활용)
-- 데이터베이스: 100GB
+- 부동산 매물 데이터: 10만 건 (1년 내 목표)
+- 중고차 매물 데이터: 5만 건 (1년 내 목표)
+- 이미지 저장: 1.5TB (CDN 활용)
+- 데이터베이스: 150GB
 
 ### 4.2 보안 요구사항
 
@@ -307,6 +415,7 @@ Acceptance Criteria:
 │     Microservices               │
 ├─ User Service (Node.js)         │
 ├─ Property Service (Node.js)     │
+├─ Car Service (Node.js)          │
 ├─ Search Service (Node.js)       │
 ├─ Chat Service (Socket.io)       │
 └─ Notification Service (Node.js) │
@@ -324,10 +433,12 @@ Acceptance Criteria:
 ### 5.2 기술 스택 선택 근거
 
 **Frontend (Mobile App):**
-- **React Native + Expo**: 
+- **React Native + Expo + Expo Router**: 
   - 빠른 프로토타이핑과 크로스플랫폼 개발
   - 기존 웹 개발 경험 활용 가능
   - OTA 업데이트로 빠른 배포
+  - Stack Navigation 기반 파일 시스템 라우팅
+  - 타입 안전한 네비게이션
 
 **Backend:**
 - **Node.js + TypeScript**:
@@ -365,15 +476,16 @@ Users                    Properties                 PropertyImages
 │ phone       │  │   │  │ property_type   │   │    │ order_seq    │
 │ profile_img │  │   │  │ deposit_amount  │   │    └──────────────┘
 │ created_at  │  │   │  │ monthly_rent    │   │
-└─────────────┘  │   │  │ area_size       │   │    Inquiries
+└─────────────┘  │   │  │ area_size       │   │    Cars
                  │   │  │ address         │   │    ┌──────────────┐
 Favorites        │   │  │ latitude        │   │    │ id (PK)      │
-┌─────────────┐  │   │  │ longitude       │   │    │ property_id  │
-│ id (PK)     │  │   │  │ owner_id (FK)   │───┘    │ user_id (FK) │
-│ user_id (FK)│──┘   │  │ created_at      │        │ message      │
-│property_id  │──────┘  └─────────────────┘        │ created_at   │
-│ created_at  │                                    └──────────────┘
-└─────────────┘
+┌─────────────┐  │   │  │ longitude       │   │    │ brand        │
+│ id (PK)     │  │   │  │ owner_id (FK)   │───┘    │ model        │
+│ user_id (FK)│──┘   │  │ created_at      │        │ year         │
+│item_type    │──────┘  └─────────────────┘        │ price        │
+│item_id      │                                    │ mileage      │
+│ created_at  │                                    │ seller_id(FK)│
+└─────────────┘                                    └──────────────┘
 ```
 
 #### 5.3.2 API 설계
@@ -381,15 +493,23 @@ Favorites        │   │  │ latitude        │   │    │ id (PK)      �
 **RESTful API 엔드포인트:**
 
 ```typescript
-// 매물 관련 API
+// 부동산 매물 관련 API
 GET    /api/properties              // 매물 목록 조회
 GET    /api/properties/:id          // 매물 상세 조회
 POST   /api/properties              // 매물 등록 (인증 필요)
 PUT    /api/properties/:id          // 매물 수정 (소유자만)
 DELETE /api/properties/:id          // 매물 삭제 (소유자만)
 
+// 중고차 관련 API
+GET    /api/cars                    // 중고차 목록 조회
+GET    /api/cars/:id                // 중고차 상세 조회
+POST   /api/cars                    // 중고차 등록 (인증 필요)
+PUT    /api/cars/:id                // 중고차 수정 (소유자만)
+DELETE /api/cars/:id                // 중고차 삭제 (소유자만)
+
 // 검색 관련 API
-GET    /api/search/properties       // 매물 검색
+GET    /api/search/properties       // 부동산 검색
+GET    /api/search/cars             // 중고차 검색
 GET    /api/search/autocomplete     // 검색 자동완성
 POST   /api/search/saved            // 검색 조건 저장 (인증 필요)
 
@@ -400,12 +520,17 @@ GET    /api/users/profile           // 프로필 조회 (인증 필요)
 PUT    /api/users/profile           // 프로필 수정 (인증 필요)
 
 // 즐겨찾기 관련 API
-GET    /api/favorites               // 찜 목록 조회 (인증 필요)
-POST   /api/favorites/:propertyId   // 찜 추가 (인증 필요)
-DELETE /api/favorites/:propertyId   // 찜 해제 (인증 필요)
+GET    /api/favorites               // 찜 목록 조회 (인증 필요, 통합)
+POST   /api/favorites               // 찜 추가 (인증 필요, item_type, item_id)
+DELETE /api/favorites/:id          // 찜 해제 (인증 필요)
+
+// 채팅 관련 API
+GET    /api/chat                    // 채팅 목록 조회 (인증 필요)
+GET    /api/chat/:id                // 채팅방 조회 (인증 필요)
+POST   /api/chat/:id/messages       // 메시지 전송 (인증 필요)
 
 // 문의 관련 API
-POST   /api/inquiries               // 매물 문의 (인증 필요)
+POST   /api/inquiries               // 매물/차량 문의 (인증 필요)
 GET    /api/inquiries               // 내 문의 목록 (인증 필요)
 ```
 
@@ -437,17 +562,34 @@ Google 로그인 → 기본 프로필 설정 → 메인 화면
    - 로그인 없이 검색/조회 가능
    - 찜하기, 문의하기 시 로그인 유도
 
-#### 6.1.2 매물 검색 플로우
+#### 6.1.2 부동산 검색 플로우
 
 ```
-메인 화면 → 검색 조건 입력 → 검색 결과 리스트 → 매물 상세 → 
-찜하기/문의하기 → (비로그인 시) 로그인 → 문의 메시지 작성 → 전송 완료
+홈 화면 → House 카드 탭 → House Map (/house) → 
+검색 바 탭 → Search Screen (/house/search) → 
+검색어 입력/선택 → 결과 필터링 → 
+Property Card 탭 → Property Detail (/house/[id]) →
+Chat Inquiry → Chat Room (/chat/[id])
 ```
 
 **검색 옵션:**
-- **빠른 검색**: 지역명/역명 입력
-- **지도 검색**: 지도에서 직접 영역 선택
-- **상세 필터**: 가격, 유형, 옵션 조합
+- **빠른 검색**: 지역명/역명 입력 (/house/search)
+- **지도 검색**: 지도에서 직접 영역 선택 (/house)
+- **리스트 뷰**: 리스트 형식으로 매물 확인 (/house/list)
+- **상세 필터**: 가격, 거래 유형, 면적 조합 (Bottom Sheet)
+
+#### 6.1.3 중고차 검색 플로우
+
+```
+홈 화면 → Car 카드 탭 → Car List (/car) → 
+필터 적용 또는 Search → Car Card 탭 → 
+Car Detail (/car/[id]) → Chat Inquiry → Chat Room (/chat/[id])
+```
+
+**검색 옵션:**
+- **빠른 검색**: 모델명/브랜드/연식 입력 (/car/search)
+- **고급 필터**: 브랜드, 가격, 연식, 주행거리, 연료, 변속기 (Bottom Sheet)
+- **리스트 뷰**: 스크롤 가능한 차량 목록
 
 ### 6.2 UI/UX 가이드라인
 
@@ -490,41 +632,76 @@ caption: 12px, font-weight: 400, line-height: 16px
 
 #### 6.2.2 핵심 화면 와이어프레임
 
-**1. 메인 화면 (홈)**
+**1. 메인 화면 (홈) - 카테고리 선택**
 ```
 ┌─────────────────────────────┐
-│ ☰  House        🔔 👤      │ Header (60px)
+│ [👤 Avatar] House [❤️] [🔔] │ Header (60px)
 ├─────────────────────────────┤
-│ 🔍 Search location or stat..│ Search Bar (48px)
-├─────────────────────────────┤
-│ 📍 Near Gangnam Station     │ Quick Filters
-│ 💰 Under ₩500k  🏠 Studio   │ (scrollable)
-├─────────────────────────────┤
-│ 📍 Recommended for you      │ Section Title
 │                             │
-│ [Property Card 1]           │ Property Cards
-│ [Property Card 2]           │ (vertical scroll)
-│ [Property Card 3]           │
+│   What are you looking for? │ Welcome Section
+│                             │
+│  ┌─────────────────────┐   │
+│  │      🏠 HOUSE       │   │ Category Card
+│  │  Find your home     │   │ → /house
+│  └─────────────────────┘   │
+│                             │
+│  ┌─────────────────────┐   │
+│  │      🚗 CAR         │   │ Category Card
+│  │  Find your car      │   │ → /car
+│  └─────────────────────┘   │
+│                             │
+│  ┌─────┐ ┌─────┐ ┌─────┐   │ Quick Stats
+│  │12.5k│ │5.2k │ │ 25+ │   │
+│  │List │ │Users│ │City │   │
+│  └─────┘ └─────┘ └─────┘   │
+│                             │
+│      Recent Activity        │ Activity Section
 │                             │
 └─────────────────────────────┘
-│     🏠 ❤️ 🔍 💬 👤         │ Bottom Tab
+```
+**참고**: Stack Navigation 구조로 Bottom Tab이 없음
+
+**2. 부동산 지도 화면 (/house)**
+```
+┌─────────────────────────────┐
+│ [← Back] House        [❤️]  │ Header
+├─────────────────────────────┤
+│ 📍 Pyeongchang-gun      ▼   │ Location Bar
+├─────────────────────────────┤
+│ 🔍 Search location...       │ Search Bar → /house/search
+├─────────────────────────────┤
+│ [Price▼][Real Trans][Area▼] │ Filter Chips
+├─────────────────────────────┤
+│ [🗺️ Map] [📋 List]          │ View Toggle
+├─────────────────────────────┤
+│                             │
+│      Interactive Map        │ Map Area
+│      Property Markers       │
+│                             │
+│  ┌─────────────────────┐   │ Preview Card
+│  │ Property Preview    │   │ (Bottom slide-up)
+│  └─────────────────────┘   │
 └─────────────────────────────┘
 ```
 
-**2. 검색 결과 화면**
+**3. 중고차 리스트 화면 (/car)**
 ```
 ┌─────────────────────────────┐
-│ ← Results (23)     📍 🔧    │ Header with count
+│ [← Back] Car          [❤️]  │ Header
 ├─────────────────────────────┤
-│ 🗺️ Map View               │ Map Toggle (40px)
+│ 📍 Seoul, Korea         ▼   │ Location Bar
 ├─────────────────────────────┤
-│ [Property Card]             │ 
-│ 📷 ₩300k/month            │ Property List
-│ 📍 Hongdae, 1 min walk     │ (cards with image,
-│ 🏠 Studio · 20m² · 3rd fl. │  price, location,
-│ ──────────────────────────  │  basic info)
-│ [Property Card]             │
-│ [Property Card]             │
+│ 🔍 Search car...            │ Search Bar → /car/search
+├─────────────────────────────┤
+│ [Brand][Price][Year][Fuel]  │ Filter Chips
+├─────────────────────────────┤
+│ Found 23 cars               │ Results Count
+├─────────────────────────────┤
+│ [Car Card]                  │ Car Cards
+│ 📷 Hyundai Sonata 2022      │ (ScrollView)
+│ ₩28,500,000                 │
+│ 2022 • 35,000km • Gasoline  │
+│ 👁️ 1,250  ❤️ 89            │
 │                             │
 └─────────────────────────────┘
 ```
@@ -540,8 +717,10 @@ caption: 12px, font-weight: 400, line-height: 16px
 
 **문화적 고려사항:**
 - 가격 표시: 원화 + USD 환산 표시 옵션
-- 면적 단위: 제곱미터 + 평수 병기
-- 교통 정보: 도보 거리 + 지하철역 정보 강조
+- 면적 단위: 제곱미터 + 평수 병기 (부동산)
+- 주행거리: 킬로미터 단위 (중고차)
+- 교통 정보: 도보 거리 + 지하철역 정보 강조 (부동산)
+- 연료 타입: Gasoline, Diesel, Hybrid, Electric (중고차)
 
 #### 6.3.2 접근성 표준 준수
 
@@ -559,17 +738,18 @@ caption: 12px, font-weight: 400, line-height: 16px
 
 #### 7.1.1 개발 로드맵 (총 6개월)
 
-**Phase 1: MVP 개발 (2개월)**
-- Week 1-2: 프로젝트 설정, 인프라 구축
-- Week 3-4: 사용자 인증, 기본 API 개발
-- Week 5-6: 매물 검색 및 상세 화면
-- Week 7-8: 기본 문의 기능, MVP 테스트
+**Phase 1: MVP 개발 (2개월) - ✅ 완료**
+- Week 1-2: 프로젝트 설정, 인프라 구축 ✅
+- Week 3-4: Stack Navigation 구조, 기본 화면 구현 ✅
+- Week 5-6: 부동산 모듈 (지도, 리스트, 검색, 상세) ✅
+- Week 7-8: 중고차 모듈 (리스트, 검색, 상세) ✅
+- Week 7-8: 찜하기, 채팅, 프로필 화면 ✅
 
-**Phase 2: 핵심 기능 확장 (2개월)**  
-- Week 9-10: 고급 검색 필터, 지도 기능
-- Week 11-12: 실시간 채팅 시스템
-- Week 13-14: 찜하기, 알림 기능
-- Week 15-16: 사용자 피드백 반영, 최적화
+**Phase 2: 핵심 기능 확장 (2개월) - 진행 중**  
+- Week 9-10: 실제 지도 API 연동 (카카오맵/구글맵)
+- Week 11-12: 백엔드 API 연동, 사용자 인증 시스템
+- Week 13-14: 실시간 채팅 시스템 (Socket.io)
+- Week 15-16: 이미지 업로드/표시, 푸시 알림
 
 **Phase 3: 서비스 런칭 준비 (2개월)**
 - Week 17-18: 성능 최적화, 보안 강화
@@ -579,11 +759,16 @@ caption: 12px, font-weight: 400, line-height: 16px
 
 #### 7.1.2 주요 마일스톤
 
-**M1: MVP 완성 (8주차)**
-- 기본 매물 검색 및 조회 기능
-- Google 로그인
-- 기본 문의 기능
-- 성공 지표: 기본 사용자 플로우 완성
+**M1: MVP 완성 (8주차) - ✅ 완료**
+- ✅ Stack Navigation 구조 완성
+- ✅ 부동산 모듈 (지도, 리스트, 검색, 상세) 구현
+- ✅ 중고차 모듈 (리스트, 검색, 상세) 구현
+- ✅ 찜하기 기능 (통합 목록)
+- ✅ 채팅 인터페이스 기본 구조
+- ✅ 프로필 및 알림 화면
+- ⏳ Google 로그인 (구현 예정)
+- ⏳ 실제 API 연동 (구현 예정)
+- 성공 지표: ✅ 기본 사용자 플로우 완성
 
 **M2: 핵심 기능 완성 (16주차)**
 - 모든 P0, P1 기능 구현
@@ -674,9 +859,11 @@ caption: 12px, font-weight: 400, line-height: 16px
 #### 8.1.2 비즈니스 관련 지표
 
 **매물 관련:**
-- **등록 매물 수**: 월 1,000건 신규 등록
-- **활성 매물 수**: 상시 5,000건 유지
-- **매물 조회수**: 월 100만 뷰
+- **부동산 등록 수**: 월 1,000건 신규 등록
+- **중고차 등록 수**: 월 500건 신규 등록
+- **활성 부동산 매물 수**: 상시 5,000건 유지
+- **활성 중고차 매물 수**: 상시 2,500건 유지
+- **매물 조회수**: 월 100만 뷰 (부동산 + 중고차 통합)
 
 **거래 관련:**
 - **문의 생성률**: 매물 조회 대비 5%
@@ -726,22 +913,27 @@ caption: 12px, font-weight: 400, line-height: 16px
 // 사용자 행동 이벤트
 'user_signup'              // 회원가입
 'user_login'               // 로그인
-'property_search'          // 매물 검색
-'property_view'            // 매물 상세 조회
-'property_favorite'        // 매물 찜하기
+'home_category_selected'   // 홈에서 카테고리 선택 (House/Car)
+'property_search'          // 부동산 검색
+'car_search'               // 중고차 검색
+'property_view'            // 부동산 상세 조회
+'car_view'                 // 중고차 상세 조회
+'favorite_added'           // 찜하기 (통합)
+'favorite_removed'         // 찜 해제
 'inquiry_send'             // 문의 전송
 'chat_message_sent'        // 채팅 메시지 전송
 
 // 비즈니스 이벤트
-'property_posted'          // 매물 등록
+'property_posted'          // 부동산 등록
+'car_posted'               // 중고차 등록
 'inquiry_received'         // 문의 수신
 'inquiry_replied'          // 문의 응답
 ```
 
 **퍼널 분석:**
 ```
-앱 설치 → 첫 실행 → 검색 → 매물 조회 → 문의 → 응답 수신
-   100% → 70% → 50% → 30% → 5% → 3%
+앱 설치 → 첫 실행 → 카테고리 선택 → 검색 → 매물 조회 → 문의 → 응답 수신
+   100% → 70% → 60% → 50% → 30% → 5% → 3%
 ```
 
 ### 8.3 목표 수치
@@ -751,25 +943,29 @@ caption: 12px, font-weight: 400, line-height: 16px
 **MVP 런칭 후 1개월:**
 - DAU: 500명
 - MAU: 2,000명
-- 매물 등록: 100건
+- 부동산 등록: 100건/월
+- 중고차 등록: 50건/월
 - 앱 다운로드: 5,000건
 
 **런칭 후 3개월:**
 - DAU: 2,000명  
 - MAU: 8,000명
-- 매물 등록: 500건/월
+- 부동산 등록: 500건/월
+- 중고차 등록: 250건/월
 - 문의 수: 1,000건/월
 
 **런칭 후 6개월:**
 - DAU: 5,000명
 - MAU: 20,000명
-- 매물 등록: 1,000건/월
+- 부동산 등록: 1,000건/월
+- 중고차 등록: 500건/월
 - 문의 수: 3,000건/월
 
 **런칭 후 1년:**
 - DAU: 10,000명
 - MAU: 50,000명
-- 매물 등록: 2,000건/월
+- 부동산 등록: 2,000건/월
+- 중고차 등록: 1,000건/월
 - 수익: 월 1,000만원
 
 #### 8.3.2 성공 기준
@@ -782,7 +978,8 @@ caption: 12px, font-weight: 400, line-height: 16px
 **서비스 성공 기준 (6개월):**
 - ✅ MAU 20,000명 달성
 - ✅ 앱스토어 평점 4.0 이상
-- ✅ 월 매물 등록 1,000건 달성
+- ✅ 월 부동산 등록 1,000건 달성
+- ✅ 월 중고차 등록 500건 달성
 - ✅ 사용자 리텐션 30일 30% 이상
 
 **장기 성공 기준 (1년):**
@@ -800,6 +997,11 @@ caption: 12px, font-weight: 400, line-height: 16px
 - **최종 승인일**: [날짜]
 
 **변경 이력:**
-- v1.0 (2024.XX.XX): 초기 PRD 작성
-- v1.1 (예정): 베타 테스트 피드백 반영
-- v1.2 (예정): MVP 런칭 후 업데이트
+- v1.0 (2024.XX.XX): 초기 PRD 작성 (부동산 중심)
+- v2.0 (2024.XX.XX): 현재 구현 기반 업데이트
+  - 중고차(Car) 모듈 추가
+  - Stack Navigation 구조 반영
+  - 통합 찜하기 기능 추가
+  - 현재 구현된 화면 구조 반영
+  - 데이터 모델 확장 (Car, Favorites)
+  - API 설계 업데이트

@@ -1,9 +1,9 @@
 # Information Architecture (IA) 문서
-# 외국인 전용 부동산 매물 플랫폼
+# 외국인 전용 부동산/중고차 매물 플랫폼
 
-> **작성일**: 2024년  
-> **버전**: 1.0  
-> **프로젝트명**: House (가칭)  
+> **작성일**: 2024년
+> **버전**: 2.0 (현재 구현 기반 업데이트)
+> **프로젝트명**: House & Car Platform
 > **관련 문서**: [PRD.md](./PRD.md)
 
 ---
@@ -11,7 +11,7 @@
 ## 1. 문서 개요
 
 ### 1.1 목적
-이 문서는 외국인 전용 부동산 매물 플랫폼의 정보 구조(Information Architecture)를 정의하며, 사용자가 서비스를 직관적이고 효율적으로 이용할 수 있도록 화면 구성, 내비게이션 플로우, 정보 계층을 체계화합니다.
+이 문서는 외국인 전용 부동산/중고차 매물 플랫폼의 정보 구조(Information Architecture)를 정의하며, 사용자가 서비스를 직관적이고 효율적으로 이용할 수 있도록 화면 구성, 내비게이션 플로우, 정보 계층을 체계화합니다.
 
 ### 1.2 설계 원칙
 - **Simple & Clean**: 직방 대비 80% 간소화된 구조
@@ -28,391 +28,430 @@
 ```
 ┌─────────────────────────────────────┐
 │              Header Area            │ <- 60px
-│  Logo/Title + Location + Actions     │
+│  Back Button + Title + Actions      │
 ├─────────────────────────────────────┤
 │                                     │
 │            Content Area             │ <- Flexible
-│         (각 탭별 고유 콘텐츠)          │
+│       (Stack Navigation 기반)        │
 │                                     │
-├─────────────────────────────────────┤
-│            Bottom Tab Bar           │ <- 80px
-│  🏠 Home │ ❤️ Saved │ ➕ Post │ 💬 Chat │ 👤 Profile │
 └─────────────────────────────────────┘
 ```
 
-### 2.2 Bottom Tab Navigation
+### 2.2 Stack Navigation (Expo Router)
 
-| 탭 | 아이콘 | 라벨 | 주요 기능 | 우선순위 |
-|---|------|-----|---------|---------|
-| Home | 🏠 | Home | 매물 검색/둘러보기 | P0 |
-| Saved | ❤️ | Saved | 찜한 매물 관리 | P1 |
-| Post | ➕ | Post | 매물 등록 | P1 |
-| Chat | 💬 | Chat | 문의 채팅 | P0 |
-| Profile | 👤 | Profile | 사용자 설정 | P1 |
+현재 구현된 앱은 **Stack Navigation** 구조를 사용합니다 (Bottom Tab이 아님).
+
+| 화면 경로 | 파일 | 주요 기능 | 우선순위 |
+|----------|------|---------|---------|
+| / | app/index.tsx | 카테고리 선택 홈 | P0 |
+| /house | app/house/index.tsx | 부동산 지도 검색 | P0 |
+| /house/list | app/house/list.tsx | 부동산 리스트 보기 | P0 |
+| /house/search | app/house/search.tsx | 부동산 검색 | P0 |
+| /house/[id] | app/house/[id].tsx | 부동산 상세 | P0 |
+| /car | app/car/index.tsx | 중고차 리스트 | P0 |
+| /car/search | app/car/search.tsx | 중고차 검색 | P0 |
+| /car/[id] | app/car/[id].tsx | 중고차 상세 | P0 |
+| /saved | app/saved.tsx | 찜 목록 | P1 |
+| /profile | app/profile.tsx | 사용자 프로필 | P1 |
+| /myprofile | app/myprofile.tsx | 내 프로필 관리 | P1 |
+| /chat | app/chat/index.tsx | 채팅 목록 | P0 |
+| /chat/[id] | app/chat/[id].tsx | 채팅방 | P0 |
+| /notifications | app/notifications.tsx | 알림 | P1 |
 
 ---
 
 ## 3. 화면별 상세 IA
 
-### 3.1 홈 탭 (🏠 Home)
+### 3.1 홈 화면 (/)
 
 #### 3.1.1 화면 구조
 ```
-Home Screen
+Home Screen (Category Selection)
 ├── Header (60px)
-│   ├── App Logo (좌측)
-│   ├── Location Chip (중앙) - "Seoul, Korea"
-│   └── Notification Bell (우측)
-├── Search Section (100px)
-│   ├── Search Bar - "Search location or station..."
-│   └── Voice Search Icon
-├── Quick Filters (60px) - 수평 스크롤
-│   ├── "Near Stations" 🚇
-│   ├── "Under ₩500k" 💰
-│   ├── "Studio" 🏠
-│   ├── "Pet OK" 🐕
-│   └── "More Filters" ⚙️
-├── Content Sections (스크롤)
-│   ├── "Recommended for you" (맞춤 추천)
-│   ├── "Popular near you" (지역 인기)
-│   ├── "Recently viewed" (최근 본)
-│   └── "Price dropped" (가격 하락)
-└── Property Cards
-    ├── Image (200px height)
-    ├── Price Badge (overlay)
-    ├── Property Info (80px)
-    └── Quick Actions (❤️, 💬)
+│   ├── Profile Avatar (좌측) - 프로필 이동
+│   ├── App Title "House" (중앙)
+│   └── Action Buttons (우측)
+│       ├── Heart Icon - 찜 목록
+│       └── Bell Icon - 알림
+├── Welcome Section
+│   └── "What are you looking for?"
+├── Category Cards (주요 기능)
+│   ├── House Card
+│   │   ├── Home Icon
+│   │   ├── "House"
+│   │   └── Description text
+│   └── Car Card
+│       ├── Car Icon
+│       ├── "Car"
+│       └── Description text
+├── Quick Stats Section
+│   ├── Total Listings (구분된 카드)
+│   ├── Active Users
+│   └── Cities
+└── Recent Activity (최근 활동)
+    ├── Activity Items
+    └── "View More" 링크
 ```
 
-#### 3.1.2 Property Card 구조
-```
-Property Card (320x280px)
-├── Image Container (320x200px)
-│   ├── Main Image
-│   ├── Price Badge (좌상단)
-│   ├── Image Count (우상단) - "1/8"
-│   └── Heart Icon (우하단)
-├── Content Container (320x80px)
-│   ├── Title (1줄, 16px, bold)
-│   ├── Location (1줄, 14px, gray) - "Hongdae • 3 min walk to station"
-│   ├── Details (1줄, 14px) - "Studio • 20m² • 3rd floor"
-│   └── Posted Time (12px, gray) - "2 hours ago"
-└── Action Area
-    ├── Heart Button (찜하기)
-    └── Message Button (문의하기)
-```
+### 3.2 부동산 화면 (/house)
 
-### 3.2 검색 결과 화면
-
-#### 3.2.1 Search Results Structure
+#### 3.2.1 지도 검색 화면 구조
 ```
-Search Results Screen
+House Map Screen
 ├── Header (60px)
-│   ├── Back Arrow
-│   ├── Search Query Display
-│   └── Map Toggle Switch
-├── Filter Bar (50px)
-│   ├── Sort Dropdown - "Sort by: Recent"
-│   ├── Filter Button - "Filters (3)"
-│   └── Results Count - "23 properties"
-├── Map View (Optional, 300px)
-│   ├── Property Markers
+│   ├── Back Button (좌측)
+│   ├── "House" Title (중앙)
+│   └── Heart Icon (우측) - 찜 목록
+├── Location Bar
+│   ├── MapPin Icon
+│   ├── Current Location - "Pyeongchang-gun"
+│   └── ChevronDown - 변경 옵션
+├── Search Bar (터치 시 /house/search로 이동)
+│   ├── Search Icon
+│   └── "Search location or apartment..."
+├── Quick Filters (수평 스크롤)
+│   ├── "Price" (Slider 포함)
+│   ├── "Real Transactions"
+│   ├── "Area ㎡" (Slider 포함)
+│   └── Reset Button
+├── Filter Modal (Bottom Sheet, 80%)
+│   ├── Header - "Filters"
+│   ├── Overlay (터치 시 닫힘)
+│   ├── Filter Options
+│   │   ├── Transaction Type (실거래/매매/전세/월세)
+│   │   ├── Price Range Sliders
+│   │   └── Area Range Slider (㎡ 단위)
+│   └── Action Buttons
+│       ├── Reset (좌측)
+│       └── Apply (우측)
+├── View Toggle
+│   ├── Map View Button (현재 활성)
+│   └── List View Button (/house/list로 이동)
+├── Map Area (Flexible)
+│   ├── Interactive Map
+│   ├── Property Markers (원형 가격 표시)
 │   ├── Cluster Groups
-│   ├── Zoom Controls
-│   └── Center on Location Button
-└── Results List
-    ├── Property Cards (동일한 구조)
-    ├── Load More Button
-    └── End of Results Message
+│   └── Zoom Controls
+└── Property Preview Cards (하단 슬라이드업)
+    ├── Image (Camera placeholder)
+    ├── Price Info - "Monthly Rent ₩XXXk"
+    ├── Maintenance Fee
+    ├── Location
+    ├── Details
+    └── Stats (Eye + Heart counts)
 ```
 
-#### 3.2.2 Filter Modal Structure
+#### 3.2.2 부동산 리스트 화면 (/house/list)
 ```
-Filter Modal (Bottom Sheet)
-├── Header
-│   ├── "Filters"
-│   ├── Reset Button
-│   └── Close Button
-├── Filter Categories (스크롤)
-│   ├── Price Range
-│   │   ├── Deposit Slider (0 - 100M KRW)
-│   │   └── Monthly Rent Slider (0 - 5M KRW)
-│   ├── Property Type
-│   │   ├── Studio ✓
-│   │   ├── One Room
-│   │   ├── Two Room
-│   │   └── Three+ Room
-│   ├── Location
-│   │   ├── Distance from Station
-│   │   └── Specific Areas
-│   ├── Features
-│   │   ├── Parking Available
-│   │   ├── Elevator
-│   │   ├── Pet Friendly
-│   │   └── Furnished
-│   └── Building Info
-│       ├── Floor Preference
-│       └── Building Age
-└── Apply Button - "Show X properties"
-```
-
-### 3.3 매물 상세 화면
-
-#### 3.3.1 Property Detail Structure
-```
-Property Detail Screen
+House List Screen
 ├── Header (60px)
-│   ├── Back Arrow
-│   ├── Share Button
-│   └── Heart Toggle
-├── Image Gallery (300px)
-│   ├── Main Image View
-│   ├── Thumbnail Strip (하단)
-│   └── Full Screen Button
-├── Basic Info Section (120px)
-│   ├── Property Title
-│   ├── Price Information
-│   │   ├── Deposit: ₩30,000,000
-│   │   ├── Monthly: ₩800,000
-│   │   └── Maintenance: ₩100,000
-│   ├── Location & Transport
-│   │   ├── Full Address
-│   │   └── Station Distance
-│   └── Basic Details
-│       ├── Type: Studio
-│       ├── Size: 25m²
-│       └── Floor: 3rd of 5
-├── Details Sections (스크롤)
-│   ├── Property Features
-│   │   ├── Available Options (체크리스트)
-│   │   └── Building Amenities
-│   ├── Location Info
-│   │   ├── Interactive Map
-│   │   ├── Nearby Stations
-│   │   ├── Nearby Facilities
-│   │   └── Neighborhood Description
-│   ├── Owner Information
-│   │   ├── Contact Name
-│   │   ├── Response Rate
-│   │   ├── Languages Spoken
-│   │   └── Other Properties
-│   └── Additional Info
-│       ├── Available Date
-│       ├── Lease Terms
-│       └── Special Notes
-├── Similar Properties (Optional)
-│   └── Property Cards Carousel
-└── Fixed Bottom Actions (80px)
-    ├── Add to Favorites Button
-    ├── Call/Contact Button
-    └── Send Message Button (Primary)
+│   ├── Back Button
+│   └── "House" Title
+├── Results Count
+│   └── "Found X properties"
+├── Property List (ScrollView)
+│   └── Property Cards
+│       ├── Image Container (120px width)
+│       │   ├── Camera Placeholder
+│       │   └── Heart Button (filled red)
+│       └── Card Content
+│           ├── Price - "Monthly Rent ₩XXXk"
+│           ├── Maintenance Fee - "₩XXk"
+│           ├── Location
+│           ├── Details (type, size, floor)
+│           └── Stats Row
+│               ├── Eye Icon + View Count
+│               └── Heart Icon + Like Count
+└── Empty State (결과 없을 때)
 ```
 
-### 3.4 찜 탭 (❤️ Saved)
+#### 3.2.3 부동산 검색 화면 (/house/search)
+```
+House Search Screen
+├── Header
+│   ├── Back Button
+│   └── Search Input (autoFocus)
+│       ├── Search Icon
+│       ├── TextInput - "Search location or apartment..."
+│       └── X Button (clear)
+├── Recent Searches Section
+│   ├── Section Header
+│   │   ├── "Recent Searches"
+│   │   └── "Clear All" Button
+│   └── Search Items
+│       ├── Clock Icon
+│       ├── Search Text
+│       └── X Button (remove)
+└── Popular Searches Section
+    ├── Section Header - "Popular Searches"
+    └── Search Items
+        ├── TrendingUp Icon (red)
+        └── Search Text
+```
 
-#### 3.4.1 Saved Properties Structure
+#### 3.2.4 부동산 상세 화면 (/house/[id])
+```
+House Detail Screen
+├── Header (60px)
+│   ├── Back Button
+│   ├── Title
+│   └── Actions
+│       ├── Share Button
+│       └── Heart Toggle
+├── Image Gallery (ScrollView horizontal)
+│   ├── Swipeable Images (full width)
+│   ├── Image Counter - "1/8"
+│   └── Page Indicators (dots)
+├── Basic Info Section
+│   ├── Property Title
+│   ├── Price Badge
+│   ├── Price Details
+│   │   ├── Deposit
+│   │   ├── Monthly Rent
+│   │   └── Maintenance Fee
+│   └── Location with MapPin
+├── Property Details Container (gray background)
+│   ├── Info Rows
+│   │   ├── Label: Value format
+│   │   ├── Type (Studio/1Room/etc)
+│   │   ├── Size (m²)
+│   │   ├── Floor
+│   │   └── Building Year
+│   └── Dividers between rows
+├── Location Section
+│   ├── Section Title
+│   ├── Full Address
+│   └── Transportation Info
+├── Features Section
+│   ├── Section Title
+│   └── Feature Grid (3 columns)
+│       ├── Icon + Label format
+│       ├── Parking
+│       ├── Elevator
+│       ├── Pet OK
+│       ├── AC
+│       └── etc.
+├── Owner/Agent Information
+│   ├── Avatar
+│   ├── Name
+│   ├── Rating
+│   ├── Response Rate
+│   └── Languages
+└── Fixed Bottom Actions (80px)
+    ├── Call Button (secondary)
+    └── Chat Inquiry Button (primary, blue)
+```
+
+### 3.3 중고차 화면 (/car)
+
+#### 3.3.1 중고차 리스트 화면 구조
+```
+Car List Screen
+├── Header (60px)
+│   ├── Back Button
+│   ├── "Car" Title
+│   └── Heart Icon - 찜 목록
+├── Location Bar
+│   ├── MapPin Icon
+│   ├── "Seoul, Korea"
+│   └── ChevronDown
+├── Search Bar (터치 시 /car/search로 이동)
+│   ├── Search Icon
+│   └── "Search car..."
+├── Quick Filters (수평 스크롤)
+│   ├── "Brand" Chip
+│   ├── "Price" Chip
+│   ├── "Year" Chip
+│   └── More Filters
+├── Filter Modal (Bottom Sheet, 80%)
+│   ├── Header - "Filters"
+│   ├── Filter Options
+│   │   ├── Brand Selection (buttons)
+│   │   ├── Price Range (slider)
+│   │   ├── Year Range (slider)
+│   │   ├── Mileage (slider)
+│   │   ├── Fuel Type (buttons)
+│   │   └── Transmission (buttons)
+│   └── Action Buttons
+│       ├── Reset
+│       └── Apply
+├── Results Info
+│   └── "Found X cars"
+└── Car List (ScrollView)
+    └── Car Cards
+        ├── Image Container (120px)
+        │   ├── Camera Placeholder
+        │   └── Heart Button
+        └── Card Content
+            ├── Car Name
+            ├── Price - "₩XX,XXX,XXX"
+            ├── Year/Mileage/Fuel
+            └── Stats Row
+                ├── Eye + View Count
+                └── Heart + Like Count
+```
+
+#### 3.3.2 중고차 검색 화면 (/car/search)
+```
+Car Search Screen
+├── Header
+│   ├── Back Button
+│   └── Search Input (autoFocus)
+│       ├── Search Icon
+│       ├── TextInput - "Search car model, brand, or year"
+│       └── X Button
+├── Recent Searches Section
+│   ├── "Recent Searches" + "Clear All"
+│   └── Items
+│       ├── Clock Icon
+│       ├── "Hyundai Avante"
+│       └── X (remove)
+└── Popular Searches Section
+    ├── "Popular Searches"
+    └── Items
+        ├── TrendingUp Icon (red)
+        └── "Hyundai Sonata 2020"
+```
+
+#### 3.3.3 중고차 상세 화면 (/car/[id])
+```
+Car Detail Screen
+├── Header (60px)
+│   ├── Back Button
+│   ├── Title
+│   └── Share + Heart
+├── Image Gallery
+│   ├── Horizontal ScrollView
+│   ├── Image Counter
+│   └── Page Indicators
+├── Basic Info
+│   ├── Car Name + Year
+│   ├── Price Badge
+│   └── Basic Specs (Fuel, Transmission, Mileage)
+├── Vehicle Details Container (gray box)
+│   ├── Year
+│   ├── Mileage
+│   ├── Fuel Type
+│   ├── Transmission
+│   ├── Engine Size
+│   └── Color
+├── Safety Information Section
+│   ├── Accident History (Shield icon)
+│   └── Insurance Details (Wrench icon)
+├── Features & Options Section
+│   ├── Options Grid (3 columns)
+│   └── Icon + Label items
+│       ├── Navigation
+│       ├── Sunroof
+│       ├── Leather Seats
+│       └── etc.
+├── Seller Information
+│   ├── Dealer/Individual Badge
+│   ├── Avatar
+│   ├── Name
+│   ├── Rating (stars)
+│   └── Response Rate
+└── Fixed Bottom Actions (80px)
+    ├── Call Button (Phone icon)
+    └── Chat Inquiry Button (blue, primary)
+```
+
+### 3.4 찜 화면 (/saved)
+
+#### 3.4.1 찜 목록 화면 구조
 ```
 Saved Screen
 ├── Header (60px)
-│   ├── "My Favorites"
-│   └── Sort Options
-├── Filter Chips (50px) - 수평 스크롤
-│   ├── All (23)
-│   ├── Available (18)
-│   ├── Price Changed (3)
-│   └── Recently Added (5)
-├── Saved Properties List
-│   ├── Property Cards (Modified)
-│   │   ├── Price Change Badge (if applicable)
-│   │   ├── Status Badge (Available/Rented)
-│   │   └── Saved Date
-│   └── Remove from Favorites (Swipe Action)
-└── Empty State (if no saved items)
-    ├── Empty Icon
+│   ├── Back Button
+│   └── "My Favorites"
+├── Filter Controls
+│   ├── Checkbox - "Show Available Only"
+│   └── Category Dropdown
+│       ├── All
+│       ├── House
+│       └── Car
+├── Saved Items List
+│   └── Property/Car Cards (동일한 구조)
+│       ├── Image + Heart (filled)
+│       ├── Price Info
+│       ├── Location/Details
+│       ├── Status Badge (Available/Rented)
+│       └── Stats (View + Like counts)
+└── Empty State
+    ├── Heart Icon (empty)
     ├── "No saved properties yet"
-    ├── "Start exploring to save properties"
-    └── "Browse Properties" CTA Button
+    ├── Description
+    └── "Browse Properties" Button
 ```
 
-### 3.5 매물 등록 탭 (➕ Post)
+### 3.5 채팅 화면 (/chat)
 
-#### 3.5.1 Post Property Flow
+#### 3.5.1 채팅 목록 화면 구조
 ```
-Post Property Screen (Multi-Step Form)
-
-Step 1: Property Type (Full Screen)
-├── Header - "What type of property?"
-├── Type Selection (Cards)
-│   ├── Studio
-│   ├── One Room
-│   ├── Two Room
-│   ├── Three Room
-│   ├── Officetel
-│   └── Apartment
-└── Continue Button
-
-Step 2: Basic Information
-├── Header - "Basic Information"
-├── Form Fields
-│   ├── Property Title
-│   ├── Description (Textarea)
-│   ├── Location Selector
-│   └── Address Input
-└── Continue Button
-
-Step 3: Property Details
-├── Header - "Property Details"
-├── Form Sections
-│   ├── Size Information
-│   │   ├── Area Size (m²/평)
-│   │   └── Room Configuration
-│   ├── Building Information
-│   │   ├── Floor Level
-│   │   ├── Total Floors
-│   │   └── Building Year
-│   └── Available Options (Checkboxes)
-└── Continue Button
-
-Step 4: Price Information
-├── Header - "Price Information"
-├── Price Fields
-│   ├── Deposit Amount
-│   ├── Monthly Rent
-│   ├── Maintenance Fee
-│   └── Utilities Included
-└── Continue Button
-
-Step 5: Photos
-├── Header - "Add Photos"
-├── Photo Upload (최대 20장)
-│   ├── Main Photo Selector
-│   ├── Additional Photos
-│   └── Photo Order Adjustment
-└── Continue Button
-
-Step 6: Contact & Publish
-├── Header - "Contact Information"
-├── Contact Form
-│   ├── Contact Method
-│   ├── Available Times
-│   ├── Languages Spoken
-│   └── Additional Notes
-├── Preview Button
-└── Publish Button
-```
-
-### 3.6 채팅 탭 (💬 Chat)
-
-#### 3.6.1 Chat List Structure
-```
-Chat Screen
+Chat List Screen
 ├── Header (60px)
-│   ├── "Messages"
-│   └── Search Button
-├── Active Conversations
-│   ├── Chat Room Item (80px each)
-│   │   ├── Property Thumbnail (60x60px)
-│   │   ├── Conversation Info
-│   │   │   ├── Property Title
-│   │   │   ├── Other User Name
-│   │   │   ├── Last Message Preview
-│   │   │   └── Timestamp
-│   │   ├── Unread Badge
-│   │   └── Property Status Badge
-│   └── Empty State
-│       ├── "No conversations yet"
-│       ├── "Start browsing properties"
-│       └── "Browse Properties" CTA
-└── Archived/Old Conversations (Collapsible)
+│   └── "Messages"
+└── Chat List
+    └── Chat Room Items
+        ├── Property/Car Thumbnail
+        ├── Other User Name
+        ├── Last Message Preview
+        ├── Timestamp
+        └── Unread Badge
 ```
 
-#### 3.6.2 Chat Room Structure
+#### 3.5.2 채팅방 화면 (/chat/[id])
 ```
 Chat Room Screen
-├── Header (60px)
-│   ├── Back Arrow
-│   ├── Property Info
-│   │   ├── Property Thumbnail
-│   │   ├── Property Title
-│   │   └── Price
-│   └── Actions Menu
-│       ├── View Property
-│       ├── Call Owner
-│       └── Report
-├── Messages Area (Flexible Height)
-│   ├── Message Bubbles
-│   │   ├── Text Messages
-│   │   ├── Image Messages
-│   │   ├── System Messages
-│   │   └── Read Receipts
+├── Header
+│   ├── Back Button
+│   ├── User Info
+│   └── Property/Car Reference
+├── Messages Area
 │   ├── Date Separators
-│   └── Typing Indicator
-├── Quick Actions (50px) - Optional
-│   ├── "I'm interested"
-│   ├── "Can we schedule a visit?"
-│   ├── "What's included?"
-│   └── "Is it still available?"
-└── Input Area (60px)
-    ├── Text Input
-    ├── Image Button
+│   ├── Message Bubbles
+│   │   ├── Sent (오른쪽, 파란색)
+│   │   └── Received (왼쪽, 회색)
+│   └── Timestamps
+└── Input Area
+    ├── TextInput
     └── Send Button
 ```
 
-### 3.7 프로필 탭 (👤 Profile)
+### 3.6 프로필 화면
 
-#### 3.7.1 Profile Structure
+#### 3.6.1 프로필 화면 구조 (/profile)
 ```
 Profile Screen
-├── Header (60px)
-│   ├── "Profile"
-│   └── Settings Icon
-├── User Information (120px)
-│   ├── Profile Photo (80x80px)
-│   ├── User Info
-│   │   ├── Name
-│   │   ├── Join Date
-│   │   └── Verification Status
-│   └── Edit Profile Button
-├── My Activity Section
-│   ├── "My Properties" (if property owner)
-│   │   ├── Active Listings Count
-│   │   └── Manage Properties
-│   ├── "My Favorites" 
-│   │   ├── Saved Properties Count
-│   │   └── View All
-│   ├── "Recent Searches"
-│   │   ├── Search History
-│   │   └── Saved Search Alerts
-│   └── "Property Views"
-│       ├── Recently Viewed
-│       └── View History
-├── App Settings
-│   ├── Notifications
-│   │   ├── Push Notifications
-│   │   ├── Email Notifications
-│   │   └── Message Notifications
-│   ├── Language & Region
-│   │   ├── App Language
-│   │   ├── Currency Display
-│   │   └── Area Unit (m²/평)
-│   ├── Privacy & Security
-│   │   ├── Profile Visibility
-│   │   ├── Data Sharing
-│   │   └── Blocked Users
-│   └── Account Management
-│       ├── Change Password
-│       ├── Connected Accounts
-│       └── Delete Account
-├── Help & Support
-│   ├── FAQ
-│   ├── Contact Support
-│   ├── Report a Problem
-│   └── Feature Requests
-└── Legal & About
-    ├── Terms of Service
-    ├── Privacy Policy
-    ├── App Version
-    └── Sign Out Button
+├── Header
+│   ├── Back Button
+│   └── "Profile"
+├── User Info Section
+│   ├── Avatar
+│   ├── Name
+│   └── Email
+├── Menu Items
+│   ├── Edit Profile
+│   ├── My Listings
+│   ├── Settings
+│   ├── Help & Support
+│   └── Sign Out
+└── App Version
+```
+
+### 3.7 알림 화면 (/notifications)
+
+```
+Notifications Screen
+├── Header
+│   ├── Back Button
+│   └── "Notifications"
+└── Notification List
+    └── Notification Items
+        ├── Icon
+        ├── Title
+        ├── Message
+        └── Timestamp
 ```
 
 ---
@@ -421,61 +460,72 @@ Profile Screen
 
 ### 4.1 주요 사용자 여정
 
-#### 4.1.1 신규 사용자 플로우
+#### 4.1.1 부동산 검색 플로우
 ```
-App Launch → Splash Screen (2s) → Onboarding Slides (3개) → 
-Home Screen (Guest Mode) → Browse Properties → Property Detail → 
-Login Prompt → Google OAuth → Profile Setup → Continue Browsing
-```
-
-#### 4.1.2 매물 검색 플로우
-```
-Home → Search Bar Input → Search Results → Apply Filters → 
-Property Detail → Save/Message → [Login if needed] → Chat Room
+Home → House Card 탭 → House Map (/house) →
+Search Bar 탭 → Search Screen (/house/search) →
+검색어 입력 → 결과 필터링 → Property Card 탭 →
+Property Detail (/house/[id]) →
+Chat Inquiry → Chat Room (/chat/[id])
 ```
 
-#### 4.1.3 매물 등록 플로우
+#### 4.1.2 중고차 검색 플로우
 ```
-Post Tab → [Login Check] → Property Type → Basic Info → 
-Details → Price → Photos → Contact Info → Preview → Publish
+Home → Car Card 탭 → Car List (/car) →
+Filter 적용 또는 Search → Car Card 탭 →
+Car Detail (/car/[id]) →
+Chat Inquiry → Chat Room (/chat/[id])
+```
+
+#### 4.1.3 찜 관리 플로우
+```
+Home → Heart Icon 또는 Profile → Saved Screen (/saved) →
+Category Filter (All/House/Car) →
+Available Only Toggle →
+Item 탭 → Detail Screen
 ```
 
 ### 4.2 화면 전환 패턴
 
-#### 4.2.1 Tab Navigation
+#### 4.2.1 Stack Navigation
 ```
-Bottom Tab Bar (Persistent)
-├── Tab Switch (Immediate)
-├── Badge Updates (Real-time)
-└── Selected State (Visual Feedback)
+Primary Navigation Stack (Expo Router):
+/ (Home)
+├── /house (Map View)
+│   ├── /house/list (List View)
+│   ├── /house/search (Search)
+│   └── /house/[id] (Detail)
+├── /car (List View)
+│   ├── /car/search (Search)
+│   └── /car/[id] (Detail)
+├── /saved (Favorites)
+├── /profile (User Profile)
+├── /myprofile (Edit Profile)
+├── /chat (Chat List)
+│   └── /chat/[id] (Chat Room)
+└── /notifications (Alerts)
+
+Modal Presentations:
+├── Filter Bottom Sheet (80% height)
+├── Price Range Slider Modal
+├── Category Dropdown
+└── Image Gallery Full Screen
 ```
 
-#### 4.2.2 Stack Navigation
-```
-Primary Navigation Stack:
-Home → Search Results → Property Detail → Chat Room
-
-Modal Stack:
-├── Login Modal
-├── Filter Modal  
-├── Image Gallery Modal
-├── Contact Action Sheet
-└── Settings Modals
-```
-
-#### 4.2.3 Transition Animations
+#### 4.2.2 Transition Animations
 ```
 Screen Transitions:
 ├── Push/Pop (iOS style slide)
-├── Modal Present (Bottom up)
-├── Tab Switch (No animation)
-└── Filter Sheet (Smooth slide up)
+├── Bottom Sheet (Smooth slide up, 80% height)
+├── Overlay (Fade in/out)
+└── Modal Present (Center popup)
 
 Micro-interactions:
-├── Button Press (Scale + Haptic)
-├── Heart Animation (Scale + Color)
-├── Image Loading (Progressive + Skeleton)
-└── Pull to Refresh (Standard)
+├── Button Press (Scale + Opacity)
+├── Heart Animation (Fill + Scale)
+├── Image Gallery (Horizontal scroll snap)
+├── Filter Chip (Background color change)
+└── Checkbox Toggle (Check mark animation)
 ```
 
 ---
@@ -487,102 +537,76 @@ Micro-interactions:
 #### 5.1.1 홈 화면 정보 우선순위
 ```
 Priority Level 1 (Critical):
-└── Search Functionality (검색 기능)
+└── Category Selection (House vs Car)
 
 Priority Level 2 (High):
-├── Personalized Recommendations (맞춤 추천)
-└── Quick Filters (빠른 필터)
+├── Quick Navigation to Favorites
+└── Notifications Access
 
 Priority Level 3 (Medium):
-├── Popular Properties (인기 매물)
-└── Recent Properties (최신 매물)
+├── Quick Stats Overview
+└── Recent Activity
 
 Priority Level 4 (Low):
-├── Promotional Content (프로모션)
-└── App Tips (사용 팁)
+└── Welcome Message
 ```
 
 #### 5.1.2 매물 카드 정보 우선순위
 ```
-Visual Elements (40%):
-└── Main Property Image
+Visual Elements (30%):
+└── Property/Car Image
 
-Price Information (30%):
-├── Monthly Rent (Primary)
-└── Deposit (Secondary)
+Price Information (35%):
+├── Primary Price (Monthly Rent / Car Price)
+└── Secondary Fee (Maintenance / Year)
 
-Location Information (20%):
-├── Neighborhood Name
-└── Transportation Access
+Property/Car Details (25%):
+├── Type/Model
+├── Size/Mileage
+└── Location/Fuel
 
-Property Details (10%):
-├── Property Type
-└── Size Information
+Engagement Metrics (10%):
+├── View Count
+└── Like Count
 ```
 
-#### 5.1.3 매물 상세 정보 우선순위
+#### 5.1.3 상세 화면 정보 우선순위
 ```
 Above the Fold (First View):
-├── Image Gallery
-├── Price Information
-├── Basic Property Details
-└── Location Summary
+├── Image Gallery with Navigation
+├── Price Information (prominent badge)
+├── Basic Specs/Details
+└── Quick Contact Actions
 
 Below the Fold (Scroll to View):
-├── Detailed Features
-├── Neighborhood Information  
-├── Owner Information
-└── Similar Properties
+├── Detailed Specifications (gray box)
+├── Safety/Features Information
+├── Seller/Agent Information
+└── Similar Items (future)
 ```
 
-### 5.2 콘텐츠 그룹핑
+### 5.2 컬러 시스템
 
-#### 5.2.1 기능적 그룹핑
 ```
-Search & Discovery:
-├── Search Bar
-├── Filters
-├── Map View
-└── Recommendations
+Primary Colors:
+├── House Theme: Blue (#2196F3)
+├── Car Theme: Blue (#2196F3)
+└── Accent: Red (#FF6B6B) for Hearts/Trending
 
-Property Information:
-├── Images
-├── Pricing
-├── Features
-└── Location Details
+UI Colors:
+├── Background: White (#FFFFFF)
+├── Card Background: White with Shadow
+├── Gray Background: #f0f0f0, #f5f5f5, #f8f8f8
+├── Text Primary: #333333
+├── Text Secondary: #666666
+├── Text Tertiary: #999999
+└── Border: #f0f0f0
 
-Communication:
-├── Contact Options
-├── Messaging
-├── Inquiries
-└── Notifications
-
-User Management:
-├── Authentication
-├── Profile
-├── Preferences
-└── History
-```
-
-#### 5.2.2 사용자 역할별 그룹핑
-```
-Property Seekers (임차인):
-├── Search Tools
-├── Saved Properties
-├── Message Conversations
-└── Application History
-
-Property Owners (임대인):
-├── Property Management
-├── Inquiry Management
-├── Performance Analytics
-└── Communication Tools
-
-Guest Users (비회원):
-├── Browse Properties
-├── Basic Search
-├── Property Details
-└── Registration Prompts
+Button States:
+├── Primary Active: #2196F3 (Blue)
+├── Primary Disabled: Light Blue
+├── Secondary: White with Border
+└── Filter Active: #e3f2fd (Light Blue)
 ```
 
 ---
@@ -594,515 +618,228 @@ Guest Users (비회원):
 #### 6.1.1 용어 간소화 매핑
 ```
 한국어 용어 → 영어 간소화
-├── "전세/월세" → "Deposit + Monthly Rent"
-├── "관리비" → "Maintenance Fee"  
+├── "전세/월세" → "Monthly Rent + Deposit"
+├── "관리비" → "Maintenance Fee"
 ├── "원룸/투룸" → "Studio/One Room"
-├── "평수" → "Size (m²)"
+├── "평수" → "Size (m²)" - 제곱미터 단위 사용
 ├── "역세권" → "Near Station"
-├── "옵션" → "Features"
-├── "방문 예약" → "Schedule Visit"
-└── "실거래가" → "Market Price"
+├── "실거래" → "Real Transactions"
+├── "연식" → "Year"
+├── "주행거리" → "Mileage"
+└── "연료" → "Fuel Type"
 ```
 
 #### 6.1.2 아이콘 및 시각적 표현
 ```
-Universal Icons:
-├── 🏠 Home/Property
-├── 💰 Price/Money
-├── 🚇 Transportation
-├── 📍 Location
-├── ❤️ Favorites
-├── 💬 Messages
-├── 📷 Photos
-└── ⚙️ Settings
-
-Cultural Considerations:
-├── Currency Format (₩1,000,000 + $750 USD)
-├── Area Units (25m² = 7.5평)
-├── Distance (Walking time + Metro lines)
-└── Date Format (MM/DD/YYYY)
-```
-
-### 6.2 진입 장벽 최소화
-
-#### 6.2.1 Guest User Access
-```
-✅ Accessible without Login:
-├── Browse All Properties
-├── Search & Filter
-├── View Property Details
-├── Map Search
-└── Save Search Preferences (Local Storage)
-
-🔒 Requires Authentication:
-├── Save Favorites
-├── Post Properties  
-├── Send Messages
-├── Receive Notifications
-└── Access History Across Devices
-```
-
-#### 6.2.2 Progressive Onboarding
-```
-First Visit:
-├── Quick App Introduction (3 slides)
-├── Optional Location Permission
-└── Start Browsing Immediately
-
-Engagement Triggers:
-├── First Property Interest → Login Suggestion
-├── Third Property View → Save Feature Introduction
-├── Search Repetition → Saved Search Suggestion
-└── Contact Attempt → Registration Required
+Universal Icons (Lucide React Native):
+├── Home - 홈/부동산
+├── Car - 자동차
+├── Heart - 찜하기
+├── MapPin - 위치
+├── Search - 검색
+├── ChevronLeft - 뒤로가기
+├── Bell - 알림
+├── Camera - 이미지 없음
+├── Eye - 조회수
+├── Phone - 전화
+├── MessageCircle - 채팅
+├── Share - 공유
+├── Clock - 최근 검색
+├── TrendingUp - 인기 검색
+├── Check - 체크박스
+├── X - 닫기/삭제
+├── Filter - 필터
+└── RotateCcw - 리셋
 ```
 
 ---
 
-## 7. 상호작용 및 피드백
+## 7. 컴포넌트 패턴
 
-### 7.1 사용자 피드백 시스템
+### 7.1 공통 UI 패턴
 
-#### 7.1.1 Visual Feedback
+#### 7.1.1 필터 시스템
 ```
-Loading States:
-├── Skeleton Screens (Property Cards)
-├── Progressive Image Loading
-├── Search Result Loading
-└── Chat Message Sending
-
-Success States:
-├── Property Saved Animation
-├── Message Sent Confirmation
-├── Filter Applied Feedback
-└── Property Posted Success
-
-Error States:
-├── Network Error Messages
-├── Form Validation Errors
-├── Search No Results
-└── Login Failed Messages
+Filter Implementation Pattern:
+├── Quick Filter Chips (horizontal scroll)
+│   ├── Simple Style (no border)
+│   ├── Gray Background (#f0f0f0)
+│   ├── Dark Text (#333)
+│   └── Border Radius (20px)
+├── Filter Modal (Bottom Sheet)
+│   ├── Height: 80%
+│   ├── Overlay: rgba(0,0,0,0.5)
+│   ├── Touch to Close
+│   └── Reset + Apply Buttons
+└── Slider Controls (Price/Area/Year)
+    ├── Thumb Color: Blue (#2196F3)
+    ├── Min/Max Labels
+    └── Current Value Display
 ```
 
-#### 7.1.2 Haptic Feedback (iOS)
+#### 7.1.2 카드 컴포넌트
 ```
-Interaction Feedback:
-├── Light Haptic: Button Taps
-├── Medium Haptic: Toggle Actions
-├── Heavy Haptic: Important Actions
-└── Success Haptic: Completed Actions
-```
-
-### 7.2 시스템 상태 표시
-
-#### 7.2.1 Connection Status
-```
-Online Indicators:
-├── Live Property Status
-├── Real-time Message Delivery
-└── Instant Search Results
-
-Offline Indicators:
-├── Cached Content Available
-├── Actions Queue for Later
-└── Connection Retry Options
+Property/Car Card Pattern:
+├── Horizontal Layout (flexDirection: 'row')
+├── Image Container (120px width)
+│   ├── Fixed aspect ratio
+│   ├── Rounded corners (left side only)
+│   └── Heart overlay button
+├── Content Area (flex: 1)
+│   ├── Title/Name
+│   ├── Primary Price
+│   ├── Secondary Info
+│   ├── Details (1 line, ellipsis)
+│   └── Stats Row (view + like counts)
+└── Shadow + Border Radius (12px)
 ```
 
-#### 7.2.2 Property Status
+#### 7.1.3 검색 패턴
 ```
-Availability Status:
-├── ✅ Available
-├── ⏳ Under Review
-├── 🔄 Reserved
-└── ❌ Rented
-
-Verification Status:
-├── ✅ Verified Owner
-├── ⏳ Pending Verification
-└── ⚠️ Unverified
+Search Screen Pattern:
+├── Header with autoFocus TextInput
+├── Recent Searches (user history)
+│   ├── Clock Icon (gray)
+│   ├── Remove Individual (X button)
+│   └── Clear All button
+└── Popular Searches (trending)
+    ├── TrendingUp Icon (red)
+    └── Tap to search
 ```
 
 ---
 
-## 8. 접근성 및 포용성
+## 8. 기술 구현 상세
 
-### 8.1 웹 접근성 가이드라인 (WCAG 2.1)
+### 8.1 파일 구조 (Expo Router)
 
-#### 8.1.1 색상 및 대비
 ```
-Color Contrast Requirements:
-├── Normal Text: 4.5:1 ratio minimum
-├── Large Text: 3:1 ratio minimum  
-├── UI Components: 3:1 ratio minimum
-└── Focus Indicators: 3:1 ratio minimum
-
-Color Independence:
-├── No Information by Color Only
-├── Alternative Text for Images
-├── Icon + Text Combinations
-└── Pattern/Shape Alternatives
-```
-
-#### 8.1.2 터치 타겟
-```
-Minimum Touch Targets:
-├── Buttons: 44×44px minimum
-├── Links: 44×44px minimum
-├── Form Controls: 44×44px minimum
-└── Interactive Areas: 8px spacing minimum
-```
-
-### 8.2 다국어 지원 설계
-
-#### 8.2.1 텍스트 확장성
-```
-Layout Flexibility:
-├── German Text: +35% space allocation
-├── Chinese Text: -30% space allocation  
-├── Arabic Text: RTL layout support
-└── Dynamic Font Sizing
+app/
+├── _layout.tsx          # Root Stack Navigator
+├── index.tsx            # Home (Category Selection)
+├── saved.tsx            # Favorites List
+├── profile.tsx          # User Profile
+├── myprofile.tsx        # Edit Profile
+├── notifications.tsx    # Notifications
+├── modal.tsx            # Generic Modal
+├── house/
+│   ├── index.tsx        # Map Search View
+│   ├── list.tsx         # List View
+│   ├── search.tsx       # Search Screen
+│   └── [id].tsx         # Detail Screen
+├── car/
+│   ├── index.tsx        # List View
+│   ├── search.tsx       # Search Screen
+│   └── [id].tsx         # Detail Screen
+└── chat/
+    ├── index.tsx        # Chat List
+    └── [id].tsx         # Chat Room
 ```
 
-#### 8.2.2 이미지 현지화
-```
-Culturally Appropriate Images:
-├── Diverse Property Types
-├── Multi-cultural People
-├── Local Landmarks
-└── Cultural Context Examples
-```
+### 8.2 상태 관리
 
----
+```typescript
+// Local Component State Pattern
+interface FilterState {
+  selectedFilters: string[];
+  priceRange: [number, number];
+  areaRange: [number, number];
+  yearRange: [number, number];
+  isModalVisible: boolean;
+}
 
-## 9. 성능 최적화를 위한 IA 고려사항
+interface SearchState {
+  searchText: string;
+  recentSearches: string[];
+  results: Item[];
+}
 
-### 9.1 콘텐츠 우선순위 로딩
-
-#### 9.1.1 Critical Path
-```
-First Paint Priority:
-1. App Shell (Navigation + Header)
-2. Search Bar  
-3. Quick Filters
-4. First Property Cards (3-5개)
-
-Secondary Loading:
-5. Additional Property Cards
-6. User Recommendations
-7. Non-essential Features
-```
-
-#### 9.1.2 Image Loading Strategy
-```
-Image Priority:
-├── Above-fold Property Images: High Priority
-├── Property Detail Images: Medium Priority  
-├── Profile Images: Low Priority
-└── Decorative Images: Lazy Load
-
-Image Formats:
-├── WebP (Primary)
-├── Progressive JPEG (Fallback)
-└── Low Quality Placeholders
-```
-
-### 9.2 데이터 효율성
-
-#### 9.2.1 API Response Optimization
-```
-Property List Response:
-├── Minimal Required Fields Only
-├── Compressed Image URLs
-├── Pagination (10 items/page)
-└── Cached Metadata
-
-Property Detail Response:
-├── Full Property Information
-├── High Resolution Images
-├── Related Properties (5 items)
-└── Owner Contact Information
+interface ListState {
+  items: Property[] | Car[];
+  showAvailableOnly: boolean;
+  selectedCategory: 'All' | 'House' | 'Car';
+}
 ```
 
 ---
 
-## 10. 향후 확장 고려사항
+## 9. 향후 확장 고려사항
 
-### 10.1 중고거래 기능 확장 준비
+### 9.1 현재 구현된 기능
+- House (부동산) 모듈: 지도 검색, 리스트, 검색, 상세
+- Car (중고차) 모듈: 리스트, 검색, 상세
+- 찜 목록 (카테고리 필터 포함)
+- 채팅 시스템 기본 구조
+- 프로필 및 알림
 
-#### 10.1.1 IA 확장 계획
-```
-Current Structure → Extended Structure
-
-Property Categories → Item Categories  
-├── Room/Housing → Room/Housing
-└── [New] → Furniture, Electronics, etc.
-
-Property Details → Item Details
-├── Location → Location  
-├── Price → Price
-├── Photos → Photos
-└── [New] → Condition, Brand, etc.
-```
-
-#### 10.1.2 내비게이션 확장
-```
-Bottom Tab Expansion:
-Home | Saved | Post | Chat | Profile
-  ↓
-Home | Browse | Sell | Chat | Profile
-
-Category Selection:
-├── Housing (Current)
-└── Marketplace (Future)
-    ├── Furniture
-    ├── Electronics
-    ├── Clothing
-    └── Other
-```
-
-### 10.2 커뮤니티 기능 통합
-
-#### 10.2.1 정보 구조 확장
-```
-Additional Content Types:
-├── Community Posts
-├── Local Information
-├── Events & Meetups
-├── Tips & Guides
-└── User Reviews
-
-Navigation Integration:
-├── Feed Tab (Community)
-├── Local Guide Section
-├── User-generated Content
-└── Social Interactions
-```
-
----
-
-## 11. 구현 가이드라인
-
-### 11.1 개발 우선순위
-
-#### 11.1.1 Phase 1: Core IA (MVP)
-```
-Essential Screens:
-├── Home Screen
-├── Search Results  
-├── Property Detail
-├── Basic Chat
-└── Simple Profile
-
-Essential Flows:
-├── Property Search
-├── Property Viewing
-├── Contact/Inquiry
-└── User Registration
-```
-
-#### 11.1.2 Phase 2: Enhanced IA
-```
-Enhanced Features:
-├── Advanced Filtering
-├── Rich Chat Features
-├── Property Management
-├── Notification System
-└── Improved Profile
-
-Enhanced Flows:
-├── Property Posting
-├── Saved Searches
-├── Advanced Messaging
-└── User Preferences
-```
-
-### 11.2 컴포넌트 라이브러리 기준
-
-#### 11.2.1 재사용 컴포넌트
-```
-Layout Components:
-├── Screen Container
-├── Section Header
-├── Card Container
-└── Bottom Sheet
-
-Interactive Components:  
-├── Button Variants
-├── Input Fields
-├── Filter Chips
-├── Property Cards
-└── Chat Bubbles
-
-Navigation Components:
-├── Tab Bar
-├── Header Bar
-├── Back Button
-└── Modal Headers
-```
-
-#### 11.2.2 디자인 토큰
-```
-Spacing Scale: 4px, 8px, 12px, 16px, 20px, 24px, 32px
-Font Scale: 12px, 14px, 16px, 18px, 20px, 24px, 28px
-Color Palette: Primary, Secondary, Success, Warning, Error
-Border Radius: 4px, 8px, 12px, 16px
-Shadow Levels: 1dp, 2dp, 4dp, 8dp, 16dp
-```
-
----
-
-## 12. 측정 및 개선
-
-### 12.1 IA 성공 지표
-
-#### 12.1.1 사용성 지표
-```
-Navigation Efficiency:
-├── Time to First Property View: < 30 seconds
-├── Search to Result Time: < 3 seconds  
-├── Property Detail Load Time: < 2 seconds
-└── Message Send Success Rate: > 95%
-
-User Engagement:
-├── Session Duration: > 5 minutes average
-├── Properties Viewed per Session: > 3
-├── Return User Rate: > 40% (7-day)
-└── Feature Discovery Rate: > 60%
-```
-
-#### 12.1.2 컨텐츠 효과성
-```
-Content Performance:
-├── Property Card Click-through Rate: > 25%
-├── Search Filter Usage: > 50% of searches
-├── Saved Property Rate: > 10% of views
-└── Contact Rate: > 5% of detail views
-
-Information Architecture:
-├── Task Completion Rate: > 80%
-├── Navigation Error Rate: < 5%
-├── User Flow Drop-off Rate: < 20% per step
-└── Help/Support Request Rate: < 2%
-```
-
-### 12.2 지속적 개선 프로세스
-
-#### 12.2.1 사용자 피드백 수집
-```
-Feedback Methods:
-├── In-app Feedback Forms
-├── User Interview (Monthly)
-├── App Store Reviews Analysis
-├── Support Ticket Analysis
-└── Usage Analytics Review
-
-Feedback Categories:
-├── Navigation Difficulties
-├── Missing Information
-├── Confusing Layouts
-├── Performance Issues
-└── Feature Requests
-```
-
-#### 12.2.2 A/B Testing 계획
-```
-IA Testing Areas:
-├── Property Card Layout Variations
-├── Filter Organization Methods
-├── Search Result Sorting Options
-├── Navigation Menu Structure
-└── Onboarding Flow Variations
-
-Testing Metrics:
-├── Conversion Rates
-├── User Engagement
-├── Task Completion
-├── Error Rates
-└── User Satisfaction
-```
+### 9.2 추가 예정 기능
+- 실제 지도 API 연동 (현재 placeholder)
+- 실제 이미지 업로드/표시
+- 백엔드 API 연동
+- 사용자 인증 시스템
+- 푸시 알림
+- 매물 등록 기능
+- 검색 결과 저장
+- 가격 변동 알림
 
 ---
 
 ## 부록
 
-### A. 화면별 컴포넌트 매핑
+### A. 내비게이션 구조 (Expo Router)
 
-#### A.1 Home Screen Components
 ```typescript
-interface HomeScreenComponents {
-  header: AppHeader;
-  searchBar: SearchInput;
-  quickFilters: FilterChips[];
-  contentSections: ContentSection[];
-  propertyCards: PropertyCard[];
-  bottomTab: TabNavigation;
-}
-
-interface PropertyCard {
-  image: PropertyImage;
-  priceInfo: PriceDisplay;
-  locationInfo: LocationDisplay;
-  propertyDetails: PropertyBasics;
-  actions: CardActions;
-}
-```
-
-#### A.2 Property Detail Components
-```typescript
-interface PropertyDetailComponents {
-  header: DetailHeader;
-  imageGallery: ImageCarousel;
-  basicInfo: PropertyInfo;
-  detailSections: DetailSection[];
-  actionButtons: ActionBar;
-}
-
-interface DetailSection {
-  title: string;
-  content: React.ReactNode;
-  collapsible?: boolean;
-  priority: 'high' | 'medium' | 'low';
-}
-```
-
-### B. 상태 관리 구조
-
-#### B.1 Global State Structure
-```typescript
-interface AppState {
-  user: UserState;
-  properties: PropertyState;
-  search: SearchState;
-  chat: ChatState;
-  ui: UIState;
-}
-
-interface PropertyState {
-  properties: Property[];
-  favorites: string[];
-  currentProperty: Property | null;
-  searchResults: SearchResults;
-  filters: SearchFilters;
-}
-```
-
-### C. 내비게이션 구조 (React Navigation)
-
-#### C.1 Navigation Hierarchy
-```typescript
+// app/_layout.tsx
 RootNavigator (Stack)
-├── AuthNavigator (Stack)
-│   ├── Splash
-│   ├── Onboarding  
-│   └── Login
-└── AppNavigator (Tab)
-    ├── HomeStack (Stack)
-    │   ├── Home
-    │   ├── Search
-    │   └── PropertyDetail
-    ├── SavedStack (Stack)
-    ├── PostStack (Stack)
-    ├── ChatStack (Stack)
-    └── ProfileStack (Stack)
+├── index              # Home
+├── house/index        # House Map
+├── house/list         # House List
+├── house/search       # House Search
+├── house/[id]         # House Detail
+├── car/index          # Car List
+├── car/search         # Car Search
+├── car/[id]           # Car Detail
+├── saved              # Favorites
+├── profile            # Profile
+├── myprofile          # My Profile Edit
+├── chat/index         # Chat List
+├── chat/[id]          # Chat Room
+├── notifications      # Notifications
+└── modal              # Modal Screen
+```
+
+### B. 화면별 컴포넌트 매핑
+
+```typescript
+interface CommonComponents {
+  header: {
+    backButton: ChevronLeft;
+    title: Text;
+    actions: (Heart | Bell | Share)[];
+  };
+  filterChip: {
+    text: Text;
+    icon?: LucideIcon;
+    backgroundColor: '#f0f0f0';
+    borderRadius: 20;
+  };
+  propertyCard: {
+    image: View | Image;
+    heartButton: Heart;
+    priceInfo: Text[];
+    details: Text;
+    stats: {
+      views: Eye + number;
+      likes: Heart + number;
+    };
+  };
+  bottomSheet: {
+    height: '80%';
+    overlay: TouchableOpacity;
+    content: ScrollView;
+    actions: [Reset, Apply];
+  };
+}
 ```
 
 ---
@@ -1113,8 +850,9 @@ RootNavigator (Stack)
 - **승인자**: 프로젝트 리드
 - **버전 관리**: Git으로 관리
 - **업데이트 주기**: 스프린트별 검토 및 업데이트
+- **최종 업데이트**: 현재 구현 기반 (Stack Navigation 구조)
 
 **관련 문서:**
-- [PRD.md](./PRD.md) - Product Requirements Document  
+- [PRD.md](./PRD.md) - Product Requirements Document
 - [기능명세서.md](./기능명세서.md) - 기능 상세 명세
 - [화면기획서.md](./화면기획서.md) - UI/UX 가이드라인
