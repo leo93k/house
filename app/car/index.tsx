@@ -1,14 +1,14 @@
 import Slider from '@react-native-community/slider';
 import { useRouter } from 'expo-router';
-import { ChevronLeft, Heart, Car as CarIcon, X, Check, RefreshCw, MessageCircle } from 'lucide-react-native';
+import { Car as CarIcon, Check, ChevronLeft, Eye, Heart, MessageCircle, RefreshCw, Search, X } from 'lucide-react-native';
 import { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
   SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 // Mock car data
@@ -23,6 +23,8 @@ const mockCars = [
     location: 'Seoul, Gangnam-gu',
     isLiked: false,
     condition: 'Excellent',
+    viewCount: 1250,
+    likeCount: 89,
   },
   {
     id: '2',
@@ -34,6 +36,8 @@ const mockCars = [
     location: 'Seoul, Mapo-gu',
     isLiked: true,
     condition: 'Very Good',
+    viewCount: 980,
+    likeCount: 124,
   },
   {
     id: '3',
@@ -45,6 +49,8 @@ const mockCars = [
     location: 'Seoul, Seocho-gu',
     isLiked: false,
     condition: 'Good',
+    viewCount: 2340,
+    likeCount: 156,
   },
   {
     id: '4',
@@ -56,6 +62,8 @@ const mockCars = [
     location: 'Seoul, Songpa-gu',
     isLiked: false,
     condition: 'Excellent',
+    viewCount: 3120,
+    likeCount: 245,
   },
   {
     id: '5',
@@ -67,6 +75,8 @@ const mockCars = [
     location: 'Seoul, Jung-gu',
     isLiked: true,
     condition: 'Good',
+    viewCount: 1560,
+    likeCount: 98,
   },
 ];
 
@@ -221,6 +231,14 @@ export default function CarScreen() {
         </View>
       </View>
 
+      {/* Search Bar */}
+      <View style={styles.searchContainer}>
+        <TouchableOpacity style={styles.searchBar} onPress={() => router.push('/car/search')}>
+          <Search size={20} color="#999" />
+          <Text style={styles.searchPlaceholder}>Search car...</Text>
+        </TouchableOpacity>
+      </View>
+
       {/* Quick Filters */}
       <View style={styles.controlsContainer}>
         <View style={styles.filtersRow}>
@@ -228,13 +246,10 @@ export default function CarScreen() {
             {currentQuickFilters.map((filter, index) => (
               <TouchableOpacity
                 key={index}
-                style={[
-                  styles.filterChip,
-                  filter !== currentQuickFilters[index] && styles.filterChipActive
-                ]}
+                style={styles.filterChip}
                 onPress={() => handleFilterPress(index)}
               >
-                <Text style={styles.filterChipText}>{filter}</Text>
+                <Text style={styles.filterText}>{filter}</Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -277,6 +292,16 @@ export default function CarScreen() {
                 <Text style={styles.carLocation} numberOfLines={1}>
                   {car.location}
                 </Text>
+                <View style={styles.statsRow}>
+                  <View style={styles.statItem}>
+                    <Eye size={12} color="#999" />
+                    <Text style={styles.statText}>{car.viewCount}</Text>
+                  </View>
+                  <View style={styles.statItem}>
+                    <Heart size={12} color="#999" />
+                    <Text style={styles.statText}>{car.likeCount}</Text>
+                  </View>
+                </View>
               </View>
             </TouchableOpacity>
           ))}
@@ -337,9 +362,9 @@ export default function CarScreen() {
                         step={5}
                         value={priceRange[0]}
                         onValueChange={(value) => setPriceRange([value, priceRange[1]])}
-                        minimumTrackTintColor="#FF9800"
+                        minimumTrackTintColor="#2196F3"
                         maximumTrackTintColor="#ddd"
-                        thumbTintColor="#FF9800"
+                        thumbTintColor="#2196F3"
                       />
                       <Slider
                         style={styles.slider}
@@ -348,9 +373,9 @@ export default function CarScreen() {
                         step={5}
                         value={priceRange[1]}
                         onValueChange={(value) => setPriceRange([priceRange[0], value])}
-                        minimumTrackTintColor="#FF9800"
+                        minimumTrackTintColor="#2196F3"
                         maximumTrackTintColor="#ddd"
-                        thumbTintColor="#FF9800"
+                        thumbTintColor="#2196F3"
                       />
                     </View>
                   </View>
@@ -368,9 +393,9 @@ export default function CarScreen() {
                         step={1}
                         value={yearRange[0]}
                         onValueChange={(value) => setYearRange([value, yearRange[1]])}
-                        minimumTrackTintColor="#FF9800"
+                        minimumTrackTintColor="#2196F3"
                         maximumTrackTintColor="#ddd"
-                        thumbTintColor="#FF9800"
+                        thumbTintColor="#2196F3"
                       />
                       <Slider
                         style={styles.slider}
@@ -379,9 +404,9 @@ export default function CarScreen() {
                         step={1}
                         value={yearRange[1]}
                         onValueChange={(value) => setYearRange([yearRange[0], value])}
-                        minimumTrackTintColor="#FF9800"
+                        minimumTrackTintColor="#2196F3"
                         maximumTrackTintColor="#ddd"
-                        thumbTintColor="#FF9800"
+                        thumbTintColor="#2196F3"
                       />
                     </View>
                   </View>
@@ -403,9 +428,9 @@ export default function CarScreen() {
                         step={1}
                         value={mileageRange[0]}
                         onValueChange={(value) => setMileageRange([value, mileageRange[1]])}
-                        minimumTrackTintColor="#FF9800"
+                        minimumTrackTintColor="#2196F3"
                         maximumTrackTintColor="#ddd"
-                        thumbTintColor="#FF9800"
+                        thumbTintColor="#2196F3"
                       />
                       <Slider
                         style={styles.slider}
@@ -414,9 +439,9 @@ export default function CarScreen() {
                         step={1}
                         value={mileageRange[1]}
                         onValueChange={(value) => setMileageRange([mileageRange[0], value])}
-                        minimumTrackTintColor="#FF9800"
+                        minimumTrackTintColor="#2196F3"
                         maximumTrackTintColor="#ddd"
-                        thumbTintColor="#FF9800"
+                        thumbTintColor="#2196F3"
                       />
                     </View>
                   </View>
@@ -468,9 +493,15 @@ export default function CarScreen() {
               )}
             </ScrollView>
 
-            <TouchableOpacity style={styles.applyButton} onPress={handleApplyFilter}>
-              <Text style={styles.applyButtonText}>Apply</Text>
-            </TouchableOpacity>
+            {/* Bottom Action Buttons */}
+            <View style={styles.filterActions}>
+              <TouchableOpacity style={styles.filterResetButton} onPress={handleResetFilters}>
+                <Text style={styles.filterResetButtonText}>Reset</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.applyButton} onPress={handleApplyFilter}>
+                <Text style={styles.applyButtonText}>Apply</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       )}
@@ -515,6 +546,26 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#f8f8f8',
   },
+  searchContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
+    backgroundColor: '#fff',
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 12,
+  },
+  searchPlaceholder: {
+    flex: 1,
+    fontSize: 16,
+    color: '#999',
+  },
   controlsContainer: {
     backgroundColor: '#fff',
     borderBottomWidth: 1,
@@ -530,22 +581,15 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
   },
   filterChip: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f0f0f0',
     borderRadius: 20,
     paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingVertical: 8,
     marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
   },
-  filterChipActive: {
-    backgroundColor: '#FFF3E0',
-    borderColor: '#FF9800',
-  },
-  filterChipText: {
+  filterText: {
     fontSize: 14,
     color: '#333',
-    fontWeight: '500',
   },
   resetButton: {
     padding: 10,
@@ -618,25 +662,48 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#666',
   },
+  statsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 8,
+  },
+  statItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  statText: {
+    fontSize: 12,
+    color: '#999',
+  },
   filterOverlay: {
     position: 'absolute',
-    top: 114,
+    top: 182,
     left: 0,
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    zIndex: 1000,
   },
   filterSheet: {
     backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    maxHeight: '80%',
+    height: '80%',
+    paddingTop: 20,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
   },
   filterHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
   },
@@ -650,7 +717,6 @@ const styles = StyleSheet.create({
   },
   filterContent: {
     padding: 20,
-    maxHeight: 400,
   },
   optionsList: {
     flexDirection: 'row',
@@ -666,8 +732,8 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   optionButtonActive: {
-    backgroundColor: '#FFF3E0',
-    borderColor: '#FF9800',
+    backgroundColor: '#f0f8ff',
+    borderColor: '#2196F3',
   },
   optionButtonText: {
     fontSize: 14,
@@ -675,7 +741,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   optionButtonTextActive: {
-    color: '#FF9800',
+    color: '#2196F3',
     fontWeight: '600',
   },
   sliderSection: {
@@ -692,7 +758,7 @@ const styles = StyleSheet.create({
   },
   sliderValue: {
     fontSize: 14,
-    color: '#FF9800',
+    color: '#2196F3',
     fontWeight: '500',
     textAlign: 'center',
   },
@@ -726,24 +792,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   checkboxChecked: {
-    backgroundColor: '#FF9800',
-    borderColor: '#FF9800',
+    backgroundColor: '#2196F3',
+    borderColor: '#2196F3',
   },
   optionCheckboxText: {
     fontSize: 16,
     color: '#333',
   },
-  applyButton: {
-    backgroundColor: '#FF9800',
-    marginHorizontal: 20,
-    marginBottom: 20,
+  filterActions: {
+    flexDirection: 'row',
+    paddingHorizontal: 20,
     paddingVertical: 16,
-    borderRadius: 12,
+    paddingBottom: 20,
+    gap: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#f0f0f0',
+  },
+  filterResetButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+  },
+  filterResetButtonText: {
+    fontSize: 16,
+    color: '#666',
+    fontWeight: '500',
+  },
+  applyButton: {
+    flex: 1,
+    paddingVertical: 14,
+    borderRadius: 8,
+    backgroundColor: '#2196F3',
     alignItems: 'center',
   },
   applyButtonText: {
-    color: '#fff',
     fontSize: 16,
+    color: '#fff',
     fontWeight: '600',
   },
 });
