@@ -273,7 +273,7 @@ max_frequency = "5s"
 # `twitter`, `slack`, `spotify`, `workos`, `zoom`.
 [auth.external.google]
 enabled = true
-client_id = "env(GOOGLE_CLIENT_ID)"
+client_id = "env(EXPO_PUBLIC_GOOGLE_CLIENT_ID)"
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
 secret = "12312"
 # Overrides the default auth redirectUrl.
