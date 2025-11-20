@@ -9,7 +9,7 @@ const LoginScreen = () => {
     const authService = getAuthService();
 
     useEffect(() => {
-        console.log(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID);
+        console.log(process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB);
         // auth state 변경 감지 (로그인 성공 시 리다이렉트는 useAuthGuard에서 처리됨)
         const unsubscribe = authService.onAuthStateChanged(() => {
             // 로그인 성공 시 리다이렉트는 useAuthGuard에서 처리됨
