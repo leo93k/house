@@ -23,7 +23,8 @@ export function getAuthService(): AuthServiceManager {
 
         // Google 인증 제공자 등록
         const googleAuthService = new GoogleAuthService(
-            AUTH_CONFIG.google.webClientId
+            AUTH_CONFIG.google.webClientId,
+            AUTH_CONFIG.google.iosClientId
         );
         authServiceInstance.registerProvider(
             AuthProviderType.GOOGLE,

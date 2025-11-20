@@ -10,20 +10,18 @@ import {
     statusCodes,
 } from "@react-native-google-signin/google-signin";
 import React from "react";
+import { Platform } from "react-native";
 import { IAuthProvider } from "./AuthProvider";
 import { AuthError, AuthProviderType, SignInResult } from "./types";
 
 export class GoogleAuthService implements IAuthProvider {
     readonly providerType = AuthProviderType.GOOGLE;
     private webClientId: string;
+    private iosClientId: string;
 
-    constructor(webClientId: string) {
-        if (!webClientId || webClientId.trim() === "") {
-            console.error(
-                "Google webClientId가 설정되지 않았습니다. EXPO_PUBLIC_GOOGLE_CLIENT_ID 환경 변수를 확인해주세요."
-            );
-        }
-        this.webClientId = webClientId;
+    constructor(webClientId: string, iosClientId: string) {
+        this.webClientId = webClientId || "";
+        this.iosClientId = iosClientId || "";
         this.initialize();
     }
 
@@ -33,17 +31,64 @@ export class GoogleAuthService implements IAuthProvider {
     private initialize() {
         if (!this.webClientId || this.webClientId.trim() === "") {
             console.error(
-                "Google Sign-In을 초기화할 수 없습니다: webClientId가 없습니다."
+                "Google Sign-In을 초기화할 수 없습니다: webClientId가 없습니다. EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB 환경 변수를 확인해주세요."
             );
             return;
         }
 
-        GoogleSignin.configure({
+        const config: any = {
             webClientId: this.webClientId,
             offlineAccess: false, // ID 토큰만 필요하므로 offline access는 비활성화
-        });
+        };
 
-        console.log("Google Sign-In 초기화 완료 (webClientId 설정됨)");
+        // 디버깅을 위한 상세 로그
+        console.log("=== Google Sign-In 초기화 디버깅 ===");
+        console.log("Platform:", Platform.OS);
+        console.log("webClientId:", {
+            value: this.webClientId,
+            length: this.webClientId?.length || 0,
+            isEmpty: !this.webClientId || this.webClientId.trim() === "",
+        });
+        console.log("iosClientId:", {
+            value: this.iosClientId,
+            length: this.iosClientId?.length || 0,
+            isEmpty: !this.iosClientId || this.iosClientId.trim() === "",
+        });
+        console.log("Environment variables:", {
+            EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB:
+                process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB || "not set",
+            EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS:
+                process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS || "not set",
+        });
+        console.log("===================================");
+
+        // iOS에서는 iosClientId가 필수
+        if (Platform.OS === "ios") {
+            if (!this.iosClientId || this.iosClientId.trim() === "") {
+                console.error(
+                    "Google Sign-In을 초기화할 수 없습니다: iOS에서는 iosClientId가 필수입니다. EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS 환경 변수를 확인해주세요."
+                );
+                return;
+            }
+            config.iosClientId = this.iosClientId;
+            console.log(
+                "Google Sign-In 초기화 완료 (webClientId, iosClientId 설정됨)"
+            );
+        } else {
+            // Android에서는 선택적
+            if (this.iosClientId && this.iosClientId.trim() !== "") {
+                config.iosClientId = this.iosClientId;
+                console.log(
+                    "Google Sign-In 초기화 완료 (webClientId, iosClientId 설정됨)"
+                );
+            } else {
+                console.log(
+                    "Google Sign-In 초기화 완료 (webClientId 설정됨, iosClientId 없음 - Android에서는 선택적)"
+                );
+            }
+        }
+
+        GoogleSignin.configure(config);
     }
 
     /**
@@ -55,7 +100,7 @@ export class GoogleAuthService implements IAuthProvider {
             if (!this.webClientId || this.webClientId.trim() === "") {
                 throw new Error(
                     "Google webClientId가 설정되지 않았습니다. " +
-                        "EXPO_PUBLIC_GOOGLE_CLIENT_ID 환경 변수를 확인하고, " +
+                        "EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB 환경 변수를 확인하고, " +
                         "Google Cloud Console에서 OAuth 2.0 클라이언트 ID (웹 애플리케이션)를 설정해주세요."
                 );
             }
