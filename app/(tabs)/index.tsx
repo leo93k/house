@@ -1,98 +1,98 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { supabase } from "@/util/supabase";
+import {
+    GoogleSignin,
+    GoogleSigninButton,
+} from "@react-native-google-signin/google-signin";
+import { useEffect, useState } from "react";
+import { Button, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const LoginScreen = () => {
+    const [session, setSession] = useState<any>(null);
 
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    useEffect(() => {
+        // 초기 session 가져오기
+        supabase.auth.getSession().then(({ data }) => {
+            setSession(data.session);
+        });
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
-}
+        // auth state 변경 감지
+        const {
+            data: { subscription },
+        } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+        });
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+        return () => subscription.unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        // Google Sign-In 초기화
+        GoogleSignin.configure({
+            // Google Cloud Console에서 발급받은 웹 클라이언트 ID를 입력하세요
+            // OAuth 2.0 클라이언트 ID (웹 애플리케이션 타입)
+            webClientId:
+                "945586864109-kop84vthb926olsq7f9tjq7h0jsv412s.apps.googleusercontent.com",
+            scopes: [],
+        });
+    }, []);
+
+    const onSignin = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log("User Info:", userInfo);
+
+            const tokens = await GoogleSignin.getTokens();
+            if (tokens.idToken) {
+                const { data, error } = await supabase.auth.signInWithIdToken({
+                    provider: "google",
+                    token: tokens.idToken,
+                });
+                if (error) {
+                    console.error("Supabase sign in error:", error);
+                } else {
+                    console.log("Sign in successful:", data);
+                }
+            }
+        } catch (error) {
+            console.error("Google sign in error:", error);
+        }
+    };
+
+    const onSignOut = async () => {
+        try {
+            await GoogleSignin.signOut();
+            await supabase.auth.signOut();
+        } catch (error) {
+            console.error("Sign out error:", error);
+        }
+    };
+
+    return (
+        <SafeAreaView>
+            <View
+                className="flex-1 items-center justify-center"
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <View>
+                    {session ? (
+                        <Button title="Sign Out" onPress={onSignOut} />
+                    ) : (
+                        <GoogleSigninButton
+                            size={GoogleSigninButton.Size.Wide}
+                            color={GoogleSigninButton.Color.Dark}
+                            onPress={onSignin}
+                        />
+                    )}
+                </View>
+            </View>
+        </SafeAreaView>
+    );
+};
+
+export default LoginScreen;
