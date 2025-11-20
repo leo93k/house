@@ -4,9 +4,10 @@
  */
 
 import { useUserStore } from "@/store";
+import { AppleAuthService } from "./AppleAuthService";
 import { AuthServiceManager } from "./AuthServiceManager";
-import { GoogleAuthService } from "./GoogleAuthService";
 import { AUTH_CONFIG } from "./config";
+import { GoogleAuthService } from "./GoogleAuthService";
 import { AuthProviderType } from "./types";
 
 // 싱글톤 인스턴스
@@ -31,9 +32,12 @@ export function getAuthService(): AuthServiceManager {
             googleAuthService
         );
 
-        // 향후 다른 인증 제공자 추가 가능
-        // const appleAuthService = new AppleAuthService(...);
-        // authServiceInstance.registerProvider('apple', appleAuthService);
+        // Apple 인증 제공자 등록
+        const appleAuthService = new AppleAuthService();
+        authServiceInstance.registerProvider(
+            AuthProviderType.APPLE,
+            appleAuthService
+        );
 
         // Zustand store와 자동 연동
         // 인증 상태 변경 시 자동으로 store 업데이트
