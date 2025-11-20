@@ -273,7 +273,7 @@ max_frequency = "5s"
 # `twitter`, `slack`, `spotify`, `workos`, `zoom`.
 [auth.external.google]
 enabled = true
-client_id = "env(EXPO_PUBLIC_GOOGLE_CLIENT_ID)"
+client_id = "env(EXPO_PUBLIC_GOOGLE_CLIENT_ID_WEB)"
 # DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
 secret = "12312"
 # Overrides the default auth redirectUrl.
@@ -282,7 +282,7 @@ redirect_uri = ""
 # or any other third-party OIDC providers.
 url = ""
 # If enabled, the nonce check will be skipped. Required for local sign in with Google auth.
-skip_nonce_check = false
+skip_nonce_check = true
 # If enabled, it will allow the user to successfully authenticate when the provider does not return an email address.
 email_optional = false
 
