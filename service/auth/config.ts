@@ -4,6 +4,6 @@
 
 export const AUTH_CONFIG = {
     google: {
-        webClientId: process.env.GOOGLE_CLIENT_ID || "",
+        webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || "",
     },
 };
