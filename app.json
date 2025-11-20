@@ -10,7 +10,16 @@
         "newArchEnabled": true,
         "ios": {
             "supportsTablet": true,
-            "bundleIdentifier": "com.sdadaniel.sharea"
+            "bundleIdentifier": "com.sdadaniel.sharea",
+            "infoPlist": {
+                "CFBundleURLTypes": [
+                    {
+                        "CFBundleURLSchemes": [
+                            "com.googleusercontent.apps.945586864109-mp9l4kii03lst5oi6osqp2bo1trbcmqo"
+                        ]
+                    }
+                ]
+            }
         },
         "android": {
             "adaptiveIcon": {
