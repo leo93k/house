@@ -286,6 +286,14 @@ skip_nonce_check = true
 # If enabled, it will allow the user to successfully authenticate when the provider does not return an email address.
 email_optional = false
 
+[auth.external.apple]
+enabled = true
+client_id="com.sdadaniel.sharea"
+secret="123123"
+# Apple OAuth는 client_id와 secret이 필요하지 않습니다 (JWT 토큰 기반)
+# React Native에서 직접 Identity Token을 받아서 Supabase에 전달하므로
+# 별도의 OAuth 설정이 필요 없습니다.
+
 # Allow Solana wallet holders to sign in to your project via the Sign in with Solana (SIWS, EIP-4361) standard.
 # You can configure "web3" rate limit in the [auth.rate_limit] section and set up [auth.captcha] if self-hosting.
 [auth.web3.solana]

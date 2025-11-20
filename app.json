@@ -10,8 +10,13 @@
         "newArchEnabled": true,
         "ios": {
             "supportsTablet": true,
+            "usesAppleSignIn": true,
             "bundleIdentifier": "com.sdadaniel.sharea",
+            "entitlements": {
+                "com.apple.developer.applesignin": ["Default"]
+            },
             "infoPlist": {
+                "CFBundleAllowMixedLocalizations": true,
                 "CFBundleURLTypes": [
                     {
                         "CFBundleURLSchemes": [
@@ -50,7 +55,8 @@
                     }
                 }
             ],
-            "@react-native-google-signin/google-signin"
+            "@react-native-google-signin/google-signin",
+            "expo-apple-authentication"
         ],
         "experiments": {
             "typedRoutes": true,
