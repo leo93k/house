@@ -1,0 +1,187 @@
+// Prisma schema for a marketplace like Zigbang + general listings
+
+// Users (normal, agent, owner, admin) + Agent profile + Assets (real estate, car, used goods)
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:postgres@localhost:54322/postgres"
+  schemas  = ["public"]
+}
+
+//
+// ===== ENUMS =====
+//
+
+enum UserRole {
+  NORMAL
+  AGENT
+  OWNER
+  ADMIN
+
+  @@schema("public")
+}
+
+enum AuthProvider {
+  LOCAL // 아이디/비밀번호 로그인 (주로 웹 에이전트용)
+  APPLE
+  GOOGLE
+
+  @@schema("public")
+}
+
+enum AssetCategory {
+  REAL_ESTATE // 부동산
+  CAR // 자동차
+  ETC // 중고 물품
+
+  @@schema("public")
+}
+
+//
+// ===== MODELS =====
+//
+
+// 유저 (일반, 중개사, 집주인, 관리자 모두 포함)
+model User {
+  id          Int           @id @default(autoincrement())
+  email       String?       @unique
+  passwordHash String?      // LOCAL 로그인용 (에이전트 웹 계정 등)
+  name        String
+  phone       String?       @unique
+  profileImage String?      // 프로필 이미지 URL
+  // SNS / 로컬 로그인 방식
+  provider    AuthProvider?
+  role        UserRole      @default(NORMAL)
+  // 중개사 상세 정보 (선택)
+  agent       Agent?
+  // 내가 올린 모든 Asset (부동산 + 자동차 + 중고)
+  assets      Asset[]       @relation("UserAssets")
+  // 찜한 Asset들
+  favorites   Favorite[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@schema("public")
+  @@map("users")
+}
+
+// 공인중개사 / 중개사 사무소 정보
+model Agent {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        Int      @unique
+  officeName    String
+  licenseNumber String   // 중개사 등록번호
+  officePhone   String?
+  officeAddress String?
+  verified      Boolean  @default(false)
+  // 내가 담당 중개사인 부동산 매물들 (REAL_ESTATE 전용)
+  assets        Asset[]  @relation("AgentAssets")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@schema("public")
+  @@map("agents")
+}
+
+// 공통 Asset (부동산 / 자동차 / 중고 공통 상위 개념)
+model Asset {
+  id          Int            @id @default(autoincrement())
+  title       String
+  description String?
+  category    AssetCategory  // REAL_ESTATE / CAR / ETC
+  // 등록한 유저
+  user        User           @relation("UserAssets", fields: [userId], references: [id])
+  userId      Int
+  // 담당 중개사 (부동산인 경우만, 선택)
+  agent       Agent?         @relation("AgentAssets", fields: [agentId], references: [id])
+  agentId     Int?
+  // 찜하기
+  favorites   Favorite[]
+  // 상세 정보 (카테고리별로 1:1 관계)
+  realEstateAsset RealEstateAsset?
+  carAsset       CarAsset?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@schema("public")
+  @@map("assets")
+}
+
+// 부동산 상세 정보
+model RealEstateAsset {
+  id            Int      @id @default(autoincrement())
+  asset         Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  assetId       Int      @unique
+  // 가격 정보
+  deposit       Decimal  @db.Decimal(15, 0) // 전세금/매매가/보증금
+  rent          Decimal? @db.Decimal(15, 0) // 월세
+  maintenanceFee Decimal? @db.Decimal(15, 0)
+  // 위치 정보
+  address       String
+  lat           Float?
+  lng           Float?
+  // 건물 정보
+  buildingType  String?  // 아파트, 오피스텔, 원룸 등
+  yearBuilt     Int?
+  totalFloors   Int?
+  floor         Int?     // 해당 호실의 층수
+  roomType      String?  // 원룸, 투룸, 쓰리룸 등
+  supplyArea    Float?   // 공급면적
+  exclusiveArea Float?   // 전용면적
+  // 옵션
+  parking       String?  // 주차 가능 여부
+  pet           Boolean? // 반려동물 가능 여부
+  elevator      Boolean? // 엘리베이터 유무
+  shortTerm     Boolean? // 단기임대 가능 여부
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@schema("public")
+  @@map("real_estate_assets")
+}
+
+// 자동차 상세 정보
+model CarAsset {
+  id            Int      @id @default(autoincrement())
+  asset         Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  assetId       Int      @unique
+  // 차량 정보
+  brand         String   // 브랜드 (현대, 기아, BMW 등)
+  model         String   // 모델명
+  year          Int      // 연식
+  mileage       Int      // 주행거리 (km)
+  fuelType      String?  // 연료 타입 (가솔린, 디젤, 전기, 하이브리드 등)
+  transmission  String?  // 변속기 (수동, 자동, CVT 등)
+  color         String?  // 색상
+  // 가격
+  price         Decimal  @db.Decimal(15, 0)
+  // 상태
+  condition     String?  // 상태 (새차, 중고 등)
+  accidentHistory Boolean? // 사고 이력 유무
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@schema("public")
+  @@map("car_assets")
+}
+
+// 찜하기
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  asset     Asset    @relation(fields: [assetId], references: [id])
+  assetId   Int
+  createdAt DateTime @default(now())
+
+  @@unique([userId, assetId])
+  @@index([assetId])
+  @@schema("public")
+  @@map("favorites")
+}
