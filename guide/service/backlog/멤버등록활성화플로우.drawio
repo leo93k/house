@@ -1,0 +1,185 @@
+<mxfile host="65bd71144e">
+    <diagram id="멤버등록활성화플로우" name="멤버등록활성화플로우">
+        <mxGraphModel dx="2687" dy="1513" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                
+                <!-- 시작점: 로그인 -->
+                <mxCell id="start_login" value="로그인" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="100" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 관리 -->
+                <mxCell id="member_management" value="멤버 관리" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 등록 -->
+                <mxCell id="member_registration" value="멤버 등록" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="340" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 이메일 입력 -->
+                <mxCell id="enter_email" value="멤버 이메일 입력" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="460" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 이메일 유효성 체크 -->
+                <mxCell id="email_validation" value="이메일 유효성 체크" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="580" width="120" height="80" as="geometry"/>
+                </mxCell>
+                
+                <!-- 알럿 메시지 -->
+                <mxCell id="alert_message" value="알럿 메시지" style="shape=note;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="580" width="120" height="80" as="geometry"/>
+                </mxCell>
+                
+                <!-- 활성화 메일 발송 (텍스트) -->
+                <mxCell id="email_sent_text" value="성공 활성화(비밀번호 재설정) 메일 발송" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="50" y="720" width="220" height="30" as="geometry"/>
+                </mxCell>
+                
+                <!-- 시작점: 이메일 로그인 -->
+                <mxCell id="start_email_login" value="이메일 로그인" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="600" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 수신한 메일 확인 -->
+                <mxCell id="check_received_mail" value="수신한 메일 확인" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="220" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 활성화 메일 확인 -->
+                <mxCell id="check_activation_mail" value="활성화 메일 확인" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="340" width="120" height="80" as="geometry"/>
+                </mxCell>
+                
+                <!-- 수락 여부 -->
+                <mxCell id="acceptance_status" value="수락 여부" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+                    <mxGeometry x="600" y="500" width="120" height="80" as="geometry"/>
+                </mxCell>
+                
+                <!-- 비밀번호 재설정 및 활성화 -->
+                <mxCell id="password_reset_activation" value="비밀번호 재설정 및 활성화" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="650" width="160" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 등록 완료 -->
+                <mxCell id="registration_complete" value="멤버 등록 완료" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="400" y="770" width="160" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 활성화 실패 -->
+                <mxCell id="activation_failed" value="활성화 실패" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="800" y="650" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 끝 -->
+                <mxCell id="end" value="끝" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;strokeColor=#006EAF;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="400" y="890" width="120" height="60" as="geometry"/>
+                </mxCell>
+                
+                <!-- 화살표 연결 -->
+                <!-- 로그인 → 멤버 관리 -->
+                <mxCell id="edge1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="start_login" target="member_management" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 관리 → 멤버 등록 -->
+                <mxCell id="edge2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="member_management" target="member_registration" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 등록 → 멤버 이메일 입력 -->
+                <mxCell id="edge3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="member_registration" target="enter_email" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 이메일 입력 → 이메일 유효성 체크 -->
+                <mxCell id="edge4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="enter_email" target="email_validation" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 이메일 유효성 체크 → 알럿 메시지 (실패) -->
+                <mxCell id="edge5" value="실패" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="email_validation" target="alert_message" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 알럿 메시지 → 멤버 이메일 입력 (재시도) -->
+                <mxCell id="edge6" value="확인 및 재시도" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="alert_message" target="enter_email" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="360" y="620"/>
+                            <mxPoint x="360" y="490"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- 이메일 유효성 체크 → 메일 발송 (성공) -->
+                <mxCell id="edge7" value="성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="email_validation" target="acceptance_status" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="160" y="680"/>
+                            <mxPoint x="160" y="540"/>
+                            <mxPoint x="660" y="540"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- 이메일 로그인 → 수신한 메일 확인 -->
+                <mxCell id="edge8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="start_email_login" target="check_received_mail" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 수신한 메일 확인 → 활성화 메일 확인 -->
+                <mxCell id="edge9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="check_received_mail" target="check_activation_mail" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 활성화 메일 확인 → 수락 여부 -->
+                <mxCell id="edge10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="check_activation_mail" target="acceptance_status" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 수락 여부 → 비밀번호 재설정 및 활성화 (수락) -->
+                <mxCell id="edge11" value="수락" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="acceptance_status" target="password_reset_activation" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="660" y="580"/>
+                            <mxPoint x="480" y="580"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                
+                <!-- 수락 여부 → 활성화 실패 (수락 안함) -->
+                <mxCell id="edge12" value="수락 안함" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="acceptance_status" target="activation_failed" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 비밀번호 재설정 및 활성화 → 멤버 등록 완료 -->
+                <mxCell id="edge13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="password_reset_activation" target="registration_complete" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 멤버 등록 완료 → 끝 -->
+                <mxCell id="edge14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="registration_complete" target="end" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                
+                <!-- 활성화 실패 → 끝 -->
+                <mxCell id="edge15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="activation_failed" target="end" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="860" y="680"/>
+                            <mxPoint x="860" y="920"/>
+                            <mxPoint x="460" y="920"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
+

@@ -1,113 +1,182 @@
 <mxfile host="65bd71144e">
-    <diagram id="화면구조도" name="화면구조도">
-        <mxGraphModel dx="1002" dy="1549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+    <diagram id="화면구조도" name="서비스 화면구조도 v2.0">
+        <mxGraphModel dx="3810" dy="3230" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1400" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="login_screen" value="로그인 화면&#xa;━━━━━━━━━━━━━━━━&#xa;앱 로고&#xa;━━━━━━━━━━━━━━━━&#xa;구글 로그인 버튼&#xa;━━━━━━━━━━━━━━━━&#xa;이용약관 링크" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="300" y="-270" width="200" height="120" as="geometry"/>
+                <mxCell id="title" value="House &amp; Car Platform - 화면 구조도 v2.0" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;fontStyle=1;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="-220" width="600" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="home_screen" value="홈 화면&#xa;━━━━━━━━━━━━━━━━&#xa;매물 종류 선택" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="10" y="20" width="200" height="120" as="geometry"/>
+                <mxCell id="legend" value="범례:&#10;🟢 메인 화면 (Stack Navigation)&#10;🔵 House 모듈&#10;🟣 Car 모듈&#10;🟡 공통 기능 화면&#10;➡️ 네비게이션 플로우&#10;📱 터치 액션" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=12;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="890" y="-160" width="220" height="140" as="geometry"/>
                 </mxCell>
-                <mxCell id="map_screen" value="지도 화면&#xa;━━━━━━━━━━━━━━━━&#xa;카카오맵 (전체 화면)&#xa;매물 마커&#xa;현재 위치 버튼&#xa;필터 버튼&#xa;━━━━━━━━━━━━━━━━&#xa;하단 시트: 매물 리스트" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="300" y="20" width="200" height="140" as="geometry"/>
+                <mxCell id="home_screen" value="🏠 HOME SCREEN (/)&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [👤 Avatar] → /profile&#10;  &quot;House&quot; (Title)&#10;  [❤️] → /saved&#10;  [🔔] → /notifications&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Content:&#10;  &quot;What are you looking for?&quot;&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Category Cards:&#10;  [🏠 HOUSE] → /house&#10;  [🚗 CAR] → /car&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Quick Stats:&#10;  12,500+ Listings&#10;  5,200+ Users&#10;  25+ Cities&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Recent Activity" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="100" width="280" height="340" as="geometry"/>
                 </mxCell>
-                <mxCell id="favorite_screen" value="찜 화면&#xa;━━━━━━━━━━━━━━━━&#xa;관심 매물&#xa;━━━━━━━━━━━━━━━━&#xa;매물 카드 리스트&#xa;(정렬 버튼)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="560" y="20" width="200" height="140" as="geometry"/>
+                <mxCell id="house_map" value="🗺️ HOUSE MAP (/house)&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Home&#10;  &quot;House&quot;&#10;  [❤️] → /saved&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Location Bar:&#10;  📍 Pyeongchang-gun ▼&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Search Bar:&#10;  🔍 [터치] → /house/search&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Filter Chips:&#10;  [Price ▼] → Filter Modal&#10;  [Real Trans] → Toggle&#10;  [Area ㎡ ▼] → Filter Modal&#10;  [↺ Reset] → Clear Filters&#10;━━━━━━━━━━━━━━━━━━━━━&#10;View Toggle:&#10;  [🗺️ Map] (Active)&#10;  [📋 List] → /house/list&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Map Area:&#10;  • Property Markers (₩XXXk)&#10;  • [마커 터치] → Preview Card&#10;  • Zoom/Pan Controls&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Preview Card (Bottom):&#10;  [카드 터치] → /house/[id]" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="520" width="280" height="480" as="geometry"/>
                 </mxCell>
-                <mxCell id="profile_screen" value="내 정보 화면&#xa;━━━━━━━━━━━━━━━━&#xa;프로필 섹션&#xa;이름, 이메일, 유형&#xa;━━━━━━━━━━━━━━━━&#xa;메뉴 리스트&#xa;• 관심 매물&#xa;• 채팅 목록&#xa;• 담당 매물 (업자)&#xa;• 설정&#xa;• 로그아웃" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="820" y="20" width="200" height="180" as="geometry"/>
+                <mxCell id="house_list" value="📋 HOUSE LIST (/house/list)&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → /house&#10;  &quot;House&quot;&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Results:&#10;  &quot;Found X properties&quot;&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Property Cards (ScrollView):&#10;  ┌────────┬──────────────┐&#10;  │  📷    │ Monthly Rent │&#10;  │  [❤️]  │ Maintenance  │&#10;  │        │ Location     │&#10;  │        │ Details      │&#10;  │        │ 👁️ XXX ❤️ XX │&#10;  └────────┴──────────────┘&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [카드 터치] → /house/[id]&#10;  [❤️ 터치] → Toggle Favorite" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="1080" width="280" height="320" as="geometry"/>
                 </mxCell>
-                <mxCell id="property_type_screen" value="매물 종류 선택 화면&#xa;━━━━━━━━━━━━━━━━&#xa;매물 종류 선택&#xa;• 원룸&#xa;• 투룸&#xa;• 쓰리룸&#xa;• 오피스텔&#xa;• 아파트&#xa;• 기타" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="10" y="290" width="200" height="160" as="geometry"/>
+                <mxCell id="house_search" value="🔍 HOUSE SEARCH (/house/search)&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → /house&#10;  [TextInput] autoFocus&#10;  [✕ Clear]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Recent Searches:&#10;  [Clear All]&#10;  ┌──────────────────┬──┐&#10;  │ 🕐 Gangnam Station │✕ │&#10;  │ 🕐 Hongdae area    │✕ │&#10;  └──────────────────┴──┘&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Popular Searches:&#10;  📈 Seoul Studio&#10;  📈 Near Subway Station&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [검색어 터치] → Execute &amp; Back&#10;  [✕] → Remove from Recent&#10;  [Clear All] → Clear History&#10;  [Enter] → Submit Search" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="520" width="280" height="360" as="geometry"/>
                 </mxCell>
-                <mxCell id="property_list_screen" value="매물 리스트 화면&#xa;━━━━━━━━━━━━━━━━&#xa;필터 바&#xa;━━━━━━━━━━━━━━━━&#xa;매물 리스트/그리드&#xa;(정렬, 필터)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="10" y="650" width="200" height="140" as="geometry"/>
+                <mxCell id="house_detail" value="📄 HOUSE DETAIL (/house/[id])&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Previous&#10;  &quot;Detail&quot;&#10;  [🔗 Share] [❤️ Save]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Image Gallery:&#10;  [Swipe Left/Right] → Navigate&#10;  Counter: 1/8&#10;  ● ○ ○ ○ ○ ○ ○ ○&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Basic Info:&#10;  Title (Bold)&#10;  [₩800k/month] Price Badge&#10;  Deposit / Monthly / Maint.&#10;  📍 Location&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Property Details (Gray Box):&#10;  Type | Size | Floor | Year&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Features Grid (3 cols):&#10;  [🅿️ Parking] [🛗 Elevator]&#10;  [🐕 Pet OK] [❄️ AC]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Owner Info:&#10;  [👤] Name ⭐4.8 95% Resp&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Bottom Actions (Fixed):&#10;  [📞 Call] [💬 Chat Inquiry]&#10;                    ↓&#10;              /chat/[id]" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="960" width="280" height="480" as="geometry"/>
                 </mxCell>
-                <mxCell id="property_detail_screen" value="매물 상세 화면&#xa;━━━━━━━━━━━━━━━━&#xa;이미지 갤러리 (스와이프)&#xa;뒤로가기, 찜하기, 공유하기&#xa;━━━━━━━━━━━━━━━━&#xa;기본 정보&#xa;가격, 유형, 면적, 주소&#xa;━━━━━━━━━━━━━━━━&#xa;옵션/편의시설&#xa;상세 설명&#xa;주변 정보&#xa;━━━━━━━━━━━━━━━━&#xa;문의하기 버튼" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="340" y="750" width="200" height="200" as="geometry"/>
+                <mxCell id="house_filter_modal" value="⚙️ HOUSE FILTER MODAL&#10;(Bottom Sheet 80%)&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Overlay: [터치] → Close&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Transaction Type:&#10;  [실거래] [매매] [전세] [월세]&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Price Range:&#10;  Min ○────────●────○ Max&#10;  ₩0 ────────────── ₩10M&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Area Range (㎡):&#10;  Min ○────●────────○ Max&#10;  0㎡ ────────────── 100㎡&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [↺ Reset] → Clear Filters&#10;  [Apply] → Apply &amp; Close" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6ae00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="100" width="280" height="320" as="geometry"/>
                 </mxCell>
-                <mxCell id="agent_screen" value="담당 매물 화면&#xa;(부동산업자 전용)&#xa;━━━━━━━━━━━━━━━━&#xa;담당 매물&#xa;━━━━━━━━━━━━━━━━&#xa;매물 카드 리스트&#xa;상태: 거래중/예약중/완료&#xa;문의 수 표시" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="570" y="250" width="200" height="160" as="geometry"/>
+                <mxCell id="car_list" value="🚗 CAR LIST (/car)&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Home&#10;  &quot;Car&quot;&#10;  [❤️] → /saved&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Location Bar:&#10;  📍 Seoul, Korea ▼&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Search Bar:&#10;  🔍 [터치] → /car/search&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Filter Chips:&#10;  [Brand] [Price] [Year]&#10;  [Fuel] [More...]&#10;  → Each opens Filter Modal&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Results:&#10;  &quot;Found X cars&quot;&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Car Cards (ScrollView):&#10;  ┌────────┬──────────────┐&#10;  │  📷    │ Model Name   │&#10;  │  [❤️]  │ ₩XX,XXX,XXX  │&#10;  │        │ Year • km    │&#10;  │        │ 👁️ XXX ❤️ XX │&#10;  └────────┴──────────────┘&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [카드 터치] → /car/[id]&#10;  [❤️ 터치] → Toggle Favorite" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="520" width="280" height="520" as="geometry"/>
                 </mxCell>
-                <mxCell id="chat_list_screen" value="채팅 목록 화면&#xa;━━━━━━━━━━━━━━━━&#xa;채팅방 리스트&#xa;• 프로필 이미지&#xa;• 이름&#xa;• 마지막 메시지&#xa;• 시간&#xa;• 읽지 않은 수 (배지)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="820" y="250" width="200" height="160" as="geometry"/>
+                <mxCell id="car_search" value="🔍 CAR SEARCH (/car/search)&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → /car&#10;  [TextInput] autoFocus&#10;  Placeholder: &quot;Search car...&quot;&#10;  [✕ Clear]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Recent Searches:&#10;  [Clear All]&#10;  🕐 Hyundai Avante&#10;  🕐 Kia Morning&#10;  🕐 BMW 3 Series&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Popular Searches:&#10;  📈 Hyundai Sonata 2020&#10;  📈 Kia K5 Automatic&#10;  📈 Tesla Model Y&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [검색어 터치] → Execute &amp; Back&#10;  [✕] → Remove from Recent&#10;  [Clear All] → Clear History" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1600" y="520" width="280" height="360" as="geometry"/>
                 </mxCell>
-                <mxCell id="chat_screen" value="채팅 화면&#xa;━━━━━━━━━━━━━━━━&#xa;상단: 상대방 프로필&#xa;━━━━━━━━━━━━━━━━&#xa;메시지 영역 (스크롤)&#xa;내 메시지 (우측)&#xa;상대방 메시지 (좌측)&#xa;시간, 읽음 상태&#xa;━━━━━━━━━━━━━━━━&#xa;하단: 입력 필드&#xa;이미지 첨부, 전송" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
-                    <mxGeometry x="930" y="650" width="200" height="200" as="geometry"/>
+                <mxCell id="car_detail" value="📄 CAR DETAIL (/car/[id])&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → /car&#10;  &quot;Detail&quot;&#10;  [🔗 Share] [❤️ Save]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Image Gallery:&#10;  [Swipe] Counter: 1/12&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Basic Info:&#10;  Model Name + Year&#10;  [₩28,500,000] Price Badge&#10;  Gasoline • Auto • 35,000km&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Vehicle Details (Gray Box):&#10;  Year | Mileage | Fuel&#10;  Transmission | Engine | Color&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Safety Information:&#10;  🛡️ No Accidents&#10;  🔧 Full Insurance History&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Features Grid:&#10;  [🧭 Nav] [☀️ Sunroof]&#10;  [🪑 Leather] [📷 Camera]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Seller Info:&#10;  [Dealer Badge] [👤] Name&#10;  ⭐4.7  92% Response&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Bottom Actions (Fixed):&#10;  [📞 Call] [💬 Chat Inquiry]&#10;                    ↓&#10;              /chat/[id]" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1600" y="960" width="280" height="480" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge1" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="home_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="car_filter_modal" value="⚙️ CAR FILTER MODAL&#10;(Bottom Sheet 80%)&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Overlay: [터치] → Close&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Brand Selection:&#10;  [Hyundai] [Kia] [BMW]&#10;  [Tesla] [Genesis] [Audi]&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Price Range:&#10;  ₩0 ────────── ₩100M&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Year Range:&#10;  2018 ────────── 2024&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Mileage:&#10;  0km ────────── 200,000km&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Fuel Type:&#10;  [Gasoline] [Diesel]&#10;  [Hybrid] [Electric]&#10;━━━━━━━━━━━━━━━━━━━━━&#10;Transmission:&#10;  [Automatic] [Manual]&#10;━━━━━━━━━━━━━━━━━━━━━&#10;[↺ Reset]      [Apply]" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6ae00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="100" width="280" height="380" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge2" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="map_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="saved_screen" value="❤️ SAVED SCREEN (/saved)&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Previous&#10;  &quot;My Favorites&quot;&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Filter Controls:&#10;  [✓] Show Available Only&#10;  [All ▼] Category Dropdown&#10;    ├─ All&#10;    ├─ House&#10;    └─ Car&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Saved Items List:&#10;  Mixed House &amp; Car Cards&#10;  ┌────────┬──────────────┐&#10;  │  📷    │ Price Info   │&#10;  │  [❤️]  │ Details      │&#10;  │        │ 👁️ XXX ❤️ XX │&#10;  └────────┴──────────────┘&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Empty State:&#10;  🤍 (Large Heart)&#10;  &quot;No saved properties yet&quot;&#10;  [Browse Properties]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [House 카드] → /house/[id]&#10;  [Car 카드] → /car/[id]&#10;  [❤️ 터치] → Remove Favorite&#10;  [Category] → Filter List" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="520" width="280" height="460" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge3" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="favorite_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="profile_screen" value="👤 PROFILE SCREEN (/profile)&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Previous&#10;  &quot;Profile&quot;&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;User Info:&#10;  [👤 Avatar]&#10;  John Doe&#10;  john@email.com&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Menu Items:&#10;  [📝 Edit Profile] →&#10;  [🏠 My Listings] →&#10;  [⚙️ Settings] →&#10;  [❓ Help &amp; Support] →&#10;  [🚪 Sign Out] → Logout&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Footer:&#10;  Version 1.0.0" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="100" width="280" height="320" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge4" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="profile_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="notifications_screen" value="🔔 NOTIFICATIONS (/notifications)&#10;━━━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Previous&#10;  &quot;Notifications&quot;&#10;━━━━━━━━━━━━━━━━━━━━━━━━━&#10;Notification List:&#10;  ┌───────────────────────────┐&#10;  │ 🔔 New message from...    │&#10;  │    &quot;Is the property...&quot;   │&#10;  │                  2 min ago│&#10;  ├───────────────────────────┤&#10;  │ ❤️ Price dropped by ₩50k  │&#10;  │                 1 hour ago│&#10;  ├───────────────────────────┤&#10;  │ 🏠 New property in area   │&#10;  │                   Yesterday│&#10;  └───────────────────────────┘&#10;━━━━━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [알림 터치] → Related Screen" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="850" y="1060" width="280" height="320" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge6" value="매물 종류 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="home_screen" target="property_type_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="chat_list_screen" value="💬 CHAT LIST (/chat)&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → Previous&#10;  &quot;Messages&quot;&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Chat Room List:&#10;  ┌────────┬─────────┬────┐&#10;  │  👤    │ Name    │ 2m │&#10;  │        │ Last... │ 🔴 │&#10;  └────────┴─────────┴────┘&#10;  ┌────────┬─────────┬────┐&#10;  │  👤    │ Seller  │ 1h │&#10;  │        │ Yes...  │    │&#10;  └────────┴─────────┴────┘&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [채팅방 터치] → /chat/[id]" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="1120" width="280" height="280" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge16" value="종류 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="property_type_screen" target="property_list_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                <mxCell id="chat_room_screen" value="💬 CHAT ROOM (/chat/[id])&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Header:&#10;  [← Back] → /chat&#10;  &quot;User Name&quot;&#10;  [Property/Car Info]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Messages (ScrollView):&#10;  ┌─────────────────┐&#10;  │ Sent Message    │ → Blue&#10;  └─────────────────┘&#10;         10:30 AM ✓✓&#10;&#10;       ┌─────────────────┐&#10;       │ Received Msg    │ ← Gray&#10;       └─────────────────┘&#10;       10:32 AM&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Input Area (Fixed):&#10;  [📷] [Type message...] [Send]&#10;━━━━━━━━━━━━━━━━━━━━━━━&#10;Actions:&#10;  [Send] → Send Message&#10;  [📷] → Attach Image&#10;  [Property Info] → Detail" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=11;fontColor=#000000;" parent="1" vertex="1">
+                    <mxGeometry x="1600" y="80" width="280" height="380" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge17" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="property_list_screen" target="property_detail_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
-                </mxCell>
-                <mxCell id="edge7" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="home_screen" target="property_detail_screen" edge="1">
+                <mxCell id="home_to_house" value="House Card 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="home_screen" target="house_map" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="110" y="200"/>
-                            <mxPoint x="440" y="200"/>
+                            <mxPoint x="990" y="480"/>
+                            <mxPoint x="220" y="480"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge9" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="favorite_screen" target="property_detail_screen" edge="1">
+                <mxCell id="home_to_car" value="Car Card 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#9673a6;" parent="1" source="home_screen" target="car_list" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="660" y="200"/>
-                            <mxPoint x="440" y="200"/>
+                            <mxPoint x="990" y="480"/>
+                            <mxPoint x="1380" y="480"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge11" value="담당 매물" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="profile_screen" target="agent_screen" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <Array as="points">
-                            <mxPoint x="920" y="200"/>
-                            <mxPoint x="670" y="200"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="edge12" value="채팅 목록" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="profile_screen" target="chat_list_screen" edge="1">
+                <mxCell id="home_to_saved" value="❤️ 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d79b00;" parent="1" source="home_screen" target="saved_screen" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="edge13" value="문의하기" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="property_detail_screen" target="chat_screen" edge="1">
+                <mxCell id="home_to_profile" value="Avatar 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d79b00;" parent="1" source="home_screen" target="profile_screen" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="440" y="680"/>
-                            <mxPoint x="440" y="430"/>
-                            <mxPoint x="1030" y="430"/>
+                            <mxPoint x="990" y="80"/>
+                            <mxPoint x="580" y="80"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge14" value="채팅방 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="chat_list_screen" target="chat_screen" edge="1">
+                <mxCell id="home_to_notifications" value="🔔 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d79b00;" parent="1" source="home_screen" target="notifications_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="house_map_to_search" value="검색바 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="house_map" target="house_search" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="house_map_to_list" value="List View 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="house_map" target="house_list" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="house_map_to_detail" value="Property Card 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="house_map" target="house_detail" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="920" y="430"/>
-                            <mxPoint x="760" y="430"/>
+                            <mxPoint x="220" y="1050"/>
+                            <mxPoint x="380" y="1050"/>
+                            <mxPoint x="380" y="1200"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="edge15" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="agent_screen" target="property_detail_screen" edge="1">
+                <mxCell id="house_list_to_detail" value="카드 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;" parent="1" source="house_list" target="house_detail" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="house_detail_to_chat" value="Chat Inquiry 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d79b00;" parent="1" source="house_detail" target="chat_room_screen" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="670" y="420"/>
-                            <mxPoint x="440" y="420"/>
+                            <mxPoint x="580" y="1480"/>
+                            <mxPoint x="800" y="1480"/>
+                            <mxPoint x="800" y="270"/>
+                            <mxPoint x="1600" y="270"/>
                         </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="car_list_to_search" value="검색바 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#9673a6;" parent="1" source="car_list" target="car_search" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="car_list_to_detail" value="카드 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#9673a6;" parent="1" source="car_list" target="car_detail" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1380" y="1200"/>
+                            <mxPoint x="1560" y="1200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="car_detail_to_chat" value="Chat Inquiry 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d79b00;" parent="1" source="car_detail" target="chat_room_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1740" y="500"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="saved_to_house_detail" value="House 카드 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#6c8ebf;dashed=1;" parent="1" source="saved_screen" target="house_detail" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="990" y="1040"/>
+                            <mxPoint x="580" y="1040"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="saved_to_car_detail" value="Car 카드 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#9673a6;dashed=1;" parent="1" source="saved_screen" target="car_detail" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="990" y="1040"/>
+                            <mxPoint x="1740" y="1040"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="chat_list_to_room" value="채팅방 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d79b00;" parent="1" source="chat_list_screen" target="chat_room_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1380" y="1100"/>
+                            <mxPoint x="1380" y="500"/>
+                            <mxPoint x="1740" y="500"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="house_map_to_filter" value="Filter Chip 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d6ae00;dashed=1;" parent="1" source="house_map" target="house_filter_modal" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="220" y="460"/>
+                            <mxPoint x="220" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="car_list_to_filter" value="Filter Chip 터치" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#d6ae00;dashed=1;" parent="1" source="car_list" target="car_filter_modal" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1380" y="480"/>
+                            <mxPoint x="1380" y="480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="" style="edgeStyle=none;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" edge="1">
+                    <mxGeometry width="80" relative="1" as="geometry">
+                        <mxPoint x="480" y="330" as="sourcePoint"/>
+                        <mxPoint x="560" y="330" as="targetPoint"/>
+                        <Array as="points"/>
                     </mxGeometry>
                 </mxCell>
             </root>

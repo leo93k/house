@@ -1,0 +1,116 @@
+<mxfile host="65bd71144e">
+    <diagram id="화면구조도" name="화면구조도">
+        <mxGraphModel dx="1002" dy="1549" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="login_screen" value="로그인 화면&#xa;━━━━━━━━━━━━━━━━&#xa;앱 로고&#xa;━━━━━━━━━━━━━━━━&#xa;구글 로그인 버튼&#xa;━━━━━━━━━━━━━━━━&#xa;이용약관 링크" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="-270" width="200" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="home_screen" value="홈 화면&#xa;━━━━━━━━━━━━━━━━&#xa;매물 종류 선택" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="20" width="200" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="map_screen" value="지도 화면&#xa;━━━━━━━━━━━━━━━━&#xa;카카오맵 (전체 화면)&#xa;매물 마커&#xa;현재 위치 버튼&#xa;필터 버튼&#xa;━━━━━━━━━━━━━━━━&#xa;하단 시트: 매물 리스트" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="300" y="20" width="200" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="favorite_screen" value="찜 화면&#xa;━━━━━━━━━━━━━━━━&#xa;관심 매물&#xa;━━━━━━━━━━━━━━━━&#xa;매물 카드 리스트&#xa;(정렬 버튼)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="560" y="20" width="200" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="profile_screen" value="내 정보 화면&#xa;━━━━━━━━━━━━━━━━&#xa;프로필 섹션&#xa;이름, 이메일, 유형&#xa;━━━━━━━━━━━━━━━━&#xa;메뉴 리스트&#xa;• 관심 매물&#xa;• 채팅 목록&#xa;• 담당 매물 (업자)&#xa;• 설정&#xa;• 로그아웃" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="20" width="200" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="property_type_screen" value="매물 종류 선택 화면&#xa;━━━━━━━━━━━━━━━━&#xa;매물 종류 선택&#xa;• 원룸&#xa;• 투룸&#xa;• 쓰리룸&#xa;• 오피스텔&#xa;• 아파트&#xa;• 기타" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="290" width="200" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="property_list_screen" value="매물 리스트 화면&#xa;━━━━━━━━━━━━━━━━&#xa;필터 바&#xa;━━━━━━━━━━━━━━━━&#xa;매물 리스트/그리드&#xa;(정렬, 필터)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="650" width="200" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="property_detail_screen" value="매물 상세 화면&#xa;━━━━━━━━━━━━━━━━&#xa;이미지 갤러리 (스와이프)&#xa;뒤로가기, 찜하기, 공유하기&#xa;━━━━━━━━━━━━━━━━&#xa;기본 정보&#xa;가격, 유형, 면적, 주소&#xa;━━━━━━━━━━━━━━━━&#xa;옵션/편의시설&#xa;상세 설명&#xa;주변 정보&#xa;━━━━━━━━━━━━━━━━&#xa;문의하기 버튼" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="750" width="200" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="agent_screen" value="담당 매물 화면&#xa;(부동산업자 전용)&#xa;━━━━━━━━━━━━━━━━&#xa;담당 매물&#xa;━━━━━━━━━━━━━━━━&#xa;매물 카드 리스트&#xa;상태: 거래중/예약중/완료&#xa;문의 수 표시" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="570" y="250" width="200" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat_list_screen" value="채팅 목록 화면&#xa;━━━━━━━━━━━━━━━━&#xa;채팅방 리스트&#xa;• 프로필 이미지&#xa;• 이름&#xa;• 마지막 메시지&#xa;• 시간&#xa;• 읽지 않은 수 (배지)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="820" y="250" width="200" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="chat_screen" value="채팅 화면&#xa;━━━━━━━━━━━━━━━━&#xa;상단: 상대방 프로필&#xa;━━━━━━━━━━━━━━━━&#xa;메시지 영역 (스크롤)&#xa;내 메시지 (우측)&#xa;상대방 메시지 (좌측)&#xa;시간, 읽음 상태&#xa;━━━━━━━━━━━━━━━━&#xa;하단: 입력 필드&#xa;이미지 첨부, 전송" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;" parent="1" vertex="1">
+                    <mxGeometry x="930" y="650" width="200" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge1" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="home_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge2" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="map_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge3" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="favorite_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge4" value="로그인 성공" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="login_screen" target="profile_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge6" value="매물 종류 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="home_screen" target="property_type_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge16" value="종류 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="property_type_screen" target="property_list_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge17" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="property_list_screen" target="property_detail_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge7" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="home_screen" target="property_detail_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="110" y="200"/>
+                            <mxPoint x="440" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge9" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="favorite_screen" target="property_detail_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="660" y="200"/>
+                            <mxPoint x="440" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge11" value="담당 매물" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="profile_screen" target="agent_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="920" y="200"/>
+                            <mxPoint x="670" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge12" value="채팅 목록" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="profile_screen" target="chat_list_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge13" value="문의하기" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="property_detail_screen" target="chat_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="440" y="680"/>
+                            <mxPoint x="440" y="430"/>
+                            <mxPoint x="1030" y="430"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge14" value="채팅방 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="chat_list_screen" target="chat_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="920" y="430"/>
+                            <mxPoint x="760" y="430"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="edge15" value="매물 선택" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="agent_screen" target="property_detail_screen" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="670" y="420"/>
+                            <mxPoint x="440" y="420"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
