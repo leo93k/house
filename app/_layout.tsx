@@ -1,15 +1,12 @@
-import {
-    DarkTheme,
-    DefaultTheme,
-    ThemeProvider,
-} from "@react-navigation/native";
+import { TamaguiProvider } from "@tamagui/core";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-import { useColorScheme } from "@/hooks/use-color-scheme";
 import { useAuthGuard } from "@/hooks/useAuthGuard";
+import { useColorScheme } from "react-native";
+import { config } from "../tamagui.config";
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -17,8 +14,9 @@ export default function RootLayout() {
 
     return (
         <SafeAreaProvider>
-            <ThemeProvider
-                value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            <TamaguiProvider
+                config={config}
+                defaultTheme={colorScheme === "dark" ? "dark" : "light"}
             >
                 <SafeAreaView style={{ flex: 1 }}>
                     <Stack>
@@ -32,12 +30,15 @@ export default function RootLayout() {
                         />
                         <Stack.Screen
                             name="modal"
-                            options={{ presentation: "modal", title: "Modal" }}
+                            options={{
+                                presentation: "modal",
+                                title: "Modal",
+                            }}
                         />
                     </Stack>
                     <StatusBar style="auto" />
                 </SafeAreaView>
-            </ThemeProvider>
+            </TamaguiProvider>
         </SafeAreaProvider>
     );
 }
