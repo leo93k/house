@@ -45,3 +45,9 @@ app-example
 
 /app/generated/prisma
 generated/
+
+# Yarn
+.yarn/
+
+# Cursor IDE
+.cursor/
