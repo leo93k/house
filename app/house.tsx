@@ -1,10 +1,18 @@
 import { ScrollView } from "react-native";
-import { Text, YStack } from "tamagui";
+import { Text, YStack, useTheme } from "tamagui";
 import { Header } from "@/components/layout/Header";
 
 export default function HouseScreen() {
+    const theme = useTheme();
+
     return (
-        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <ScrollView
+            style={{
+                flex: 1,
+                backgroundColor: theme.background?.get() || "#fff",
+            }}
+            showsVerticalScrollIndicator={false}
+        >
             <YStack flex={1} backgroundColor="$background" paddingBottom="$6">
                 <Header title="House" />
                 <YStack padding="$4" gap="$4">
