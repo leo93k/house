@@ -87,3 +87,4 @@ export function Header({ title }: HeaderProps) {
         </XStack>
     );
 }
+
