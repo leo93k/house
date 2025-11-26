@@ -31,43 +31,6 @@ export const PropertyDetailScreen = () => {
 -   **커스텀 컴포넌트는 재사용 가능하게 설계**: 한 곳에서만 사용하는 컴포넌트도 재사용 가능하도록 설계
 -   **Props를 통한 유연성 확보**: 다양한 상황에서 사용할 수 있도록 props로 커스터마이징 가능하게 설계
 
-```typescript
-// ✅ 좋은 예: 재사용 가능한 기본 컴포넌트 세트
-// components/ui/Button.tsx
-export const Button = ({
-    variant = "primary",
-    size = "medium",
-    children,
-    onPress,
-    disabled,
-    ...props
-}: ButtonProps) => {
-    // 하나의 Button 컴포넌트로 다양한 상황에서 재사용
-};
-
-// components/ui/Input.tsx
-export const Input = ({ label, placeholder, error, ...props }: InputProps) => {
-    // 하나의 Input 컴포넌트로 전체 프로젝트에서 재사용
-};
-
-// components/ui/Card.tsx
-export const Card = ({ children, padding = "md", ...props }: CardProps) => {
-    // 하나의 Card 컴포넌트로 다양한 카드 레이아웃에 재사용
-};
-
-// ❌ 나쁜 예: 매번 새로운 컴포넌트 생성
-// 각 화면마다 다른 버튼 컴포넌트를 만듦
-export const LoginButton = () => {
-    /* ... */
-};
-export const SignupButton = () => {
-    /* ... */
-};
-export const PropertyButton = () => {
-    /* ... */
-};
-```
-
 **재사용 체크리스트:**
 
 -   [ ] 새로운 컴포넌트를 만들기 전에 기존 컴포넌트로 대체 가능한지 확인
@@ -75,27 +38,6 @@ export const PropertyButton = () => {
 -   [ ] 기본 UI 컴포넌트는 `components/ui/` 폴더에 중앙 관리
 -   [ ] 컴포넌트는 props를 통해 다양한 상황에서 사용 가능하도록 설계
 -   [ ] 스타일은 props로 커스터마이징 가능하게 구현
-
-### 1.4 폴더 구조
-
-```
-app/
-  (tabs)/
-    _layout.tsx
-    index.tsx
-    explore.tsx
-components/
-  ui/              # 재사용 가능한 기본 UI 컴포넌트 세트 (Button, Input, Card 등)
-  features/        # 기능별 컴포넌트
-    property/
-    search/
-    map/
-hooks/             # 커스텀 훅
-utils/             # 유틸리티 함수
-services/          # API 서비스
-types/             # TypeScript 타입 정의
-constants/         # 상수
-```
 
 ### 1.5 네이밍 컨벤션
 

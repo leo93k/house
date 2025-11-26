@@ -18,24 +18,12 @@
 
 **백엔드:**
 
--   [Node.js + Express](#31-api-서버)
 -   [PostgreSQL + Prisma](#32-데이터베이스)
--   [JWT (인증)](#33-인증)
 -   [AWS S3 (파일 저장)](#34-파일-저장소)
 
 **외부 서비스:**
 
 -   [카카오맵 API](#41-지도-api)
--   [FCM (푸시 알림)](#43-푸시-알림)
--   [Sentry (에러 리포팅)](#44-에러-리포팅)
-
-### 선택 스택 (Nice to Have)
-
--   [Firebase Analytics (분석)](#45-분석)
--   [Socket.io (실시간 채팅)](#35-실시간-통신)
--   [React Native Reusables (UI 컴포넌트)](#28-ui-컴포넌트)
--   [Detox (E2E 테스트)](#52-테스트)
--   [Storybook (컴포넌트 개발)](#53-컴포넌트-개발)
 
 ## 2. 프론트엔드 (React Native)
 
@@ -138,40 +126,6 @@ const { data, isLoading } = useQuery({
     -   Android: Gradle을 통한 네이티브 모듈 설치
     -   Expo: `npx expo prebuild` 후 네이티브 모듈 추가 필요
 -   **참고**: Expo managed workflow에서는 사용 불가, bare workflow 또는 custom development client 필요
-
-#### ✅ expo-location
-
--   **이유**: 현재 위치 조회, 권한 관리
--   **설치**: `npx expo install expo-location`
--   **사용 케이스**: 사용자 현재 위치 조회, 위치 기반 검색
-
-### 2.5 이미지 처리
-
-#### ✅ expo-image (권장 - 현재 사용 중)
-
--   **이유**: 최적화된 이미지 로딩, 캐싱, 플레이스홀더 지원
--   **버전**: `~3.0.10`
--   **장점**:
-    -   자동 이미지 최적화
-    -   메모리 효율적
-    -   WebP 지원
-
-```typescript
-import { Image } from "expo-image";
-
-<Image
-    source={{ uri: property.thumbnail }}
-    placeholder={require("@/assets/images/placeholder.png")}
-    contentFit="cover"
-    transition={200}
-    cachePolicy="memory-disk"
-/>;
-```
-
-#### ✅ expo-image-picker
-
--   **이유**: 매물 사진 업로드
--   **설치**: `npx expo install expo-image-picker`
 
 ### 2.6 폼 관리
 
