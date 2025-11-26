@@ -9,7 +9,13 @@ export default function HomeScreen() {
     const theme = useTheme();
 
     return (
-        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <ScrollView
+            style={{
+                flex: 1,
+                backgroundColor: theme.background?.get(),
+            }}
+            showsVerticalScrollIndicator={false}
+        >
             <YStack flex={1} backgroundColor="$background" paddingBottom="$6">
                 {/* Header */}
                 <Header title="House" />
