@@ -55,6 +55,12 @@
                     }
                 }
             ],
+            [
+                "expo-location",
+                {
+                    "locationAlwaysAndWhenInUsePermission": "이 앱은 위치 정보를 사용하여 지도에 현재 위치를 표시합니다."
+                }
+            ],
             "@react-native-google-signin/google-signin",
             "expo-apple-authentication"
         ],
