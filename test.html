@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Kakao 지도 시작하기</title>
+    </head>
+    <body>
+        <div
+            id="map"
+            style="
+                width: 100%;
+                height: 100vh;
+                background-color: #000;
+                color: white;
+            "
+        >
+            9999
+        </div>
+        <script>
+            // 현재 WebView의 URL 정보를 React Native로 전송
+            (function () {
+                const urlInfo = {
+                    type: "URL_INFO",
+                    href: window.location.href,
+                    origin: window.location.origin,
+                    protocol: window.location.protocol,
+                    host: window.location.host,
+                    hostname: window.location.hostname,
+                    port: window.location.port,
+                    pathname: window.location.pathname,
+                    search: window.location.search,
+                    hash: window.location.hash,
+                };
+
+                if (window.ReactNativeWebView) {
+                    window.ReactNativeWebView.postMessage(
+                        JSON.stringify(urlInfo)
+                    );
+                }
+            })();
+
+            // 오류를 React Native로 전송하는 함수
+            function sendErrorToReactNative(errorData) {
+                if (window.ReactNativeWebView) {
+                    window.ReactNativeWebView.postMessage(
+                        JSON.stringify(errorData)
+                    );
+                }
+            }
+
+            // 전역 오류 핸들러
+            window.onerror = function (msg, url, line, col, error) {
+                const errorData = {
+                    type: "ERROR",
+                    message: msg,
+                    url: url,
+                    line: line,
+                    col: col,
+                    stack: error ? error.stack : null,
+                    timestamp: new Date().toISOString(),
+                };
+                console.error("Global error:", errorData);
+                sendErrorToReactNative(errorData);
+                return false;
+            };
+
+            // Promise rejection 핸들러
+            window.addEventListener("unhandledrejection", function (event) {
+                const errorData = {
+                    type: "UNHANDLED_REJECTION",
+                    message: event.reason
+                        ? event.reason.toString()
+                        : "Unknown error",
+                    stack:
+                        event.reason && event.reason.stack
+                            ? event.reason.stack
+                            : null,
+                    timestamp: new Date().toISOString(),
+                };
+                console.error("Unhandled rejection:", errorData);
+                sendErrorToReactNative(errorData);
+            });
+        </script>
+        <script
+            type="text/javascript"
+            src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d7be39ccc2da7a5825dedbeb4d665277&autoload=false"
+        ></script>
+        <script>
+            // 스크립트 로드 상태 추적
+            let scriptLoadStatus = {
+                loaded: false,
+                error: null,
+                startTime: Date.now(),
+            };
+
+            // 스크립트 로드 상태를 React Native로 전송
+            function sendScriptStatus(status) {
+                if (window.ReactNativeWebView) {
+                    window.ReactNativeWebView.postMessage(
+                        JSON.stringify({
+                            type: "SCRIPT_STATUS",
+                            ...status,
+                            timestamp: new Date().toISOString(),
+                        })
+                    );
+                }
+            }
+
+            // 초기 상태 전송
+            sendScriptStatus({
+                message: "스크립트 로드 시작",
+                status: scriptLoadStatus,
+            });
+
+            // 카카오지도 SDK 로드 및 초기화
+            function initializeKakaoMap() {
+                // SDK가 로드되었는지 확인
+                if (
+                    typeof kakao === "undefined" ||
+                    typeof kakao.maps === "undefined"
+                ) {
+                    scriptLoadStatus.error = "SDK가 아직 로드되지 않았습니다";
+                    sendScriptStatus({
+                        message: "SDK 로드 대기 중",
+                        status: scriptLoadStatus,
+                    });
+                    // 100ms 후 다시 시도
+                    setTimeout(initializeKakaoMap, 100);
+                    return;
+                }
+
+                // kakao.maps.load()를 사용하여 SDK 완전 로드 대기
+                kakao.maps.load(function () {
+                    scriptLoadStatus.loaded = true;
+                    scriptLoadStatus.loadTime =
+                        Date.now() - scriptLoadStatus.startTime;
+
+                    // SDK가 제대로 로드되었는지 상세 확인
+                    const kakaoExists = typeof kakao !== "undefined";
+                    const kakaoMapsExists =
+                        kakaoExists && typeof kakao.maps !== "undefined";
+                    const latLngExists =
+                        kakaoMapsExists &&
+                        typeof kakao.maps.LatLng !== "undefined";
+                    const latLngIsFunction =
+                        latLngExists && typeof kakao.maps.LatLng === "function";
+                    const mapExists =
+                        kakaoMapsExists &&
+                        typeof kakao.maps.Map !== "undefined";
+                    const mapIsFunction =
+                        mapExists && typeof kakao.maps.Map === "function";
+
+                    console.log("카카오지도 SDK 로드 완료:", {
+                        scriptLoadStatus: scriptLoadStatus,
+                        kakaoExists: kakaoExists,
+                        kakaoMapsExists: kakaoMapsExists,
+                        latLngExists: latLngExists,
+                        latLngIsFunction: latLngIsFunction,
+                        mapExists: mapExists,
+                        mapIsFunction: mapIsFunction,
+                    });
+
+                    sendScriptStatus({
+                        message: "스크립트 로드 완료",
+                        status: scriptLoadStatus,
+                        kakaoExists: kakaoExists,
+                        kakaoMapsExists: kakaoMapsExists,
+                        latLngExists: latLngExists,
+                        latLngIsFunction: latLngIsFunction,
+                        mapExists: mapExists,
+                        mapIsFunction: mapIsFunction,
+                    });
+
+                    // SDK가 제대로 로드되지 않은 경우
+                    if (
+                        !kakaoExists ||
+                        !kakaoMapsExists ||
+                        !latLngExists ||
+                        !latLngIsFunction
+                    ) {
+                        const errorData = {
+                            type: "KAKAO_MAP_ERROR",
+                            message:
+                                "카카오지도 SDK가 제대로 로드되지 않았습니다",
+                            error: "스크립트는 로드되었지만 SDK가 초기화되지 않았습니다",
+                            status: {
+                                kakaoExists: kakaoExists,
+                                kakaoMapsExists: kakaoMapsExists,
+                                latLngExists: latLngExists,
+                                latLngIsFunction: latLngIsFunction,
+                                mapExists: mapExists,
+                                mapIsFunction: mapIsFunction,
+                            },
+                            timestamp: new Date().toISOString(),
+                        };
+                        console.error("카카오지도 SDK 로드 실패:", errorData);
+                        sendErrorToReactNative(errorData);
+                        return;
+                    }
+
+                    // SDK가 로드된 후 지도 초기화
+                    try {
+                        var container = document.getElementById("map");
+                        var options = {
+                            center: new kakao.maps.LatLng(
+                                33.450701,
+                                126.570667
+                            ),
+                            level: 3,
+                        };
+
+                        var map = new kakao.maps.Map(container, options);
+
+                        sendScriptStatus({
+                            message: "카카오지도 초기화 성공",
+                            status: { initialized: true },
+                        });
+                    } catch (error) {
+                        const errorData = {
+                            type: "KAKAO_MAP_INIT_ERROR",
+                            message: "카카오지도 초기화 오류",
+                            error: error.message,
+                            stack: error.stack,
+                            kakaoExists: typeof kakao !== "undefined",
+                            kakaoMapsExists:
+                                typeof kakao !== "undefined" &&
+                                typeof kakao.maps !== "undefined",
+                            latLngExists:
+                                typeof kakao !== "undefined" &&
+                                typeof kakao.maps !== "undefined" &&
+                                typeof kakao.maps.LatLng !== "undefined",
+                            timestamp: new Date().toISOString(),
+                        };
+                        console.error("카카오지도 초기화 오류:", errorData);
+                        sendErrorToReactNative(errorData);
+                    }
+                });
+            }
+
+            // DOM이 로드된 후 지도 초기화 시작
+            if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", function () {
+                    // 스크립트가 로드될 때까지 대기
+                    setTimeout(initializeKakaoMap, 100);
+                });
+            } else {
+                // DOM이 이미 로드된 경우
+                setTimeout(initializeKakaoMap, 100);
+            }
+
+            // 스크립트가 로드되지 않은 경우를 대비한 폴백
+            setTimeout(function () {
+                if (!scriptLoadStatus.loaded && !scriptLoadStatus.error) {
+                    const errorData = {
+                        type: "KAKAO_MAP_ERROR",
+                        message: "카카오지도 스크립트 로드 타임아웃",
+                        error: "5초 내에 스크립트가 로드되지 않았습니다",
+                        status: scriptLoadStatus,
+                        kakaoExists: typeof kakao !== "undefined",
+                        kakaoMapsExists:
+                            typeof kakao !== "undefined" &&
+                            typeof kakao.maps !== "undefined",
+                        timestamp: new Date().toISOString(),
+                    };
+                    console.error(
+                        "카카오지도 스크립트 로드 타임아웃:",
+                        errorData
+                    );
+                    sendErrorToReactNative(errorData);
+                    sendScriptStatus({
+                        message: "스크립트 로드 타임아웃",
+                        status: scriptLoadStatus,
+                    });
+                }
+            }, 5000);
+        </script>
+    </body>
+</html>
