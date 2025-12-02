@@ -19,9 +19,17 @@ export default function RootLayout() {
                 defaultTheme={colorScheme === "dark" ? "dark" : "light"}
             >
                 <SafeAreaView style={{ flex: 1 }}>
-                    <Stack>
+                    <Stack
+                        screenOptions={{
+                            headerShown: false,
+                        }}
+                    >
                         <Stack.Screen
                             name="index"
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name="house"
                             options={{ headerShown: false }}
                         />
                         <Stack.Screen
