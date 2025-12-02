@@ -3,3 +3,4 @@
  */
 
 export { useUserStore } from "./userStore";
+export { useVisibleItemsStore, type PropertyItem } from "./visibleItemsStore";
