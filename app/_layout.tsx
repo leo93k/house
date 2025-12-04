@@ -1,3 +1,4 @@
+import { GlobalModal } from "@/components/GlobalModal";
 import { TamaguiProvider } from "@tamagui/core";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -45,6 +46,8 @@ export default function RootLayout() {
                         />
                     </Stack>
                     <StatusBar style="auto" />
+                    {/* 전역 모달 */}
+                    <GlobalModal />
                 </SafeAreaView>
             </TamaguiProvider>
         </SafeAreaProvider>
