@@ -4,4 +4,3 @@ export type {
     VisibleItemsUpdateMessage,
 } from "./mapPostMessage.types";
 export { MessageType } from "./mapPostMessage.types";
-
