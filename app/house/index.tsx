@@ -1,4 +1,6 @@
+import { FilterChips } from "@/feature/house/components";
 import { useMapWebView } from "@/feature/map/hooks";
+import { useFilterStore, useModalStore } from "@/store";
 import { useNavigation, useRouter } from "expo-router";
 import { useLayoutEffect } from "react";
 import {
@@ -13,6 +15,7 @@ import { WebView } from "react-native-webview";
 export default function HouseScreen() {
     const navigation = useNavigation();
     const router = useRouter();
+    const { openModal } = useModalStore();
 
     // 헤더 숨기기
     useLayoutEffect(() => {
@@ -30,8 +33,34 @@ export default function HouseScreen() {
         injectedJavaScript,
     } = useMapWebView();
 
+    const resetFilters = useFilterStore((state) => state.resetFilters);
+
+    const handleTransactionPress = () => {
+        openModal("filter", "transaction");
+    };
+
+    const handleStructurePress = () => {
+        openModal("filter", "structure");
+    };
+
+    const handleOptionPress = () => {
+        openModal("filter", "option");
+    };
+
+    const handleResetPress = () => {
+        // Reset은 모달을 열지 않고 바로 실행
+        resetFilters();
+    };
+
     return (
         <View style={styles.container}>
+            {/* 필터 칩 */}
+            <FilterChips
+                onTransactionPress={handleTransactionPress}
+                onStructurePress={handleStructurePress}
+                onOptionPress={handleOptionPress}
+                onResetPress={handleResetPress}
+            />
             <View style={styles.webviewContainer}>
                 <WebView
                     ref={webViewRef}
