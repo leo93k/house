@@ -92,58 +92,12 @@ const price = property.price.deposit; // 에러 가능
 -   `useMemo`로 계산 비용이 큰 값 메모이제이션
 -   `useCallback`으로 함수 메모이제이션
 
-```typescript
-// ✅ 좋은 예
-const PropertyCard = React.memo(({ property, onPress }: Props) => {
-    const formattedPrice = useMemo(
-        () => formatPrice(property.price.deposit),
-        [property.price.deposit]
-    );
-
-    const handlePress = useCallback(() => {
-        onPress(property.id);
-    }, [property.id, onPress]);
-
-    // ...
-});
-
-// ❌ 나쁜 예
-const PropertyCard = ({ property, onPress }: Props) => {
-    const formattedPrice = formatPrice(property.price.deposit); // 매번 계산
-    // ...
-};
-```
-
 ### 3.2 리스트 최적화
 
 -   `FlatList` 사용 (절대 `ScrollView` + `map` 사용 금지)
 -   `keyExtractor` 항상 제공
 -   `getItemLayout` 제공 (고정 높이일 때)
 -   `removeClippedSubviews` 활성화
-
-```typescript
-// ✅ 좋은 예
-<FlatList
-  data={properties}
-  keyExtractor={(item) => item.id}
-  renderItem={({ item }) => <PropertyCard property={item} />}
-  getItemLayout={(data, index) => ({
-    length: ITEM_HEIGHT,
-    offset: ITEM_HEIGHT * index,
-    index,
-  })}
-  removeClippedSubviews
-  maxToRenderPerBatch={10}
-  windowSize={5}
-/>
-
-// ❌ 나쁜 예
-<ScrollView>
-  {properties.map((property) => (
-    <PropertyCard key={property.id} property={property} />
-  ))}
-</ScrollView>
-```
 
 ### 3.3 이미지 최적화
 
