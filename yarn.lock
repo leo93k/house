@@ -2200,6 +2200,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@miblanchard/react-native-slider@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "@miblanchard/react-native-slider@npm:2.6.0"
+  peerDependencies:
+    react: ">=16.8"
+    react-native: ">=0.59"
+  checksum: 10c0/db8b386b8b95d7c70a5391e8496a8764037fad7594dc833afba075b577e241a1e4e1331604054602a289dbc04843eb4a27088acc65ee20a9a2784548237acd2d
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^0.2.11":
   version: 0.2.12
   resolution: "@napi-rs/wasm-runtime@npm:0.2.12"
@@ -7470,6 +7480,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-linear-gradient@npm:~15.0.7":
+  version: 15.0.7
+  resolution: "expo-linear-gradient@npm:15.0.7"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/ee9984f4bc8985b3ad32f8a59138fd7336e16e782c1d2d10110f70b2e05b9c563382d2c16cfbe21e6463fa896f573dcc3d70d0afd32f8d435bccd9afadf8b006
+  languageName: node
+  linkType: hard
+
 "expo-linking@npm:~8.0.8":
   version: 8.0.9
   resolution: "expo-linking@npm:8.0.9"
@@ -8487,6 +8508,7 @@ __metadata:
   resolution: "house@workspace:."
   dependencies:
     "@expo/vector-icons": "npm:^15.0.3"
+    "@miblanchard/react-native-slider": "npm:^2.6.0"
     "@prisma/client": "npm:^6.19.0"
     "@react-native-async-storage/async-storage": "npm:2.2.0"
     "@react-native-google-signin/google-signin": "npm:^16.0.0"
@@ -8506,6 +8528,7 @@ __metadata:
     expo-font: "npm:~14.0.9"
     expo-haptics: "npm:~15.0.7"
     expo-image: "npm:~3.0.10"
+    expo-linear-gradient: "npm:~15.0.7"
     expo-linking: "npm:~8.0.8"
     expo-location: "npm:~19.0.7"
     expo-router: "npm:~6.0.14"
@@ -8517,6 +8540,7 @@ __metadata:
     prisma: "npm:^6.19.0"
     react: "npm:19.1.0"
     react-dom: "npm:19.1.0"
+    react-hook-form: "npm:^7.68.0"
     react-native: "npm:0.81.5"
     react-native-gesture-handler: "npm:~2.28.0"
     react-native-reanimated: "npm:~4.1.1"
@@ -11661,6 +11685,15 @@ __metadata:
   peerDependencies:
     react: ">=17.0.0"
   checksum: 10c0/8f51257c261bfefff86f618e958683536248f708019632d309ee5ebdd52f25d3c130660d06fb6f0f4fdef79f00f8ec7177233a872c2321f7d46b7e77ccc522a1
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.68.0":
+  version: 7.68.0
+  resolution: "react-hook-form@npm:7.68.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18 || ^19
+  checksum: 10c0/5fb500fe60077185ab6de32a2371d05bf75ae335ef62993f0359dbb42bb0c95e0c28d4f7d70c4382995486c82715295c87fc44f2ced5de1ae353aa1f23398f47
   languageName: node
   linkType: hard
 
